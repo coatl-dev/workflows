@@ -1,0 +1,63 @@
+name: tox
+
+on:
+  workflow_call:
+    inputs:
+      image:
+        required: false
+        type: string
+        default: ubuntu-22.04
+      pre-commit:
+        required: false
+        type: boolean
+        default: false
+      python:
+        required: false
+        type: string
+        default: "3.10"
+
+jobs:
+  tox:
+    runs-on: ${{ inputs.image }}
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Set up Python ${{ inputs.python }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ inputs.python }}
+
+      - name: Set Python version
+        run: |
+          echo "PY=$(python --version)"
+
+      - name: Cache Python
+        id: cache-python
+        uses: actions/cache@v3
+        with:
+          path: ${{ env.pythonLocation }}
+          key: py-${{ env.PY }}-${{ inputs.image }}
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install tox
+
+      - name: Cache pre-commit
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pre-commit
+          key: pre-commit-${{ env.PY }}-${{ inputs.image }}-${{ hashFiles('.pre-commit-config.yaml') }}
+        if: ${{ inputs.pre-commit }}
+
+      - name: Cache tox
+        id: cache-tox
+        uses: actions/cache@v3
+        with:
+          path: .tox
+          key: tox-${{ env.PY }}-${{ inputs.image }}-${{ hashFiles('tox.ini') }}
+
+      - name: Run tests
+        run: |
+          tox
