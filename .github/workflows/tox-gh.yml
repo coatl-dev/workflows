@@ -30,7 +30,7 @@ jobs:
 
       - name: Set Python version
         run: |
-          echo "PY=$(python --version)"
+          echo "PY=$(python --version)" >> $GITHUB_ENV
 
       - name: Cache Python
         id: cache-python
