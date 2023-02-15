@@ -5,7 +5,7 @@
 ### .github/workflows/pre-commit.yml
 
 If you [cannot/do not want to] benefit from [`pre-commit.ci`], use this job
-template will install Python and invoke [`pre-commit`] to run all hooks.
+template to install Python and invoke [`pre-commit`].
 
 Inputs:
 
