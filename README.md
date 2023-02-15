@@ -7,18 +7,19 @@
 This allows you to upload your Python distribution packages in the `dist/`
 directory to PyPI using `build` and `twine`.
 
-#### Parameters
+Inputs:
 
-- `image`: Name of the VM Image to use for running the pipeline. Defaults to
-  `ubuntu-20.04`. Options: (`ubuntu-20.04`, `ubuntu-22.04`).
+- `image` (`string`): Name of the VM Image passed through to [`runs-on`].
+  Defaults to `ubuntu-22.04`. Optional. Options: (`ubuntu-20.04`,
+  `ubuntu-22.04`).
 - `python-version`: The Python version to use for building and publishing the
-  package. Defaults to `"2.7"`. Options: (`"2.7"`, `"3.10"`).
-- `pypi-token`: PyPI API token.
+  package. Defaults to `"2.7"`. Optional.
 
-This action sets the proper `tox` env based on the Python version. For example:
-`"3.10"` will run with `py310`, `"3.9"` will run `py39` and so forth.
+Secrets:
 
-#### Example
+- `pypi-token`: PyPI API token. Required.
+
+Example:
 
 ```yaml
 jobs:
@@ -35,11 +36,13 @@ jobs:
 This job template will install Python and invoke tox envs based on the list of
 Python versions.
 
-Parameters:
+Inputs:
 
-- `python-versions`: (JSON list of strings) the list of Python versions passed
-  through to [`actions/setup-python`]'s `python-version`
-- `image`: (default: `ubuntu-22.04`) passed through to [`runs-on`]
+- `image` (`string`): Name of the VM Image passed through to [`runs-on`].
+  Defaults to `ubuntu-22.04`. Optional. Options: (`ubuntu-20.04`,
+  `ubuntu-22.04`).
+- `python-versions` (JSON list of strings): A list of Python versions passed
+  through to [`actions/setup-python`]'s `python-version`. Required.
 
 This action sets the proper `tox` env based on the Python version. For example:
 `"3.10"` will run with `py310`, `"3.9"` will run `py39` and so forth.
@@ -56,14 +59,17 @@ jobs:
 
 ### .github/workflows/tox-gh.yml
 
-This job template will install Python and [`tox-dev/tox-gh`] and it will run
-the matching env based on the `gh` configuration found in `tox.ini`.
+This job template will install Python and [`tox-gh`] and it will run the
+matching `tox` environment based on the `gh` configuration section found in
+`tox.ini`.
 
-Parameters:
+Inputs:
 
-- `python-versions`: (JSON list of strings) the list of Python versions passed
-  through to [`actions/setup-python`]'s `python-version`
-- `image`: (default: `ubuntu-22.04`) passed through to [`runs-on`]
+- `image` (`string`): Name of the VM Image passed through to [`runs-on`].
+  Defaults to `ubuntu-22.04`. Optional. Options: (`ubuntu-20.04`,
+  `ubuntu-22.04`).
+- `python-versions` (JSON list of strings): A list of Python versions passed
+  through to [`actions/setup-python`]'s `python-version`. Required.
 
 Example:
 
@@ -90,16 +96,17 @@ jobs:
 
 ### .github/workflows/tox.yml
 
-This job template will install Python and invoke tox to run all envs found in
-`env_list`.
+This job template will install Python and invoke `tox` to run all envs found in
+[`env_list`].
 
-Parameters:
+Inputs:
 
-- `image` (`string`): Passed through to [`runs-on`]. Defaults to
-  `ubuntu-22.04`. Optional.
-- `pre-commit` (`boolean`): If set to `true`, this means `pre-commit`
-  will be ran inside a `tox` env. Defaults to `false`. Optional.
-- `python-version` (`string`): Python version passed through to
+- `image` (`string`): Name of the VM Image passed through to [`runs-on`].
+  Defaults to `ubuntu-22.04`. Optional. Options: (`ubuntu-20.04`,
+  `ubuntu-22.04`).
+- `pre-commit` (`boolean`): If set to `true`, this means `pre-commit` will be
+  invoked inside a `tox` environment. Defaults to `false`. Optional.
+- `python-version` (`string`): Python version input passed through to
   [`actions/setup-python`]. Defaults to `"3.10"`. Optional.
 
 Example:
@@ -112,3 +119,8 @@ jobs:
       image: ubuntu-20.04
       pre-commit: true
 ```
+
+[`actions/setup-python`]: https://github.com/actions/setup-python
+[`env_list`]: https://tox.wiki/en/latest/config.html#env_list
+[`runs-on`]: https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idruns-on
+[`tox-gh`]: https://github.com/tox-dev/tox-gh
