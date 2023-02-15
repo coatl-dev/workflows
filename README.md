@@ -12,12 +12,12 @@ Inputs:
 - `image` (`string`): Name of the VM Image passed through to [`runs-on`].
   Defaults to `ubuntu-22.04`. Optional. Options: (`ubuntu-20.04`,
   `ubuntu-22.04`).
-- `python-version`: The Python version to use for building and publishing the
-  package. Defaults to `"2.7"`. Optional.
+- `python-version` (`string`): The Python version to use for building and
+  publishing the package. Defaults to `"2.7"`. Optional.
 
 Secrets:
 
-- `pypi-token`: PyPI API token. Required.
+- `pypi-token` (`secret`): PyPI API token. Required.
 
 Example:
 
@@ -42,7 +42,7 @@ Inputs:
 - `image` (`string`): Name of the VM Image passed through to [`runs-on`].
   Defaults to `ubuntu-22.04`. Optional. Options: (`ubuntu-20.04`,
   `ubuntu-22.04`).
-- `python-versions` (JSON list of strings): A list of Python versions passed
+- `python-versions` (list[`string`]): A list of Python versions passed
   through to [`actions/setup-python`]'s `python-version`. Required.
 
 This action sets the proper `tox` env based on the Python version. For example:
@@ -69,7 +69,7 @@ Inputs:
 - `image` (`string`): Name of the VM Image passed through to [`runs-on`].
   Defaults to `ubuntu-22.04`. Optional. Options: (`ubuntu-20.04`,
   `ubuntu-22.04`).
-- `python-versions` (JSON list of strings): A list of Python versions passed
+- `python-versions` (list[`string`]): A list of Python versions passed
   through to [`actions/setup-python`]'s `python-version`. Required.
 
 Example:
