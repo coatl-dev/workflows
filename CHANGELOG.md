@@ -1,3 +1,9 @@
+## v1.1.0 (2023-02-15)
+
+### Feat
+
+- **workflows**: add pre-commit workflow (#9)
+
 ## v1.0.0 (2023-02-15)
 
 ### Feat

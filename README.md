@@ -2,6 +2,29 @@
 
 ## Reusable workflows
 
+### .github/workflows/pre-commit.yml
+
+If you [cannot/do not want to] benefit from [`pre-commit.ci`], use this job
+template will install Python and invoke [`pre-commit`] to run all hooks.
+
+Inputs:
+
+- `image` (`string`): Name of the VM Image passed through to [`runs-on`].
+  Defaults to `ubuntu-22.04`. Optional. Options: (`ubuntu-20.04`,
+  `ubuntu-22.04`).
+- `python-version` (`string`): Python version input passed through to
+  [`actions/setup-python`]. Defaults to `"3.10"`. Optional.
+
+Example:
+
+```yaml
+jobs:
+  main:
+    uses: thecesrom/workflows/.github/workflows/pre-commit.yml@v1.1.0
+    with:
+      python-version: "3.11"
+```
+
 ### .github/workflows/pypi-upload.yml
 
 This allows you to upload your Python distribution packages in the `dist/`
@@ -24,7 +47,7 @@ Example:
 ```yaml
 jobs:
   main:
-    uses: thecesrom/workflows/.github/workflows/pypi-upload.yml@v1.0.0
+    uses: thecesrom/workflows/.github/workflows/pypi-upload.yml@v1.1.0
     with:
       image: ubuntu-22.04
       python-version: "3.10"
@@ -53,7 +76,7 @@ Example:
 ```yaml
 jobs:
   main:
-    uses: thecesrom/workflows/.github/workflows/tox-envs.yml@v1.0.0
+    uses: thecesrom/workflows/.github/workflows/tox-envs.yml@v1.1.0
     with:
       python-versions: '["3.7", "3.8", "3.9", "3.10"]'
 ```
@@ -90,7 +113,7 @@ and on your workflow:
 ```yaml
 jobs:
   main:
-    uses: thecesrom/workflows/.github/workflows/tox-gh.yml@v1.0.0
+    uses: thecesrom/workflows/.github/workflows/tox-gh.yml@v1.1.0
     with:
       python-versions: '["3.7", "3.8", "3.9", "3.10"]'
 ```
@@ -115,7 +138,7 @@ Example:
 ```yaml
 jobs:
   main:
-    uses: thecesrom/workflows/.github/workflows/tox.yml@v1.0.0
+    uses: thecesrom/workflows/.github/workflows/tox.yml@v1.1.0
     with:
       image: ubuntu-20.04
       pre-commit: true
@@ -123,5 +146,7 @@ jobs:
 
 [`actions/setup-python`]: https://github.com/actions/setup-python
 [`env_list`]: https://tox.wiki/en/latest/config.html#env_list
+[`pre-commit`]: https://pre-commit.com/
+[`pre-commit.ci`]: https://pre-commit.ci/
 [`runs-on`]: https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idruns-on
 [`tox-gh`]: https://github.com/tox-dev/tox-gh
