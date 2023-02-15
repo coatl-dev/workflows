@@ -9,7 +9,7 @@ on:
         required: false
         type: boolean
         default: false
-      python:
+      python-version:
         required: false
         type: string
         default: "3.10"
@@ -21,10 +21,10 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v3
 
-      - name: Set up Python ${{ inputs.python }}
+      - name: Set up Python ${{ inputs.python-version }}
         uses: actions/setup-python@v4
         with:
-          python-version: ${{ inputs.python }}
+          python-version: ${{ inputs.python-version }}
 
       - name: Set Python version
         run: |
