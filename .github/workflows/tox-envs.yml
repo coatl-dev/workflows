@@ -1,5 +1,3 @@
-name: tox envs
-
 on:
   workflow_call:
     inputs:
