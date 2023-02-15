@@ -24,7 +24,7 @@ Example:
 ```yaml
 jobs:
   main:
-    uses: thecesrom/workflows/.github/workflows/pypi-upload.yml@v0.0.3
+    uses: thecesrom/workflows/.github/workflows/pypi-upload.yml@v0.0.4
     with:
       image: ubuntu-22.04
       python-version: "3.10"
@@ -45,14 +45,14 @@ Inputs:
   through to [`actions/setup-python`]'s `python-version`. Required.
 
 This action sets the proper `tox` env based on the Python version. For example:
-`"3.10"` will run with `py310`, `"3.9"` will run `py39` and so forth.
+`"3.10"` will run `py310`, `"3.9"` will run `py39` and so forth.
 
 Example:
 
 ```yaml
 jobs:
   main:
-    uses: thecesrom/workflows/.github/workflows/tox-envs.yml@v0.0.3
+    uses: thecesrom/workflows/.github/workflows/tox-envs.yml@v0.0.4
     with:
       python-versions: '["3.7", "3.8", "3.9", "3.10"]'
 ```
@@ -89,7 +89,7 @@ and on your workflow:
 ```yaml
 jobs:
   main:
-    uses: thecesrom/workflows/.github/workflows/tox-gh.yml@v0.0.3
+    uses: thecesrom/workflows/.github/workflows/tox-gh.yml@v0.0.4
     with:
       python-versions: '["3.7", "3.8", "3.9", "3.10"]'
 ```
@@ -114,7 +114,7 @@ Example:
 ```yaml
 jobs:
   main:
-    uses: thecesrom/workflows/.github/workflows/tox.yml@v0.0.3
+    uses: thecesrom/workflows/.github/workflows/tox.yml@v0.0.4
     with:
       image: ubuntu-20.04
       pre-commit: true
