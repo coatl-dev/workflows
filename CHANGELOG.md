@@ -1,3 +1,17 @@
+## v0.1.0 (2023-02-15)
+
+### BREAKING CHANGE
+
+- python argument has been renamed to python-version
+
+### Fix
+
+- **workflows**: use python-version input for setup-python (#7)
+
+### Refactor
+
+- **workflows**: rename input python → python-version (#8)
+
 ## v0.0.4 (2023-02-14)
 
 ### Refactor
