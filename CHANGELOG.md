@@ -1,3 +1,9 @@
+## v1.0.0 (2023-02-15)
+
+### Feat
+
+- stable release
+
 ## v0.1.0 (2023-02-15)
 
 ### BREAKING CHANGE
