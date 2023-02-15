@@ -1,3 +1,9 @@
+## v0.0.3 (2023-02-14)
+
+### Refactor
+
+- **workflows**: update tox cache keys (#4)
+
 ## v0.0.2 (2023-02-14)
 
 ### Fix
