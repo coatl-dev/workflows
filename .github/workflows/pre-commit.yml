@@ -11,7 +11,7 @@ on:
         default: "3.10"
 
 jobs:
-  tox:
+  pre-commit:
     runs-on: ${{ inputs.image }}
     steps:
       - name: Checkout repo
