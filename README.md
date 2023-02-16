@@ -1,5 +1,7 @@
 # workflows
 
+[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/thecesrom/workflows/main.svg)](https://results.pre-commit.ci/latest/github/thecesrom/workflows/main)
+
 ## Reusable workflows
 
 ### .github/workflows/pre-commit.yml
@@ -14,15 +16,19 @@ Inputs:
   `ubuntu-22.04`).
 - `python-version` (`string`): Python version input passed through to
   [`actions/setup-python`]. Defaults to `"3.10"`. Optional.
+- `skip-hooks` (list[`string`]): A comma separated list of hook ids which will
+  be disabled. Useful when your `pre-commit-config.yaml` file contains
+  [`local hooks`]. Optional. See: [Temporarily disabling hooks].
 
 Example:
 
 ```yaml
 jobs:
   main:
-    uses: thecesrom/workflows/.github/workflows/pre-commit.yml@v1.1.1
+    uses: thecesrom/workflows/.github/workflows/pre-commit.yml@v1.2.0
     with:
       python-version: "3.11"
+      skip-hooks: "mypy,pylint"
 ```
 
 ### .github/workflows/pypi-upload.yml
@@ -47,7 +53,7 @@ Example:
 ```yaml
 jobs:
   main:
-    uses: thecesrom/workflows/.github/workflows/pypi-upload.yml@v1.1.1
+    uses: thecesrom/workflows/.github/workflows/pypi-upload.yml@v1.2.0
     with:
       image: ubuntu-22.04
       python-version: "3.10"
@@ -76,7 +82,7 @@ Example:
 ```yaml
 jobs:
   main:
-    uses: thecesrom/workflows/.github/workflows/tox-envs.yml@v1.1.1
+    uses: thecesrom/workflows/.github/workflows/tox-envs.yml@v1.2.0
     with:
       python-versions: '["3.7", "3.8", "3.9", "3.10"]'
 ```
@@ -113,7 +119,7 @@ and on your workflow:
 ```yaml
 jobs:
   main:
-    uses: thecesrom/workflows/.github/workflows/tox-gh.yml@v1.1.1
+    uses: thecesrom/workflows/.github/workflows/tox-gh.yml@v1.2.0
     with:
       python-versions: '["3.7", "3.8", "3.9", "3.10"]'
 ```
@@ -138,7 +144,7 @@ Example:
 ```yaml
 jobs:
   main:
-    uses: thecesrom/workflows/.github/workflows/tox.yml@v1.1.1
+    uses: thecesrom/workflows/.github/workflows/tox.yml@v1.2.0
     with:
       image: ubuntu-20.04
       pre-commit: true
@@ -146,7 +152,9 @@ jobs:
 
 [`actions/setup-python`]: https://github.com/actions/setup-python
 [`env_list`]: https://tox.wiki/en/latest/config.html#env_list
+[`local hooks`]: https://pre-commit.com/#repository-local-hooks
 [`pre-commit`]: https://pre-commit.com/
 [`pre-commit.ci`]: https://pre-commit.ci/
 [`runs-on`]: https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idruns-on
+[Temporarily disabling hooks]: https://pre-commit.com/#temporarily-disabling-hooks
 [`tox-gh`]: https://github.com/tox-dev/tox-gh

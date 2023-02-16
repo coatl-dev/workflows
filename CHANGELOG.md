@@ -1,3 +1,9 @@
+## v1.2.0 (2023-02-16)
+
+### Feat
+
+- **workflows**: add option to SKIP pre-commit hooks (#11)
+
 ## v1.1.1 (2023-02-15)
 
 ### Refactor
