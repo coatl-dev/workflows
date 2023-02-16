@@ -9,6 +9,10 @@ on:
         required: false
         type: string
         default: "3.10"
+      skip-hooks:
+        required: false
+        type: string
+        default: ""
 
 jobs:
   pre-commit:
@@ -42,6 +46,10 @@ jobs:
         with:
           path: ~/.cache/pre-commit
           key: pre-commit-${{ env.PY }}-${{ inputs.image }}-${{ hashFiles('.pre-commit-config.yaml') }}
+
+      - name: Set skipped pre-commit hooks
+        run: |
+          echo "SKIP=${{ inputs.skip-hooks }}" >> $GITHUB_ENV
 
       - name: Run pre-commit
         run: |
