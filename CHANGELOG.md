@@ -1,3 +1,9 @@
+## v1.1.1 (2023-02-15)
+
+### Refactor
+
+- **workflows**: rename pre-commit job (#10)
+
 ## v1.1.0 (2023-02-15)
 
 ### Feat
