@@ -1,6 +1,6 @@
 # workflows
 
-[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/thecesrom/workflows/main.svg)](https://results.pre-commit.ci/latest/github/thecesrom/workflows/main)
+[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/coatl-dev/workflows/main.svg)](https://results.pre-commit.ci/latest/github/coatl-dev/workflows/main)
 
 ## Reusable workflows
 
@@ -25,7 +25,7 @@ Example:
 ```yaml
 jobs:
   main:
-    uses: thecesrom/workflows/.github/workflows/pre-commit.yml@v1.2.0
+    uses: coatl-dev/workflows/.github/workflows/pre-commit.yml@v1.2.0
     with:
       python-version: "3.11"
       skip-hooks: "mypy,pylint"
@@ -53,7 +53,7 @@ Example:
 ```yaml
 jobs:
   main:
-    uses: thecesrom/workflows/.github/workflows/pypi-upload.yml@v1.2.0
+    uses: coatl-dev/workflows/.github/workflows/pypi-upload.yml@v1.2.0
     with:
       image: ubuntu-22.04
       python-version: "3.10"
@@ -82,7 +82,7 @@ Example:
 ```yaml
 jobs:
   main:
-    uses: thecesrom/workflows/.github/workflows/tox-envs.yml@v1.2.0
+    uses: coatl-dev/workflows/.github/workflows/tox-envs.yml@v1.2.0
     with:
       python-versions: '["3.7", "3.8", "3.9", "3.10"]'
 ```
@@ -119,7 +119,7 @@ and on your workflow:
 ```yaml
 jobs:
   main:
-    uses: thecesrom/workflows/.github/workflows/tox-gh.yml@v1.2.0
+    uses: coatl-dev/workflows/.github/workflows/tox-gh.yml@v1.2.0
     with:
       python-versions: '["3.7", "3.8", "3.9", "3.10"]'
 ```
@@ -144,7 +144,7 @@ Example:
 ```yaml
 jobs:
   main:
-    uses: thecesrom/workflows/.github/workflows/tox.yml@v1.2.0
+    uses: coatl-dev/workflows/.github/workflows/tox.yml@v1.2.0
     with:
       image: ubuntu-20.04
       pre-commit: true
