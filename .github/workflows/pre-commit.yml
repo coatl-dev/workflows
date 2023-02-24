@@ -26,16 +26,17 @@ jobs:
         with:
           python-version: ${{ inputs.python-version }}
 
-      - name: Set Python 2 version
+      - name: Set Python version
         run: |
-          echo "PY=$(python --version 2>&1)" >> $GITHUB_ENV
-        if: startsWith('${{ inputs.python-version }}', '2')
+          if '${{ startsWith(inputs.python-version, '2')'; then
+            echo "PY=$(python --version 2>&1)" >> $GITHUB_ENV
+          else
+            echo "PY=$(python --version)" >> $GITHUB_ENV
+          fi
 
-      - name: Set Python 3 version
-        run: |
-          echo "PY=$(python --version)" >> $GITHUB_ENV
-        if: startsWith('${{ inputs.python-version }}', '3')
-
-      - name: Test PY
-        run: |
-          echo $PY
+      - name: Cache Python
+        id: cache-python
+        uses: actions/cache@v3
+        with:
+          path: ${{ env.pythonLocation }}
+          key: py-${{ env.PY }}-${{ inputs.image }}
