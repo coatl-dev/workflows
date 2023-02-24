@@ -29,12 +29,12 @@ jobs:
       - name: Set Python 2 version
         run: |
           echo "PY=$(python --version 2>&1)" >> $GITHUB_ENV
-        if: startsWith(${{ inputs.python-version }}, '2')
+        if: startsWith('${{ inputs.python-version }}', '2')
 
       - name: Set Python 3 version
         run: |
           echo "PY=$(python --version)" >> $GITHUB_ENV
-        if: startsWith(${{ inputs.python-version }}, '3')
+        if: startsWith('${{ inputs.python-version }}', '3')
 
       - name: Test PY
         run: |
