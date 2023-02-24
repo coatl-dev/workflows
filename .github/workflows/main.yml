@@ -1,0 +1,14 @@
+name: main
+
+on:
+  workflow_dispatch:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  main:
+    uses: ./.github/workflows/pre-commit.yml
+    with:
+      python-version: "2.7"
