@@ -28,7 +28,7 @@ jobs:
 
       - name: Set Python version
         run: |
-          if '${{ startsWith(inputs.python-version, '2')'; then
+          if '${{ startsWith(inputs.python-version, '2') }}'; then
             echo "PY=$(python --version 2>&1)" >> $GITHUB_ENV
           else
             echo "PY=$(python --version)" >> $GITHUB_ENV
