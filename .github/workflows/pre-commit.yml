@@ -23,19 +23,16 @@ jobs:
 
       - name: Set up Python ${{ inputs.python-version }}
         uses: actions/setup-python@v4
+        id: py-setup
         with:
           python-version: ${{ inputs.python-version }}
-
-      - name: Set Python version
-        run: |
-          echo "PY=$(python --version)" >> $GITHUB_ENV
 
       - name: Cache Python
         id: cache-python
         uses: actions/cache@v3
         with:
-          path: ${{ env.pythonLocation }}
-          key: py-${{ env.PY }}-${{ inputs.image }}
+          path: ${{ steps.py-setup.outputs.python-versionthonLocation }}
+          key: py-${{ steps.py-setup.outputs.python-version }}-${{ inputs.image }}
 
       - name: Install dependencies
         run: |
@@ -45,7 +42,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ~/.cache/pre-commit
-          key: pre-commit-${{ env.PY }}-${{ inputs.image }}-${{ hashFiles('.pre-commit-config.yaml') }}
+          key: pre-commit-${{ steps.py-setup.outputs.python-version }}-${{ inputs.image }}-${{ hashFiles('.pre-commit-config.yaml') }}
 
       - name: Set skipped pre-commit hooks
         run: |
