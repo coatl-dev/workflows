@@ -1,3 +1,9 @@
+## v1.2.1 (2023-02-24)
+
+### Refactor
+
+- **jobs**: change Python caching strategy (#13)
+
 ## v1.2.0 (2023-02-16)
 
 ### Feat
