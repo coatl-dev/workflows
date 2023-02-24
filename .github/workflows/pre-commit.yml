@@ -38,4 +38,4 @@ jobs:
 
       - name: Test PY
         run: |
-          echo "$PY"
+          echo $PY
