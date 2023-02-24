@@ -1,3 +1,9 @@
+## v1.2.2 (2023-02-24)
+
+### Fix
+
+- **jobs**: restore path settings (#15)
+
 ## v1.2.1 (2023-02-24)
 
 ### Refactor
