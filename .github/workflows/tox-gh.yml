@@ -4,7 +4,7 @@ on:
       image:
         required: false
         type: string
-        default: ubuntu-22.04
+        default: ubuntu-20.04
       python-versions:
         required: true
         type: string
