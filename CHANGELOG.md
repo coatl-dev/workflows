@@ -1,3 +1,9 @@
+## v2.0.1 (2023-02-24)
+
+### Refactor
+
+- **workflows**: change step id (#17)
+
 ## v2.0.0 (2023-02-24)
 
 ### Refactor
