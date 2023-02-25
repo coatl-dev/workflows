@@ -23,7 +23,7 @@ jobs:
 
       - name: Set up Python ${{ inputs.python-version }}
         uses: actions/setup-python@v4
-        id: py-setup
+        id: setup-python
         with:
           python-version: ${{ inputs.python-version }}
 
@@ -32,7 +32,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ${{ env.pythonLocation }}
-          key: py-${{ steps.py-setup.outputs.python-version }}-${{ inputs.image }}
+          key: py-${{ steps.setup-python.outputs.python-version }}-${{ inputs.image }}
 
       - name: Install dependencies
         run: |
@@ -42,7 +42,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ~/.cache/pre-commit
-          key: pre-commit-${{ steps.py-setup.outputs.python-version }}-${{ inputs.image }}-${{ hashFiles('.pre-commit-config.yaml') }}
+          key: pre-commit-${{ steps.setup-python.outputs.python-version }}-${{ inputs.image }}-${{ hashFiles('.pre-commit-config.yaml') }}
 
       - name: Set skipped pre-commit hooks
         run: |

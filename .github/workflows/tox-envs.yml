@@ -23,7 +23,7 @@ jobs:
 
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v4
-        id: py-setup
+        id: setup-python
         with:
           python-version: ${{ matrix.python-version }}
 
@@ -32,7 +32,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ${{ env.pythonLocation }}
-          key: py-${{ steps.py-setup.outputs.python-version }}-${{ inputs.image }}
+          key: py-${{ steps.setup-python.outputs.python-version }}-${{ inputs.image }}
 
       - name: Install dependencies
         run: |
@@ -53,7 +53,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: .tox
-          key: tox-envs-${{ steps.py-setup.outputs.python-version }}-${{ inputs.image }}-${{ hashFiles('tox.ini') }}
+          key: tox-envs-${{ steps.setup-python.outputs.python-version }}-${{ inputs.image }}-${{ hashFiles('tox.ini') }}
 
       - name: Run tox
         run: |
