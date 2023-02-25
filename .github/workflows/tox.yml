@@ -2,6 +2,7 @@ on:
   workflow_call:
     inputs:
       image:
+        description: The type of machine to run the job on.
         required: false
         type: string
         default: ubuntu-20.04
@@ -10,6 +11,7 @@ on:
         type: boolean
         default: false
       python-version:
+        description: Version of Python to use.
         required: false
         type: string
         default: "3.10"

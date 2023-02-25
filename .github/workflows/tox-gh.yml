@@ -2,10 +2,12 @@ on:
   workflow_call:
     inputs:
       image:
+        description: The type of machine to run the job on.
         required: false
         type: string
         default: ubuntu-20.04
       python-versions:
+        description: A list of Python versions.
         required: true
         type: string
 
