@@ -1,3 +1,9 @@
+## v2.0.0 (2023-02-24)
+
+### Refactor
+
+- **workflows**: use ubuntu-20.04 as the default on all workflows (#16)
+
 ## v1.2.2 (2023-02-24)
 
 ### Fix

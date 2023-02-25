@@ -12,8 +12,8 @@ template to install Python and invoke [`pre-commit`].
 Inputs:
 
 - `image` (`string`): Name of the VM Image passed through to [`runs-on`].
-  Defaults to `ubuntu-22.04`. Optional. Options: (`ubuntu-20.04`,
-  `ubuntu-22.04`).
+  Defaults to `ubuntu-20.04`. Optional. Options: (`ubuntu-20.04`,
+  `ubuntu-22.04`, `ubuntu-latest`).
 - `python-version` (`string`): Python version input passed through to
   [`actions/setup-python`]. Defaults to `"3.10"`. Optional.
 - `skip-hooks` (list[`string`]): A comma separated list of hook ids which will
@@ -25,7 +25,7 @@ Example:
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/pre-commit.yml@v1.2.2
+    uses: coatl-dev/workflows/.github/workflows/pre-commit.yml@v2.0.0
     with:
       python-version: "3.11"
       skip-hooks: "mypy,pylint"
@@ -39,8 +39,8 @@ directory to PyPI using `build` and `twine`.
 Inputs:
 
 - `image` (`string`): Name of the VM Image passed through to [`runs-on`].
-  Defaults to `ubuntu-22.04`. Optional. Options: (`ubuntu-20.04`,
-  `ubuntu-22.04`).
+  Defaults to `ubuntu-20.04`. Optional. Options: (`ubuntu-20.04`,
+  `ubuntu-22.04`, `ubuntu-latest`).
 - `python-version` (`string`): The Python version to use for building and
   publishing the package. Defaults to `"2.7"`. Optional.
 
@@ -53,10 +53,10 @@ Example:
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/pypi-upload.yml@v1.2.2
+    uses: coatl-dev/workflows/.github/workflows/pypi-upload.yml@v2.0.0
     with:
       image: ubuntu-22.04
-      python-version: "3.10"
+      python-version: "3.11"
     secrets:
       pypi-token: ${{ secrets.PYPI_API_TOKEN }}
 ```
@@ -69,8 +69,8 @@ Python versions.
 Inputs:
 
 - `image` (`string`): Name of the VM Image passed through to [`runs-on`].
-  Defaults to `ubuntu-22.04`. Optional. Options: (`ubuntu-20.04`,
-  `ubuntu-22.04`).
+  Defaults to `ubuntu-20.04`. Optional. Options: (`ubuntu-20.04`,
+  `ubuntu-22.04`, `ubuntu-latest`).
 - `python-versions` (list[`string`]): A list of Python versions passed
   through to [`actions/setup-python`]'s `python-version`. Required.
 
@@ -82,9 +82,9 @@ Example:
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/tox-envs.yml@v1.2.2
+    uses: coatl-dev/workflows/.github/workflows/tox-envs.yml@v2.0.0
     with:
-      python-versions: '["3.7", "3.8", "3.9", "3.10"]'
+      python-versions: '["3.7", "3.8", "3.9", "3.10", "3.11"]'
 ```
 
 ### .github/workflows/tox-gh.yml
@@ -93,11 +93,13 @@ This job template will install Python and [`tox-gh`] and it will run the
 matching `tox` environment based on the `gh` configuration section found in
 `tox.ini`.
 
+Note: `tox-gh` requires Python 3.7+.
+
 Inputs:
 
 - `image` (`string`): Name of the VM Image passed through to [`runs-on`].
-  Defaults to `ubuntu-22.04`. Optional. Options: (`ubuntu-20.04`,
-  `ubuntu-22.04`).
+  Defaults to `ubuntu-20.04`. Optional. Options: (`ubuntu-20.04`,
+  `ubuntu-22.04`, `ubuntu-latest`).
 - `python-versions` (list[`string`]): A list of Python versions passed
   through to [`actions/setup-python`]'s `python-version`. Required.
 
@@ -112,6 +114,7 @@ python =
     3.8 = py38
     3.9 = py39
     3.10 = py310, install, typecheck
+    3.11 = py311
 ```
 
 and on your workflow:
@@ -119,9 +122,9 @@ and on your workflow:
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/tox-gh.yml@v1.2.2
+    uses: coatl-dev/workflows/.github/workflows/tox-gh.yml@v2.0.0
     with:
-      python-versions: '["3.7", "3.8", "3.9", "3.10"]'
+      python-versions: '["3.7", "3.8", "3.9", "3.10", "3.11"]'
 ```
 
 ### .github/workflows/tox.yml
@@ -132,8 +135,8 @@ This job template will install Python and invoke `tox` to run all envs found in
 Inputs:
 
 - `image` (`string`): Name of the VM Image passed through to [`runs-on`].
-  Defaults to `ubuntu-22.04`. Optional. Options: (`ubuntu-20.04`,
-  `ubuntu-22.04`).
+  Defaults to `ubuntu-20.04`. Optional. Options: (`ubuntu-20.04`,
+  `ubuntu-22.04`, `ubuntu-latest`).
 - `pre-commit` (`boolean`): If set to `true`, this means `pre-commit` will be
   invoked inside a `tox` environment. Defaults to `false`. Optional.
 - `python-version` (`string`): Python version input passed through to
@@ -144,9 +147,8 @@ Example:
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/tox.yml@v1.2.2
+    uses: coatl-dev/workflows/.github/workflows/tox.yml@v2.0.0
     with:
-      image: ubuntu-20.04
       pre-commit: true
 ```
 
