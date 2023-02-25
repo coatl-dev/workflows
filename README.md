@@ -6,8 +6,8 @@
 
 ### .github/workflows/pre-commit.yml
 
-If you [cannot/do not want to] benefit from [`pre-commit.ci`], use this job
-template to install Python and invoke [`pre-commit`].
+If you [cannot/do not want to] benefit from [`pre-commit.ci`], use this workflow
+to install Python and invoke [`pre-commit`].
 
 Inputs:
 
@@ -25,16 +25,39 @@ Example:
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/pre-commit.yml@v2.0.1
+    uses: coatl-dev/workflows/.github/workflows/pre-commit.yml@v2.1.0
     with:
       python-version: "3.11"
       skip-hooks: "mypy,pylint"
 ```
 
+### .github/workflows/pylint.yml
+
+This workflow will install Python and invoke `pylint` to analyze your code.
+
+Inputs:
+
+- `image` (`string`): Name of the VM Image passed through to [`runs-on`].
+  Defaults to `ubuntu-20.04`. Optional. Options: (`ubuntu-20.04`,
+  `ubuntu-22.04`, `ubuntu-latest`).
+- `python-version` (`string`): Python version input passed through to
+  [`actions/setup-python`]. Defaults to `"3.10"`. Optional.
+
+Example:
+
+```yaml
+jobs:
+  main:
+    uses: coatl-dev/workflows/.github/workflows/pylint.yml@v2.1.0
+    with:
+      image: ubuntu-latest
+      python-version: "3.11"
+```
+
 ### .github/workflows/pypi-upload.yml
 
-This allows you to upload your Python distribution packages in the `dist/`
-directory to PyPI using `build` and `twine`.
+This workflow allows you to upload your Python distribution packages in the
+`dist/` directory to PyPI using `build` and `twine`.
 
 Inputs:
 
@@ -53,7 +76,7 @@ Example:
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/pypi-upload.yml@v2.0.1
+    uses: coatl-dev/workflows/.github/workflows/pypi-upload.yml@v2.1.0
     with:
       image: ubuntu-22.04
       python-version: "3.11"
@@ -63,7 +86,7 @@ jobs:
 
 ### .github/workflows/tox-envs.yml
 
-This job template will install Python and invoke tox envs based on the list of
+This workflow will install Python and invoke tox envs based on the list of
 Python versions.
 
 Inputs:
@@ -82,16 +105,15 @@ Example:
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/tox-envs.yml@v2.0.1
+    uses: coatl-dev/workflows/.github/workflows/tox-envs.yml@v2.1.0
     with:
       python-versions: '["3.7", "3.8", "3.9", "3.10", "3.11"]'
 ```
 
 ### .github/workflows/tox-gh.yml
 
-This job template will install Python and [`tox-gh`] and it will run the
-matching `tox` environment based on the `gh` configuration section found in
-`tox.ini`.
+This workflow will install Python and [`tox-gh`] and it will run the matching
+`tox` environment based on the `gh` configuration section found in `tox.ini`.
 
 Note: `tox-gh` requires Python 3.7+.
 
@@ -122,14 +144,14 @@ and on your workflow:
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/tox-gh.yml@v2.0.1
+    uses: coatl-dev/workflows/.github/workflows/tox-gh.yml@v2.1.0
     with:
       python-versions: '["3.7", "3.8", "3.9", "3.10", "3.11"]'
 ```
 
 ### .github/workflows/tox.yml
 
-This job template will install Python and invoke `tox` to run all envs found in
+This workflow will install Python and invoke `tox` to run all envs found in
 [`env_list`].
 
 Inputs:
@@ -147,7 +169,7 @@ Example:
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/tox.yml@v2.0.1
+    uses: coatl-dev/workflows/.github/workflows/tox.yml@v2.1.0
     with:
       pre-commit: true
 ```

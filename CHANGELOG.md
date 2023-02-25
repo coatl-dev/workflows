@@ -1,3 +1,9 @@
+## v2.1.0 (2023-02-25)
+
+### Feat
+
+- **workflows**: add pylint workflow (#18)
+
 ## v2.0.1 (2023-02-24)
 
 ### Refactor
