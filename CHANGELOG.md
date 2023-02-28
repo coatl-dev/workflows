@@ -1,3 +1,9 @@
+## v2.2.0 (2023-02-28)
+
+### Feat
+
+- **workflows**: add workflows targetting python 2.7 (#20)
+
 ## v2.1.0 (2023-02-25)
 
 ### Feat

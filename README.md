@@ -35,7 +35,7 @@ target-version = ["py27"]
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/black.yml@v2.1.0
+    uses: coatl-dev/workflows/.github/workflows/black.yml@v2.2.0
     with:
       sources-root: "src"
 ```
@@ -63,7 +63,7 @@ Example:
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/flake8.yml@v2.1.0
+    uses: coatl-dev/workflows/.github/workflows/flake8.yml@v2.2.0
     with:
       sources-root: "src"
 ```
@@ -108,7 +108,7 @@ types-enum34
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/mypy.yml@v2.1.0
+    uses: coatl-dev/workflows/.github/workflows/mypy.yml@v2.2.0
     with:
       mypy-requirements: "requirements/typecheck.txt"
       sources-root: "src"
@@ -135,7 +135,7 @@ Example:
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/pre-commit.yml@v2.1.0
+    uses: coatl-dev/workflows/.github/workflows/pre-commit.yml@v2.2.0
     with:
       python-version: "3.11"
       skip-hooks: "mypy,pylint"
@@ -158,7 +158,7 @@ Example:
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/pylint.yml@v2.1.0
+    uses: coatl-dev/workflows/.github/workflows/pylint.yml@v2.2.0
     with:
       image: ubuntu-latest
       python-version: "3.11"
@@ -186,7 +186,7 @@ Example:
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/pypi-upload.yml@v2.1.0
+    uses: coatl-dev/workflows/.github/workflows/pypi-upload.yml@v2.2.0
     with:
       image: ubuntu-22.04
       python-version: "3.11"
@@ -215,7 +215,7 @@ Example:
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/tox-envs.yml@v2.1.0
+    uses: coatl-dev/workflows/.github/workflows/tox-envs.yml@v2.2.0
     with:
       python-versions: '["3.7", "3.8", "3.9", "3.10", "3.11"]'
 ```
@@ -254,7 +254,7 @@ and on your workflow:
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/tox-gh.yml@v2.1.0
+    uses: coatl-dev/workflows/.github/workflows/tox-gh.yml@v2.2.0
     with:
       python-versions: '["3.7", "3.8", "3.9", "3.10", "3.11"]'
 ```
@@ -279,7 +279,7 @@ Example:
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/tox.yml@v2.1.0
+    uses: coatl-dev/workflows/.github/workflows/tox.yml@v2.2.0
     with:
       pre-commit: true
 ```
