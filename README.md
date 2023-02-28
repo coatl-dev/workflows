@@ -4,6 +4,116 @@
 
 ## Reusable workflows
 
+### .github/workflows/black.yml
+
+This workflow will install Python and invoke `black` to run against your
+Python 2.7 code.
+
+> Note: This essentially installs `black[python2]==21.9b0`, which is the last
+version of black that did not warn about Python 2 deprecation.
+
+Inputs:
+
+- `image` (`string`): Name of the VM Image passed through to [`runs-on`].
+  Defaults to `ubuntu-20.04`. Optional. Options: (`ubuntu-20.04`,
+  `ubuntu-22.04`, `ubuntu-latest`).
+- `python-version` (`string`): Python version input passed through to
+  [`actions/setup-python`]. Defaults to `"3.10"`. Optional.
+- `sources-root` (`string`): The root directory for your source code. E.g.
+  `src`. Optional. Defaults to `"."`.
+
+Example:
+
+`pyproject.toml`:
+
+```toml
+[tool.black]
+line-length = 88
+target-version = ["py27"]
+```
+
+```yaml
+jobs:
+  main:
+    uses: coatl-dev/workflows/.github/workflows/black.yml@v2.1.0
+    with:
+      sources-root: "src"
+```
+
+### .github/workflows/flake8.yml
+
+This workflow will install Python and invoke `flake8` to run against your
+Python 2.7 code.
+
+> Note: This essentially installs `flake8==5.0.4`, which includes the last
+version of `pyflakes` to support Python 2 [type comments].
+
+Inputs:
+
+- `image` (`string`): Name of the VM Image passed through to [`runs-on`].
+  Defaults to `ubuntu-20.04`. Optional. Options: (`ubuntu-20.04`,
+  `ubuntu-22.04`, `ubuntu-latest`).
+- `python-version` (`string`): Python version input passed through to
+  [`actions/setup-python`]. Defaults to `"3.10"`. Optional.
+- `sources-root` (`string`): The root directory for your source code. E.g.
+  `src`. Optional. Defaults to `"."`.
+
+Example:
+
+```yaml
+jobs:
+  main:
+    uses: coatl-dev/workflows/.github/workflows/flake8.yml@v2.1.0
+    with:
+      sources-root: "src"
+```
+
+### .github/workflows/mypy.yml
+
+This workflow will install Python and invoke `mypy` to run against your
+Python 2.7 code.
+
+> Note: This essentially installs `mypy[python2]==0.971`, which was the last
+release officially supporting Python 2.
+
+Inputs:
+
+- `image` (`string`): Name of the VM Image passed through to [`runs-on`].
+  Defaults to `ubuntu-20.04`. Optional. Options: (`ubuntu-20.04`,
+  `ubuntu-22.04`, `ubuntu-latest`).
+- `mypy-requirements` (`string`): Path to additional requirements file
+  necessary for running mypy. Optional.
+- `python-version` (`string`): Python version input passed through to
+  [`actions/setup-python`]. Defaults to `"3.10"`. Optional.
+- `sources-root` (`string`): The root directory for your source code. E.g.
+  `src`. Required.
+
+Example:
+
+`mypy.ini`:
+
+```ini
+[mypy]
+python_version = 2.7
+mypy_path = src
+enable_error_code = ignore-without-code
+```
+
+`requirements/typecheck.txt`:
+
+```text
+types-enum34
+```
+
+```yaml
+jobs:
+  main:
+    uses: coatl-dev/workflows/.github/workflows/mypy.yml@v2.1.0
+    with:
+      mypy-requirements: "requirements/typecheck.txt"
+      sources-root: "src"
+```
+
 ### .github/workflows/pre-commit.yml
 
 If you [cannot/do not want to] benefit from [`pre-commit.ci`], use this workflow
@@ -182,3 +292,4 @@ jobs:
 [`runs-on`]: https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idruns-on
 [Temporarily disabling hooks]: https://pre-commit.com/#temporarily-disabling-hooks
 [`tox-gh`]: https://github.com/tox-dev/tox-gh
+[type comments]: https://peps.python.org/pep-0484/#type-comments
