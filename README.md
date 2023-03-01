@@ -10,7 +10,8 @@ This workflow will install Python and invoke `black` to run against your
 Python 2.7 code.
 
 > Note: This essentially installs `black[python2]==21.9b0`, which is the last
-version of black that did not warn about Python 2 deprecation.
+version of black that did not warn about Python 2 deprecation. This release
+requires `python>=3.6.2`.
 
 Inputs:
 
@@ -46,7 +47,8 @@ This workflow will install Python and invoke `flake8` to run against your
 Python 2.7 code.
 
 > Note: This essentially installs `flake8==5.0.4`, which includes the last
-version of `pyflakes` to support Python 2 [type comments].
+version of `pyflakes` to support Python 2 [type comments]. This requires
+`python>=3.6.1`.
 
 Inputs:
 
@@ -74,7 +76,7 @@ This workflow will install Python and invoke `mypy` to run against your
 Python 2.7 code.
 
 > Note: This essentially installs `mypy[python2]==0.971`, which was the last
-release officially supporting Python 2.
+release officially supporting Python 2. This requires `python>=3.6`.
 
 Inputs:
 
@@ -119,6 +121,8 @@ jobs:
 If you [cannot/do not want to] benefit from [`pre-commit.ci`], use this workflow
 to install Python and invoke [`pre-commit`].
 
+> Note: The latest `pre-commit` release requires `python>=3.8`.
+
 Inputs:
 
 - `image` (`string`): Name of the VM Image passed through to [`runs-on`].
@@ -144,6 +148,8 @@ jobs:
 ### .github/workflows/pylint.yml
 
 This workflow will install Python and invoke `pylint` to analyze your code.
+
+> Note: The latest `pylint` release requires `python>=3.7.2`.
 
 Inputs:
 
@@ -199,6 +205,8 @@ jobs:
 This workflow will install Python and invoke tox envs based on the list of
 Python versions.
 
+Note: The latest `tox` release requires `python>=3.7`.
+
 Inputs:
 
 - `image` (`string`): Name of the VM Image passed through to [`runs-on`].
@@ -225,7 +233,7 @@ jobs:
 This workflow will install Python and [`tox-gh`] and it will run the matching
 `tox` environment based on the `gh` configuration section found in `tox.ini`.
 
-Note: `tox-gh` requires Python 3.7+.
+Note: The latest `tox-gh` release requires `python>=3.7`.
 
 Inputs:
 
@@ -263,6 +271,8 @@ jobs:
 
 This workflow will install Python and invoke `tox` to run all envs found in
 [`env_list`].
+
+Note: The latest `tox` release requires `python>=3.7`.
 
 Inputs:
 
