@@ -9,11 +9,13 @@
 This workflow will install Python and invoke `black` to run against your
 Python 2.7 code.
 
-> Note: This essentially installs `black[python2]==21.9b0`, which is the last
-version of black that did not warn about Python 2 deprecation. This release
-requires `python>=3.6.2`.
+**Notes**:
 
-Inputs:
+- :information_source: This essentially installs `black[python2]==21.9b0`, which is the last
+version of black that did not warn about Python 2 deprecation.
+- :warning: This release requires `python>=3.6.2`.
+
+**Inputs**:
 
 - `image` (`string`): Name of the VM Image passed through to [`runs-on`].
   Defaults to `ubuntu-20.04`. Optional. Options: (`ubuntu-20.04`,
@@ -23,7 +25,7 @@ Inputs:
 - `sources-root` (`string`): The root directory for your source code. E.g.
   `src`. Optional. Defaults to `"."`.
 
-Example:
+**Example**:
 
 `pyproject.toml`:
 
@@ -46,11 +48,13 @@ jobs:
 This workflow will install Python and invoke `flake8` to run against your
 Python 2.7 code.
 
-> Note: This essentially installs `flake8==5.0.4`, which includes the last
-version of `pyflakes` to support Python 2 [type comments]. This requires
-`python>=3.6.1`.
+**Notes**:
 
-Inputs:
+- :information_source: This essentially installs `flake8==5.0.4`, which includes the last
+version of `pyflakes` to support Python 2 [type comments].
+- :warning: The latest `flake8` release requires `python>=3.6.1`.
+
+**Inputs**:
 
 - `image` (`string`): Name of the VM Image passed through to [`runs-on`].
   Defaults to `ubuntu-20.04`. Optional. Options: (`ubuntu-20.04`,
@@ -60,7 +64,7 @@ Inputs:
 - `sources-root` (`string`): The root directory for your source code. E.g.
   `src`. Optional. Defaults to `"."`.
 
-Example:
+**Example**:
 
 ```yaml
 jobs:
@@ -75,10 +79,13 @@ jobs:
 This workflow will install Python and invoke `mypy` to run against your
 Python 2.7 code.
 
-> Note: This essentially installs `mypy[python2]==0.971`, which was the last
-release officially supporting Python 2. This requires `python>=3.6`.
+**Notes**:
 
-Inputs:
+- :information_source: This essentially installs `mypy[python2]==0.971`,
+  which was the last release officially supporting Python 2.
+- :warning: This release requires `python>=3.6`.
+
+**Inputs**:
 
 - `image` (`string`): Name of the VM Image passed through to [`runs-on`].
   Defaults to `ubuntu-20.04`. Optional. Options: (`ubuntu-20.04`,
@@ -90,7 +97,7 @@ Inputs:
 - `sources-root` (`string`): The root directory for your source code. E.g.
   `src`. Required.
 
-Example:
+**Example**:
 
 `mypy.ini`:
 
@@ -121,9 +128,11 @@ jobs:
 If you [cannot/do not want to] benefit from [`pre-commit.ci`], use this workflow
 to install Python and invoke [`pre-commit`].
 
-> Note: The latest `pre-commit` release requires `python>=3.8`.
+**Notes**:
 
-Inputs:
+- :warning: The latest `pre-commit` release requires `python>=3.8`.
+
+**Inputs**:
 
 - `image` (`string`): Name of the VM Image passed through to [`runs-on`].
   Defaults to `ubuntu-20.04`. Optional. Options: (`ubuntu-20.04`,
@@ -134,7 +143,7 @@ Inputs:
   be disabled. Useful when your `pre-commit-config.yaml` file contains
   [`local hooks`]. Optional. See: [Temporarily disabling hooks].
 
-Example:
+**Example**:
 
 ```yaml
 jobs:
@@ -149,9 +158,11 @@ jobs:
 
 This workflow will install Python and invoke `pylint` to analyze your code.
 
-> Note: The latest `pylint` release requires `python>=3.7.2`.
+**Notes**:
 
-Inputs:
+- :warning: The latest `pylint` release requires `python>=3.7.2`.
+
+**Inputs**:
 
 - `image` (`string`): Name of the VM Image passed through to [`runs-on`].
   Defaults to `ubuntu-20.04`. Optional. Options: (`ubuntu-20.04`,
@@ -159,7 +170,7 @@ Inputs:
 - `python-version` (`string`): Python version input passed through to
   [`actions/setup-python`]. Defaults to `"3.10"`. Optional.
 
-Example:
+**Example**:
 
 ```yaml
 jobs:
@@ -175,7 +186,7 @@ jobs:
 This workflow allows you to upload your Python distribution packages in the
 `dist/` directory to PyPI using `build` and `twine`.
 
-Inputs:
+**Inputs**:
 
 - `image` (`string`): Name of the VM Image passed through to [`runs-on`].
   Defaults to `ubuntu-20.04`. Optional. Options: (`ubuntu-20.04`,
@@ -187,7 +198,7 @@ Secrets:
 
 - `pypi-token` (`secret`): PyPI API token. Required.
 
-Example:
+**Example**:
 
 ```yaml
 jobs:
@@ -205,9 +216,11 @@ jobs:
 This workflow will install Python and invoke tox envs based on the list of
 Python versions.
 
-Note: The latest `tox` release requires `python>=3.7`.
+**Notes**:
 
-Inputs:
+- :warning: The latest `tox` release requires `python>=3.7`.
+
+**Inputs**:
 
 - `image` (`string`): Name of the VM Image passed through to [`runs-on`].
   Defaults to `ubuntu-20.04`. Optional. Options: (`ubuntu-20.04`,
@@ -215,10 +228,10 @@ Inputs:
 - `python-versions` (list[`string`]): A list of Python versions passed
   through to [`actions/setup-python`]'s `python-version`. Required.
 
-This action sets the proper `tox` env based on the Python version. For example:
+This action sets the proper `tox` env based on the Python version. For **Example**:
 `"3.10"` will run `py310`, `"3.9"` will run `py39` and so forth.
 
-Example:
+**Example**:
 
 ```yaml
 jobs:
@@ -233,9 +246,11 @@ jobs:
 This workflow will install Python and [`tox-gh`] and it will run the matching
 `tox` environment based on the `gh` configuration section found in `tox.ini`.
 
-Note: The latest `tox-gh` release requires `python>=3.7`.
+**Notes**:
 
-Inputs:
+- :warning: The latest `tox-gh` release requires `python>=3.7`.
+
+**Inputs**:
 
 - `image` (`string`): Name of the VM Image passed through to [`runs-on`].
   Defaults to `ubuntu-20.04`. Optional. Options: (`ubuntu-20.04`,
@@ -243,7 +258,7 @@ Inputs:
 - `python-versions` (list[`string`]): A list of Python versions passed
   through to [`actions/setup-python`]'s `python-version`. Required.
 
-Example:
+**Example**:
 
 tox.ini:
 
@@ -272,9 +287,11 @@ jobs:
 This workflow will install Python and invoke `tox` to run all envs found in
 [`env_list`].
 
-Note: The latest `tox` release requires `python>=3.7`.
+**Notes**:
 
-Inputs:
+- :warning: The latest `tox` release requires `python>=3.7`.
+
+**Inputs**:
 
 - `image` (`string`): Name of the VM Image passed through to [`runs-on`].
   Defaults to `ubuntu-20.04`. Optional. Options: (`ubuntu-20.04`,
@@ -284,7 +301,7 @@ Inputs:
 - `python-version` (`string`): Python version input passed through to
   [`actions/setup-python`]. Defaults to `"3.10"`. Optional.
 
-Example:
+**Example**:
 
 ```yaml
 jobs:
