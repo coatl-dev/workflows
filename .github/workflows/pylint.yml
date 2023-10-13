@@ -1,6 +1,11 @@
 on:
   workflow_call:
     inputs:
+      cache:
+        description: Whether to enable caching.
+        required: false
+        type: boolean
+        default: true
       image:
         description: The type of machine to run the job on.
         required: false
@@ -34,6 +39,7 @@ jobs:
           python-version: ${{ inputs.python-version }}
 
       - name: Cache pip
+        if: ${{ inputs.cache == true }}
         uses: actions/cache@v3
         with:
           path: ~/.cache/pip

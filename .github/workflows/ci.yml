@@ -1,0 +1,17 @@
+name: ci
+
+on:
+  workflow_dispatch:
+  pull_request:
+  release:
+    types:
+      - published
+  push:
+    branches:
+      - coatl
+    tags:
+      - '*'
+
+jobs:
+  pre-commit:
+    uses: ./.github/workflows/pre-commit.yml
