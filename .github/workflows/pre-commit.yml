@@ -43,7 +43,7 @@ jobs:
           python-version: ${{ inputs.python-version }}
 
       - name: Cache pip
-        if: ${{ inputs.cache == 'true' }}
+        if: ${{ inputs.cache == true }}
         uses: actions/cache@v3
         with:
           path: ~/.cache/pip
@@ -54,7 +54,7 @@ jobs:
           python -m pip install --upgrade pip pre-commit
 
       - name: Cache pre-commit
-        if: ${{ inputs.cache == 'true' }}
+        if: ${{ inputs.cache == true }}
         uses: actions/cache@v3
         with:
           path: ~/.cache/pre-commit

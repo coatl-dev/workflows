@@ -38,7 +38,7 @@ jobs:
           echo "PY=$(python -VV | sha256sum | cut -d' ' -f1)" >> $GITHUB_ENV
 
       - name: Cache tox
-        if: ${{ inputs.cache == 'true' }}
+        if: ${{ inputs.cache == true }}
         id: cache-tox
         uses: actions/cache@v3
         with:
