@@ -33,6 +33,8 @@ Python 2.7 code.
 
 **Inputs**:
 
+- `cache` (`boolean`): If `true`, files and dependencies will be cached between
+  workflow runs. Defaults to `true`. Optional.
 - `image` (`string`): Name of the VM Image passed through to [`runs-on`].
   Defaults to `ubuntu-latest`. Options: (`ubuntu-20.04`, `ubuntu-22.04`,
   `ubuntu-latest`). Optional.
@@ -71,6 +73,8 @@ Python 2.7 code.
 
 **Inputs**:
 
+- `cache` (`boolean`): If `true`, files and dependencies will be cached between
+  workflow runs. Defaults to `true`. Optional.
 - `image` (`string`): Name of the VM Image passed through to [`runs-on`].
   Defaults to `ubuntu-latest`. Options: (`ubuntu-20.04`, `ubuntu-22.04`,
   `ubuntu-latest`). Optional.
@@ -104,6 +108,8 @@ Python 2.7 code.
 
 **Inputs**:
 
+- `cache` (`boolean`): If `true`, files and dependencies will be cached between
+  workflow runs. Defaults to `true`. Optional.
 - `image` (`string`): Name of the VM Image passed through to [`runs-on`].
   Defaults to `ubuntu-latest`. Options: (`ubuntu-20.04`, `ubuntu-22.04`,
   `ubuntu-latest`). Optional.
@@ -154,6 +160,8 @@ to install Python and invoke [`pre-commit`].
 
 **Inputs**:
 
+- `cache` (`boolean`): If `true`, files and dependencies will be cached between
+  workflow runs. Defaults to `true`. Optional.
 - `image` (`string`): Name of the VM Image passed through to [`runs-on`].
   Defaults to `ubuntu-latest`. Options: (`ubuntu-20.04`, `ubuntu-22.04`,
   `ubuntu-latest`). Optional.
@@ -186,6 +194,8 @@ This workflow will install Python and invoke `pylint` to analyze your code.
 
 **Inputs**:
 
+- `cache` (`boolean`): If `true`, files and dependencies will be cached between
+  workflow runs. Defaults to `true`. Optional.
 - `image` (`string`): Name of the VM Image passed through to [`runs-on`].
   Defaults to `ubuntu-latest`. Options: (`ubuntu-20.04`, `ubuntu-22.04`,
   `ubuntu-latest`). Optional.
@@ -210,6 +220,8 @@ PyPI (or any other repository) using `build` and `twine`.
 
 **Inputs**:
 
+- `cache` (`boolean`): If `true`, files and dependencies will be cached between
+  workflow runs. Defaults to `true`. Optional.
 - `image` (`string`): Name of the VM Image passed through to [`runs-on`].
   Defaults to `ubuntu-latest`. Options: (`ubuntu-20.04`,
   `ubuntu-22.04`, `ubuntu-latest`). Optional.
@@ -259,6 +271,8 @@ This workflow will install the latest version of `tox` to run all envs found in
 
 **Inputs**:
 
+- `cache` (`boolean`): If `true`, files will be cached between workflow runs.
+  Defaults to `true`. Optional.
 - `image` (`string`): Name of the VM Image passed through to [`runs-on`].
   Defaults to `ubuntu-latest`. Options: (`ubuntu-20.04`, `ubuntu-22.04`,
   `ubuntu-latest`). Optional.
@@ -292,6 +306,8 @@ Python versions.
 
 **Inputs**:
 
+- `cache` (`boolean`): If `true`, files and dependencies will be cached between
+  workflow runs. Defaults to `true`. Optional.
 - `image` (`string`): Name of the VM Image passed through to [`runs-on`].
   Defaults to `ubuntu-latest`. Options: (`ubuntu-20.04`, `ubuntu-22.04`,
   `ubuntu-latest`). Optional.
@@ -335,6 +351,8 @@ This workflow will install Python and [`tox-gh`] and it will run the matching
 
 **Inputs**:
 
+- `cache` (`boolean`): If `true`, files and dependencies will be cached between
+  workflow runs. Defaults to `true`. Optional.
 - `image` (`string`): Name of the VM Image passed through to [`runs-on`].
   Defaults to `ubuntu-latest`. Options: (`ubuntu-20.04`, `ubuntu-22.04`,
   `ubuntu-latest`). Optional.
@@ -379,6 +397,8 @@ This workflow will install Python and invoke `tox` to run all envs found in
 
 **Inputs**:
 
+- `cache` (`boolean`): If `true`, files and dependencies will be cached between
+  workflow runs. Defaults to `true`. Optional.
 - `image` (`string`): Name of the VM Image passed through to [`runs-on`].
   Defaults to `ubuntu-latest`. Options: (`ubuntu-20.04`, `ubuntu-22.04`,
   `ubuntu-latest`). Optional.

@@ -1,6 +1,11 @@
 on:
   workflow_call:
     inputs:
+      cache:
+        description: Whether to enable caching.
+        required: false
+        type: boolean
+        default: true
       image:
         description: The type of machine to run the job on.
         required: false
@@ -33,6 +38,7 @@ jobs:
           echo "PY=$(python -VV | sha256sum | cut -d' ' -f1)" >> $GITHUB_ENV
 
       - name: Cache tox
+        if: ${{ inputs.cache == 'true' }}
         id: cache-tox
         uses: actions/cache@v3
         with:
