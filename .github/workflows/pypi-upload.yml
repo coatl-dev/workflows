@@ -48,6 +48,7 @@ jobs:
     container:
       image: python:${{ inputs.python-version }}-slim
       env:
+        PIP_DISABLE_PIP_VERSION_CHECK: '1'
         PIP_NO_CACHE_DIR: '1'
         PIP_NO_PYTHON_VERSION_WARNING: '1'
         PIP_ROOT_USER_ACTION: 'ignore'
