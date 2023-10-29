@@ -220,14 +220,12 @@ PyPI (or any other repository) using `build` and `twine`.
 
 **Inputs**:
 
-- `cache` (`boolean`): If `true`, files and dependencies will be cached between
-  workflow runs. Defaults to `true`. Optional.
 - `image` (`string`): Name of the VM Image passed through to [`runs-on`].
   Defaults to `ubuntu-latest`. Options: (`ubuntu-20.04`,
   `ubuntu-22.04`, `ubuntu-latest`). Optional.
 - `python-version` (`string`): The Python version to use for building and
-  publishing the package. Defaults to `'3.11'`. Options: (`'3.7'` through
-  `'3.12'`). Optional.
+  publishing the package. You may use MAJOR.MINOR or exact version. Defaults to
+  `'3.11'`. Optional
 - `check` (`boolean`): Check metadata with twine before uploading. Defaults to
   `true`. Optional.
 - `url` (`string`): The repository (package index) URL to upload the package to.
