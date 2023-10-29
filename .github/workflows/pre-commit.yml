@@ -49,9 +49,16 @@ jobs:
           path: ~/.cache/pip
           key: pip-pre-commit-${{ steps.setup-python.outputs.python-version }}-${{ inputs.image }}
 
+      - name: Upgrade pre-installed dependencies
+        run: |
+          python -m pip install --upgrade \
+            pip \
+            setuptools \
+            wheel
+
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip pre-commit
+          python -m pip install --upgrade pre-commit
 
       - name: Cache pre-commit
         if: ${{ inputs.cache == true }}
