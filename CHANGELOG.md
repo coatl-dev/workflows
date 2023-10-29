@@ -1,3 +1,9 @@
+## v1.1.2 (2023-10-29)
+
+### Refactor
+
+- modify Python package install strategy (#7)
+
 ## v1.1.1 (2023-10-28)
 
 ### Refactor
