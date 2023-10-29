@@ -1,3 +1,9 @@
+## v1.1.1 (2023-10-28)
+
+### Refactor
+
+- **pypi-upload**: use official Python Docker image (#6)
+
 ## v1.1.0 (2023-10-12)
 
 ### Feat
