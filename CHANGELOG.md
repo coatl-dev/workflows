@@ -1,3 +1,19 @@
+## v2.0.0 (2023-11-16)
+
+### BREAKING CHANGE
+
+- drop unused inputs and set Python 3.11 and ubuntu-22.04 as default
+- drop black, flake8 and mypy
+
+### Refactor
+
+- discard unused inputs (#11)
+- drop unused workflows (#10)
+
+### Perf
+
+- use coatl-dev/workflow-requirements to improve caching (#12)
+
 ## v1.1.2 (2023-10-29)
 
 ### Refactor
