@@ -1,49 +1,24 @@
 on:
   workflow_call:
-    inputs:
-      cache:
-        description: Whether to enable caching.
-        required: false
-        type: boolean
-        default: true
-      image:
-        description: The type of machine to run the job on.
-        required: false
-        type: string
-        default: ubuntu-latest
-      python-version:
-        description: Version of Python to use.
-        required: false
-        type: string
-        default: '3.11'
-      timeout:
-        description: >-
-          The maximum number of minutes to let a job run before GitHub
-          automatically cancels it.
-        required: false
-        type: number
-        default: 15
 
 jobs:
   pylint:
-    runs-on: ${{ inputs.image }}
-    timeout-minutes: ${{ inputs.timeout }}
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Set up Python ${{ inputs.python-version }}
+      - name: Set up Python
         uses: actions/setup-python@v4
         id: setup-python
         with:
-          python-version: ${{ inputs.python-version }}
+          python-version: '3.11'
 
       - name: Cache pip
-        if: ${{ inputs.cache == true }}
         uses: actions/cache@v3
         with:
           path: ~/.cache/pip
-          key: pip-pylint-${{ steps.setup-python.outputs.python-version }}-${{ inputs.image }}
+          key: pip-pylint-${{ steps.setup-python.outputs.python-version }}-${{ runner.os }}
 
       - name: Upgrade pre-installed dependencies
         run: |

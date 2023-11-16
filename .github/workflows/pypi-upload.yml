@@ -1,11 +1,6 @@
 on:
   workflow_call:
     inputs:
-      image:
-        description: The type of machine to run the job on.
-        required: false
-        type: string
-        default: ubuntu-latest
       python-version:
         description: Version of Python to use.
         required: false
@@ -28,13 +23,6 @@ on:
         required: false
         type: string
         default: '__token__'
-      timeout:
-        description: >-
-          The maximum number of minutes to let a job run before GitHub
-          automatically cancels it.
-        required: false
-        type: number
-        default: 15
     secrets:
       password:
         description: >-
@@ -43,8 +31,7 @@ on:
 
 jobs:
   upload:
-    runs-on: ${{ inputs.image }}
-    timeout-minutes: ${{ inputs.timeout }}
+    runs-on: ubuntu-22.04
     container:
       image: python:${{ inputs.python-version }}-slim
       env:

@@ -1,29 +1,10 @@
 on:
   workflow_call:
-    inputs:
-      cache:
-        description: Whether to enable caching.
-        required: false
-        type: boolean
-        default: true
-      image:
-        description: The type of machine to run the job on.
-        required: false
-        type: string
-        default: ubuntu-latest
-      timeout:
-        description: >-
-          The maximum number of minutes to let a job run before GitHub
-          automatically cancels it.
-        required: false
-        type: number
-        default: 15
 
 jobs:
   tox:
-    runs-on: ${{ inputs.image }}
+    runs-on: ubuntu-22.04
     container: coatldev/six:3.11
-    timeout-minutes: ${{ inputs.timeout }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -41,15 +22,14 @@ jobs:
 
       - name: Set PY
         run: |
-          echo "PY=$(python -VV | sha256sum | cut -d' ' -f1)" >> $GITHUB_ENV
+          echo "PY=$(python --version | sha256sum | cut -d' ' -f1)" >> $GITHUB_ENV
 
       - name: Cache tox
-        if: ${{ inputs.cache == true }}
         id: cache-tox
         uses: actions/cache@v3
         with:
           path: .tox
-          key: tox-${{ env.PY }}-${{ inputs.image }}-${{ hashFiles('tox.ini') }}
+          key: tox-${{ env.PY }}-${{ runner.os }}-${{ hashFiles('tox.ini') }}
 
       - name: Run tests
         run: |
