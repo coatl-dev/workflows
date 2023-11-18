@@ -1,3 +1,9 @@
+## v2.0.1 (2023-11-17)
+
+### Refactor
+
+- use new requirements path (#13)
+
 ## v2.0.0 (2023-11-16)
 
 ### BREAKING CHANGE
