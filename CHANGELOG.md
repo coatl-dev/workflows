@@ -1,3 +1,9 @@
+## v2.0.2 (2023-11-21)
+
+### Refactor
+
+- use coatl-dev/workflow-requirements base requirements (#14)
+
 ## v2.0.1 (2023-11-17)
 
 ### Refactor
