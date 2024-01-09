@@ -1,0 +1,93 @@
+on:
+  workflow_call:
+    inputs:
+      path:
+        description: >-
+          A file or location of the requirement file(s).
+        required: true
+        type: string
+      python-version:
+        description: >-
+          Python version to use for installing pip-tools.
+        required: false
+        type: string
+        default: '2.7'
+      pr-create:
+        description: >-
+          Whether to create a Pull Request.
+        required: false
+        type: string
+        default: 'yes'
+      pr-commit-message:
+        description: >-
+          Use the given <msg> as the commit message.
+        required: false
+        type: string
+        default: 'chore(requirements): pip-compile upgrade'
+      pr-auto-merge:
+        description: >-
+          Automatically merge only after necessary requirements are met.
+        required: false
+        type: string
+        default: 'yes'
+      sign-commits:
+        required: false
+        type: string
+        default: 'yes'
+    secrets:
+      gh-token:
+        description: >-
+          GitHub token.
+        required: false
+      gpg-sign-passphrase:
+        description: >-
+          GPG private key passphrase.
+        required: false
+      gpg-sign-private-key:
+        description: >-
+          GPG private key exported as an ASCII armored version.
+        required: false
+
+
+jobs:
+  pip-compile-upgrade:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Update requirements
+        id: pip-compile
+        uses: coatl-dev/actions/pip-compile@coatl
+        with:
+          path: ${{ inputs.path }}
+          python-version: '${{ inputs.python-version }}'
+
+      - name: Detect changes
+        id: git-diff
+        uses: coatl-dev/actions/simple-git-diff@coatl
+        with:
+          path: ${{ inputs.path }}
+
+      - name: Import GPG key
+        if: ${{ steps.git-diff.outputs.diff == 'true' && inputs.pr-create == 'yes' && inputs.sign-commits == 'yes' }}
+        id: gpg-import
+        uses: coatl-dev/actions/gpg-import@coatl
+        with:
+          passphrase: ${{ secrets.gpg-sign-passphrase }}
+          private-key: ${{ secrets.gpg-sign-private-key }}
+
+      - name: Commit and push changes
+        if: ${{ steps.git-diff.outputs.diff == 'true' && inputs.pr-create == 'yes' }}
+        run: |
+          git checkout -B coatl-dev-pip-compile-upgrade
+          git add ${{ inputs.path }}
+          git commit -m "${{ inputs.pr-commit-message }}"
+          git push --force --set-upstream origin coatl-dev-pip-compile-upgrade
+
+      - name: Create pull request
+        if: ${{ steps.git-diff.outputs.diff == 'true' && inputs.pr-create == 'yes' }}
+        uses: coatl-dev/actions/pr-create@coatl
+        with:
+          gh-token: ${{ secrets.gh-token }}
+          auto-merge: ${{ inputs.pr-auto-merge }}

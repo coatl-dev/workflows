@@ -1,0 +1,135 @@
+on:
+  workflow_call:
+    inputs:
+      cache:
+        description: >-
+          Whether to enable caching.
+        required: false
+        type: string
+        default: 'yes'
+      pr-create:
+        description: >-
+          Whether to create a Pull Request.
+        required: false
+        type: string
+        default: 'yes'
+      pr-auto-merge:
+        description: >-
+          Automatically merge only after necessary requirements are met.
+        required: false
+        type: string
+        default: 'yes'
+      sign-commits:
+        required: false
+        type: string
+        default: 'yes'
+      skip-repos:
+        description: >-
+          A list of repos to exclude from autoupdate.
+        type: string
+        required: false
+    secrets:
+      gh-token:
+        description: >-
+          GitHub token.
+        required: false
+      gpg-sign-passphrase:
+        description: >-
+          GPG private key passphrase.
+        required: false
+      gpg-sign-private-key:
+        description: >-
+          GPG private key exported as an ASCII armored version.
+        required: false
+
+
+jobs:
+  pre-commit-autoupdate:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        id: setup-python
+        with:
+          python-version: '3.11'
+
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          repository: coatl-dev/workflow-requirements
+          path: deps
+
+      - name: Cache pip
+        if: ${{ inputs.cache == 'yes' }}
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip
+          key: coatl-dev-pre-commit-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('deps/requirements/base.txt', 'deps/requirements/pre-commit.txt') }}
+
+      - name: Install pre-commit
+        shell: bash
+        run: |
+          python -m pip install --requirement deps/requirements/base.txt
+          python -m pip install --requirement deps/requirements/pre-commit.txt
+
+      - name: Update repos
+        run: |
+          if [ -z "$INPUT_SKIP_REPOS" ]; then
+              while IFS='' read -r repo || [ -n "${repo}" ]; do
+                  pre-commit autoupdate --repo "$repo"
+              done < <(
+                  grep -Eo 'https://[a-zA-Z0-9./?=_%:-]*' .pre-commit-config.yaml
+              )
+          else
+              while IFS='' read -r repo || [ -n "${repo}" ]; do
+                  pre-commit autoupdate --repo "$repo"
+              done < <(
+                  grep -Eo 'https://[a-zA-Z0-9./?=_%:-]*' .pre-commit-config.yaml |
+                  grep -iEwv "$INPUT_SKIP_REPOS"
+              )
+          fi
+        env:
+          INPUT_SKIP_REPOS: ${{ inputs.skip-repos }}
+
+      - name: Detect changes
+        id: git-diff
+        uses: coatl-dev/actions/simple-git-diff@coatl
+        with:
+          path: .pre-commit-config.yaml
+
+      - name: Import GPG key
+        if: ${{ steps.git-diff.outputs.diff == 'true' && inputs.pr-create == 'yes' && inputs.sign-commits == 'yes' }}
+        id: gpg-import
+        uses: coatl-dev/actions/gpg-import@coatl
+        with:
+          passphrase: ${{ secrets.gpg-sign-passphrase }}
+          private-key: ${{ secrets.gpg-sign-private-key }}
+
+      - name: Build commit message
+        if: ${{ steps.git-diff.outputs.diff == 'true' }}
+        run: |
+          echo "build(deps): coatl-dev pre-commit autoupdate" > "$RUNNER_TEMP/commit.txt"
+          {
+              echo ""
+              echo "updates:"
+              git diff --unified=1 .pre-commit-config.yaml |
+              grep 'https://[a-zA-Z0-9./?=_%:-]*' | sed -e 's/ \{2,\}//g'
+          } >> "$RUNNER_TEMP/commit.txt"
+
+      - name: Commit and push changes
+        if: ${{ steps.git-diff.outputs.diff == 'true' && inputs.pr-create == 'yes' }}
+        run: |
+          git checkout -B 'coatl-dev-pre-commit-autoupdate'
+          git add .pre-commit-config.yaml
+          git commit --file="${RUNNER_TEMP}/commit.txt"
+          git push --force --set-upstream origin coatl-dev-pre-commit-autoupdate
+
+      - name: Create Pull Request
+        if: ${{ steps.git-diff.outputs.diff == 'true' && inputs.pr-create == 'yes' }}
+        uses: coatl-dev/actions/pr-create@coatl
+        with:
+          gh-token: ${{ secrets.gh-token }}
+          auto-merge: ${{ inputs.pr-auto-merge }}
