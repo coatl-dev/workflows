@@ -1,3 +1,9 @@
+## v2.1.0 (2024-01-09)
+
+### Feat
+
+- add pip-compile-upgrade and pre-commit-autoupdate (#18)
+
 ## v2.0.3 (2023-12-11)
 
 ## v2.0.2 (2023-11-21)
