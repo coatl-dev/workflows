@@ -1,3 +1,9 @@
+## v2.1.1 (2024-01-09)
+
+### Refactor
+
+- use coatl-dev/actions@v2 (#19)
+
 ## v2.1.0 (2024-01-09)
 
 ### Feat
