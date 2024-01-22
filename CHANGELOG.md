@@ -1,3 +1,9 @@
+## v2.1.2 (2024-01-21)
+
+### Refactor
+
+- **deps**: bump actions/cache from 3 to 4 (#20)
+
 ## v2.1.1 (2024-01-09)
 
 ### Refactor
