@@ -29,7 +29,7 @@ requirements.
 
 - `path` (`string`): A file or location of the requirement file(s).
 - `python-version` (`string`): Python version to use for installing `pip-tools`.
-  You may use MAJOR.MINOR or exact version. Defaults to `'2.7'`. Optional.
+  You may use MAJOR.MINOR or exact version. Defaults to `'3.12'`. Optional.
 - `pr-create` (`string`): Whether to create a Pull Request. Options: `'yes'`,
   `'no'`. Defaults to `'yes'`. Optional.
 - `pr-commit-message` (`string`): Use the given message as the commit message.
@@ -160,7 +160,7 @@ PyPI (or any other repository) using `build` and `twine`.
 
 - `python-version` (`string`): The Python version to use for building and
   publishing the package. You may use MAJOR.MINOR or exact version. Defaults to
-  `'3.11'`. Optional
+  `'3.12'`. Optional
 - `check` (`boolean`): Check metadata with twine before uploading. Defaults to
   `true`. Optional.
 - `url` (`string`): The repository (package index) URL to upload the package to.
@@ -190,10 +190,16 @@ jobs:
 This workflow will install the latest version of `tox` to run all envs found in
 [`env_list`].
 
+**Inputs**:
+
+- `python-version` (`string`): The Python version to use for building and
+  publishing the package. You may use MAJOR.MINOR or exact version. Defaults to
+  `'3.12'`. Optional
+
 **Notes**:
 
-- This workflow uses the [`coatldev/six:3.11`] Docker image, which comes with
-  Python 2.7 and 3.11.
+- This workflow uses the [`coatldev/six:3.12`] Docker image, which comes with
+  Python 2.7 and 3.12.
 
 **Example**:
 
@@ -296,7 +302,7 @@ jobs:
 ```
 
 [`actions/setup-python`]: https://github.com/actions/setup-python
-[`coatldev/six:3.11`]: https://hub.docker.com/r/coatldev/six
+[`coatldev/six:3.12`]: https://hub.docker.com/r/coatldev/six
 [`env_list`]: https://tox.wiki/en/latest/config.html#env_list
 [`local hooks`]: https://pre-commit.com/#repository-local-hooks
 [`pre-commit`]: https://pre-commit.com/

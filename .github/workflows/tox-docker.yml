@@ -1,10 +1,17 @@
 on:
   workflow_call:
+    inputs:
+      python-version:
+        description: >-
+          Python version to use for installing pip-tools.
+        required: false
+        type: string
+        default: '3.12'
 
 jobs:
   tox:
     runs-on: ubuntu-22.04
-    container: coatldev/six:3.11
+    container: coatldev/six:${{ inputs.python-version }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
