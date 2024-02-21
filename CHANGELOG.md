@@ -1,3 +1,13 @@
+## v3.0.0 (2024-02-21)
+
+### BREAKING CHANGE
+
+- replace Python 2.7 and 3.11 with 3.12 as default
+
+### Refactor
+
+- use Python 3.12 as default version (#23)
+
 ## v2.1.2 (2024-01-21)
 
 ### Refactor
