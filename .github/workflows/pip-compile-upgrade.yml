@@ -11,7 +11,7 @@ on:
           Python version to use for installing pip-tools.
         required: false
         type: string
-        default: '2.7'
+        default: '3.12'
       pr-create:
         description: >-
           Whether to create a Pull Request.
@@ -77,12 +77,22 @@ jobs:
           passphrase: ${{ secrets.gpg-sign-passphrase }}
           private-key: ${{ secrets.gpg-sign-private-key }}
 
+      - name: Build commit message
+        if: ${{ steps.git-diff.outputs.diff == 'true' }}
+        run: |
+          echo "${{ inputs.pr-commit-message }}" > "$RUNNER_TEMP/commit.txt"
+          {
+              echo ""
+              echo "updates:"
+              git status --porcelain | awk 'match($1, "M") {print "  - " $2}'
+          } >> "$RUNNER_TEMP/commit.txt"
+
       - name: Commit and push changes
         if: ${{ steps.git-diff.outputs.diff == 'true' && inputs.pr-create == 'yes' }}
         run: |
           git checkout -B coatl-dev-pip-compile-upgrade
           git add ${{ inputs.path }}
-          git commit -m "${{ inputs.pr-commit-message }}"
+          git commit --file="${RUNNER_TEMP}/commit.txt"
           git push --force --set-upstream origin coatl-dev-pip-compile-upgrade
 
       - name: Create pull request
