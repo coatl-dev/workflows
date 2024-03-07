@@ -196,10 +196,9 @@ This workflow will install the latest version of `tox` to run all envs found in
   publishing the package. You may use MAJOR.MINOR or exact version. Defaults to
   `'3.12'`. Optional
 
-**Notes**:
-
-- This workflow uses the [`coatldev/six:3.12`] Docker image, which comes with
-  Python 2.7 and 3.12.
+> [!NOTE]
+> This workflow uses the [`coatldev/six:3.12`] Docker image, which comes with
+> Python 2.7 and 3.12.
 
 **Example**:
 
@@ -254,14 +253,13 @@ jobs:
 This workflow will install Python and [`tox-gh`] and it will run the matching
 `tox` environment based on the `gh` configuration section found in `tox.ini`.
 
-**Notes**:
-
-- :warning: The latest `tox-gh` release requires `python>=3.7`.
-
 **Inputs**:
 
 - `python-versions` (list[`string`]): A list of Python versions passed
   through to [`actions/setup-python`]'s `python-version`. Required.
+
+> [!IMPORTANT]
+> The latest `tox-gh` release requires `python>=3.7`.
 
 **Example**:
 
