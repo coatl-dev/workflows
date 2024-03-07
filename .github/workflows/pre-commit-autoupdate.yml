@@ -88,14 +88,14 @@ jobs:
 
       - name: Detect changes
         id: git-diff
-        uses: coatl-dev/actions/simple-git-diff@v2
+        uses: coatl-dev/actions/simple-git-diff@v3
         with:
           path: .pre-commit-config.yaml
 
       - name: Import GPG key
         if: ${{ steps.git-diff.outputs.diff == 'true' && inputs.pr-create == 'yes' && inputs.sign-commits == 'yes' }}
         id: gpg-import
-        uses: coatl-dev/actions/gpg-import@v2
+        uses: coatl-dev/actions/gpg-import@v3
         with:
           passphrase: ${{ secrets.gpg-sign-passphrase }}
           private-key: ${{ secrets.gpg-sign-private-key }}
@@ -121,7 +121,7 @@ jobs:
 
       - name: Create Pull Request
         if: ${{ steps.git-diff.outputs.diff == 'true' && inputs.pr-create == 'yes' }}
-        uses: coatl-dev/actions/pr-create@v2
+        uses: coatl-dev/actions/pr-create@v3
         with:
           gh-token: ${{ secrets.gh-token }}
           auto-merge: ${{ inputs.pr-auto-merge }}
