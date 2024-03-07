@@ -1,3 +1,9 @@
+## v3.0.1 (2024-03-06)
+
+### Refactor
+
+- use coatl-dev/actions@v3 (#24)
+
 ## v3.0.0 (2024-02-21)
 
 ### BREAKING CHANGE
