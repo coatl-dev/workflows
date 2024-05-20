@@ -1,3 +1,9 @@
+## v3.0.2 (2024-05-20)
+
+### Refactor
+
+- **tox-docker**: fix python-version input description (#28)
+
 ## v3.0.1 (2024-03-06)
 
 ### Refactor
