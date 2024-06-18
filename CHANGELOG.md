@@ -1,3 +1,13 @@
+## v4.0.0 (2024-06-18)
+
+### BREAKING CHANGE
+
+- drop python-version input
+
+### Refactor
+
+- **tox-docker**: use coatldev/six:latest container (#31)
+
 ## v3.0.2 (2024-05-20)
 
 ### Refactor
