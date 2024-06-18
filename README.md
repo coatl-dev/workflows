@@ -190,21 +190,16 @@ jobs:
 This workflow will install the latest version of `tox` to run all envs found in
 [`env_list`].
 
-**Inputs**:
-
-- `python-version` (`string`): The Python version to use for building and
-  publishing the package. You may use MAJOR.MINOR or exact version. Defaults to
-  `'3.12'`. Optional
-
 > [!NOTE]
-> This workflow uses the [`coatldev/six:3.12`] Docker image, which comes with
-> Python 2.7 and 3.12.
+> This workflow uses the [`coatldev/six`] Docker image, which comes with
+> Python 3.12 and 2.7.18.
 
 **Example**:
 
 ```ini
 [tox]
 requires =
+    tox>=4.2
     virtualenv<20.22.0
 ```
 

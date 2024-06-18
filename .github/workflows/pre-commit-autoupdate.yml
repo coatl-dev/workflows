@@ -50,7 +50,7 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Checkout repo
+      - name: Checkout requirements repo
         uses: actions/checkout@v4
         with:
           repository: coatl-dev/workflow-requirements
