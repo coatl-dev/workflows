@@ -10,6 +10,7 @@ Our main goal is to provide tools for maintainers working on Python 2 projects.
 
 Workflows:
 
+- [docker-publish-multi-platform](#githubworkflowsdocker-publish-multi-platform)
 - [pip-compile-upgrade](#githubworkflowspip-compile-upgrade)
 - [pre-commit-autoupdate](#githubworkflowspre-commit-autoupdate)
 - [pre-commit](#githubworkflowspre-commityml)
@@ -19,6 +20,41 @@ Workflows:
 - [tox-envs](#githubworkflowstox-envsyml)
 - [tox-gh](#githubworkflowstox-ghyml)
 - [tox](#githubworkflowstoxyml)
+
+### .github/workflows/docker-publish-multi-platform
+
+GitHub action for using a matrix strategy to distribute the build for amd64 and
+arm64.
+
+**Inputs**:
+
+- `registry-image` (`string`): Docker image to use as base name for tags.
+- `metadata-tags` (`string`): List of tags as key-value pair attributes.
+  Optional.
+- `dockerhub-username` (`string`): Username used to log against the Docker
+  registry.
+
+**Secrets**:
+
+- `dockerhub-token` (`secret`): Password or personal access token used to log
+  against the Docker registry.
+
+**Example**:
+
+```yml
+jobs:
+  main:
+    uses: coatl-dev/workflows/.github/workflows/docker-publish-multi-platform.yml@v4.0.0
+    with:
+      registry-image: user/app
+      metadata-tags: |
+        type=semver,pattern={{version}}
+        type=semver,pattern={{major}}.{{minor}}
+        type=semver,pattern={{major}}
+      dockerhub-username: ${{ vars.DOCKERHUB_USERNAME }}
+    secrets:
+      dockerhub-token: ${{ secrets.DOCKERHUB_TOKEN }}
+```
 
 ### .github/workflows/pip-compile-upgrade
 
@@ -295,7 +331,7 @@ jobs:
 ```
 
 [`actions/setup-python`]: https://github.com/actions/setup-python
-[`coatldev/six:3.12`]: https://hub.docker.com/r/coatldev/six
+[`coatldev/six`]: https://hub.docker.com/r/coatldev/six
 [`env_list`]: https://tox.wiki/en/latest/config.html#env_list
 [`local hooks`]: https://pre-commit.com/#repository-local-hooks
 [`pre-commit`]: https://pre-commit.com/
