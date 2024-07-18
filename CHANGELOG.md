@@ -1,3 +1,9 @@
+## v4.1.0 (2024-07-17)
+
+### Feat
+
+- add docker-publish-multi-platform workflow (#34)
+
 ## v4.0.0 (2024-06-18)
 
 ### BREAKING CHANGE
