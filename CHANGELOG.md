@@ -1,3 +1,13 @@
+## v5.0.0 (2024-08-21)
+
+### BREAKING CHANGE
+
+- dockerhub-* inputs have been renamed to registry-*
+
+### Refactor
+
+- **docker-publish-multi-platform**: add the flexibility to upload to any registry (#37)
+
 ## v4.1.0 (2024-07-17)
 
 ### Feat
