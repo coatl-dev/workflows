@@ -1,3 +1,9 @@
+## v5.0.1 (2024-08-21)
+
+### Refactor
+
+- **docker-publish**: add build-digest-key input (#38)
+
 ## v5.0.0 (2024-08-21)
 
 ### BREAKING CHANGE
