@@ -60,7 +60,7 @@ or quay.io).
 ```yml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/docker-publish-multi-platform.yml@v5.0.2
+    uses: coatl-dev/workflows/.github/workflows/docker-publish-multi-platform.yml@v5.0.3
     with:
       registry-image: user/app
       metadata-tags: |
@@ -116,7 +116,7 @@ on:
 
 jobs:
   pip-compile-upgrade:
-    uses: coatl-dev/workflows/.github/workflows/pip-compile-upgrade.yml@v5.0.2
+    uses: coatl-dev/workflows/.github/workflows/pip-compile-upgrade.yml@v5.0.3
     with:
       path: requirements.txt
     secrets:
@@ -165,7 +165,7 @@ on:
 
 jobs:
   pre-commit-autoupdate:
-    uses: coatl-dev/workflows/.github/workflows/pre-commit-autoupdate.yml@v5.0.2
+    uses: coatl-dev/workflows/.github/workflows/pre-commit-autoupdate.yml@v5.0.3
     with:
       skip-repos: 'flake8'
     secrets:
@@ -190,7 +190,7 @@ to install Python and invoke [`pre-commit`].
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/pre-commit.yml@v5.0.2
+    uses: coatl-dev/workflows/.github/workflows/pre-commit.yml@v5.0.3
     with:
       skip-hooks: 'pylint'
 ```
@@ -204,7 +204,7 @@ This workflow will install Python and invoke `pylint` to analyze your code.
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/pylint.yml@v5.0.2
+    uses: coatl-dev/workflows/.github/workflows/pylint.yml@v5.0.3
 ```
 
 ### .github/workflows/pypi-upload.yml
@@ -234,7 +234,7 @@ Secrets:
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/pypi-upload.yml@v5.0.2
+    uses: coatl-dev/workflows/.github/workflows/pypi-upload.yml@v5.0.3
     with:
       python-version: '3.11'
     secrets:
@@ -262,7 +262,7 @@ requires =
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/tox-docker.yml@v5.0.2
+    uses: coatl-dev/workflows/.github/workflows/tox-docker.yml@v5.0.3
 ```
 
 ### .github/workflows/tox-envs.yml
@@ -294,7 +294,7 @@ requires =
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/tox-envs.yml@v5.0.2
+    uses: coatl-dev/workflows/.github/workflows/tox-envs.yml@v5.0.3
     with:
       python-versions: '["3.7", "3.8", "3.9", "3.10", "3.11", "3.12"]'
 ```
@@ -332,7 +332,7 @@ and on your workflow:
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/tox-gh.yml@v5.0.2
+    uses: coatl-dev/workflows/.github/workflows/tox-gh.yml@v5.0.3
     with:
       python-versions: '["3.7", "3.8", "3.9", "3.10", "3.11", "3.12"]'
 ```
@@ -347,7 +347,7 @@ This workflow will install Python and invoke `tox` to run all envs found in
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/tox.yml@v5.0.2
+    uses: coatl-dev/workflows/.github/workflows/tox.yml@v5.0.3
 ```
 
 [`actions/setup-python`]: https://github.com/actions/setup-python

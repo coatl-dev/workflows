@@ -1,3 +1,9 @@
+## v5.0.3 (2024-08-21)
+
+### Refactor
+
+- **docker-publish**: use build-digest-key for pattern when downloading digests (#40)
+
 ## v5.0.2 (2024-08-21)
 
 ### Refactor
