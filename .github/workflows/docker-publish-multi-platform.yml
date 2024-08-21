@@ -11,15 +11,43 @@ on:
           List of tags as key-value pair attributes.
         required: false
         type: string
-      dockerhub-username:
+      registry-address:
         description: >-
-          Username used to log against the Docker registry.
+          Server address of Docker registry. If not set then will default to Docker registry.
+        required: false
+        type: string
+        default: docker.io
+      registry-username:
+        description: >-
+          Username for authenticating to the Docker registry.
         required: true
         type: string
-    secrets:
-      dockerhub-token:
+      build-platforms:
         description: >-
-          Personal access token used to log against the Docker registry.
+          List of target platforms for build.
+        required: false
+        type: string
+        default: '["linux/amd64", "linux/arm64"]'
+      build-context:
+        description: >-
+          Build's context is the set of files located in the specified PATH or URL.
+        type: string
+        required: false
+      build-file:
+        description: >-
+          Path to the Dockerfile.
+        type: string
+        required: false
+      build-cache-key:
+        description: >-
+          An explicit key for a cache entry.
+        required: false
+        type: string
+        default: coatl
+    secrets:
+      registry-password:
+        description: >-
+          Password or personal access token for authenticating the Docker registry.
         required: true
 
 jobs:
@@ -28,9 +56,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        platform:
-          - linux/amd64
-          - linux/arm64
+        platform: ${{ fromJSON(inputs.build-platforms) }}
     steps:
       - name: Prepare
         run: |
@@ -46,24 +72,25 @@ jobs:
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
-        with:
-          platforms: ${{ matrix.platform }}
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Login to Docker Hub
+      - name: Login to Docker registry
         uses: docker/login-action@v3
         with:
-          username: ${{ inputs.dockerhub-username }}
-          password: ${{ secrets.dockerhub-token }}
+          registry: ${{ inputs.registry-address }}
+          username: ${{ inputs.registry-username }}
+          password: ${{ secrets.registry-password }}
 
       - name: Build and push by digest
         id: build
         uses: docker/build-push-action@v6
         with:
-          cache-from: type=gha,scope=${{ matrix.platform }}
-          cache-to: type=gha,scope=${{ matrix.platform }},mode=max
+          cache-from: type=gha,scope=${{ inputs.build-cache-key }}-${{ env.PLATFORM_PAIR }}
+          cache-to: type=gha,scope=${{ inputs.build-cache-key }}-${{ env.PLATFORM_PAIR }},mode=max
+          context: ${{ inputs.build-context }}
+          file: ${{ inputs.build-file }}
           labels: ${{ steps.meta.outputs.labels }}
           outputs: type=image,name=${{ inputs.registry-image }},push-by-digest=true,name-canonical=true,push=true
           platforms: ${{ matrix.platform }}
@@ -105,11 +132,12 @@ jobs:
           tags: |
             ${{ inputs.metadata-tags }}
 
-      - name: Login to Docker Hub
+      - name: Login to Docker registry
         uses: docker/login-action@v3
         with:
-          username: ${{ inputs.dockerhub-username }}
-          password: ${{ secrets.dockerhub-token }}
+          registry: ${{ inputs.registry-address }}
+          username: ${{ inputs.registry-username }}
+          password: ${{ secrets.registry-password }}
 
       - name: Create manifest list and push
         working-directory: /tmp/digests
