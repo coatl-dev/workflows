@@ -1,3 +1,9 @@
+## v5.0.2 (2024-08-21)
+
+### Refactor
+
+- **docker-publish**: add build-provenance input (#39)
+
 ## v5.0.1 (2024-08-21)
 
 ### Refactor
