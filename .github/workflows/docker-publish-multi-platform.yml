@@ -44,6 +44,12 @@ on:
         required: false
         type: string
         default: coatl
+      build-digest-key:
+        description: >-
+          Name of the build digest.
+        required: false
+        type: string
+        default: coatl
     secrets:
       registry-password:
         description: >-
@@ -104,7 +110,7 @@ jobs:
       - name: Upload digest
         uses: actions/upload-artifact@v4
         with:
-          name: digests-${{ env.PLATFORM_PAIR }}
+          name: digests-${{ inputs.build-digest-key }}-${{ env.PLATFORM_PAIR }}
           path: /tmp/digests/*
           if-no-files-found: error
           retention-days: 1
