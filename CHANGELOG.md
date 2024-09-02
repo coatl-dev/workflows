@@ -1,3 +1,9 @@
+## v4.1.0 (2024-09-01)
+
+### Feat
+
+- add docker-build-push-multi-platform (#43)
+
 ## v4.0.0 (2024-06-18)
 
 ### BREAKING CHANGE

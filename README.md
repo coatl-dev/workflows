@@ -10,6 +10,7 @@ Our main goal is to provide tools for maintainers working on Python 2 projects.
 
 Workflows:
 
+- [docker-build-push-multi-platform](#githubworkflowsdocker-build-push-multi-platform)
 - [pip-compile-upgrade](#githubworkflowspip-compile-upgrade)
 - [pre-commit-autoupdate](#githubworkflowspre-commit-autoupdate)
 - [pre-commit](#githubworkflowspre-commityml)
@@ -19,6 +20,59 @@ Workflows:
 - [tox-envs](#githubworkflowstox-envsyml)
 - [tox-gh](#githubworkflowstox-ghyml)
 - [tox](#githubworkflowstoxyml)
+
+### .github/workflows/docker-build-push-multi-platform
+
+GitHub action for using a matrix strategy to distribute the build for
+`linux/amd64` and `linux/arm64`, and publish to a Docker registry of your choice
+(Docker Hub, ghcr.io or quay.io).
+
+**Inputs**:
+
+- `registry-image` (`string`): Docker image to use as base name for tags.
+- `metadata-tags` (`string`): List of tags as key-value pair attributes.
+  Optional.
+- `registry-address` (`string`): Server address of Docker registry. If not set
+  then will default to Docker registry. Optional.
+- `registry-username` (`string`): Username for authenticating to the Docker
+  registry.
+- `build-context` (`string`): Build's context is the set of files located in the
+  specified PATH or URL. Optional.
+- `build-file` (`string`): Path to the Dockerfile. Optional.
+- `build-provenance` (`boolean`): Generate provenance attestation for the build.
+  Defaults to `false`. Optional.
+- `build-cache-key` (`string`): An explicit key for a cache entry. This will be
+  used in conjunction with the platform set in `build-platforms`, e.g.
+  `coatl-linux-amd64`. Defaults to `coatl`. Optional.
+- `build-digest-key` (`string`): Name of the build digest. This will be used in
+  conjunction with the platform set in `build-platforms`, e.g.
+  `coatl-linux-amd64`. Defaults to `coatl`. Optional.
+
+**Secrets**:
+
+- `registry-password` (`secret`): Password or personal access token for
+  authenticating the Docker registry.
+
+**Example**:
+
+```yml
+jobs:
+  main:
+    uses: coatl-dev/workflows/.github/workflows/docker-build-push-multi-platform.yml@v4.1.0
+    with:
+      registry-image: user/app
+      metadata-tags: |
+        type=semver,pattern={{version}}
+        type=semver,pattern={{major}}.{{minor}}
+        type=semver,pattern={{major}}
+      registry-username: ${{ vars.DOCKERHUB_USERNAME }}
+      build-context: "{{defaultContext}}:mysubdir"
+      build-provenance: true
+      build-cache-key: mykey
+      build-digest-key: mydigest
+    secrets:
+      registry-password: ${{ secrets.DOCKERHUB_TOKEN }}
+```
 
 ### .github/workflows/pip-compile-upgrade
 
@@ -60,7 +114,7 @@ on:
 
 jobs:
   pip-compile-upgrade:
-    uses: coatl-dev/workflows/.github/workflows/pip-compile-upgrade.yml@v4.0.0
+    uses: coatl-dev/workflows/.github/workflows/pip-compile-upgrade.yml@v4.1.0
     with:
       path: requirements.txt
     secrets:
@@ -109,7 +163,7 @@ on:
 
 jobs:
   pre-commit-autoupdate:
-    uses: coatl-dev/workflows/.github/workflows/pre-commit-autoupdate.yml@v4.0.0
+    uses: coatl-dev/workflows/.github/workflows/pre-commit-autoupdate.yml@v4.1.0
     with:
       skip-repos: 'flake8'
     secrets:
@@ -134,7 +188,7 @@ to install Python and invoke [`pre-commit`].
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/pre-commit.yml@v4.0.0
+    uses: coatl-dev/workflows/.github/workflows/pre-commit.yml@v4.1.0
     with:
       skip-hooks: 'pylint'
 ```
@@ -148,7 +202,7 @@ This workflow will install Python and invoke `pylint` to analyze your code.
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/pylint.yml@v4.0.0
+    uses: coatl-dev/workflows/.github/workflows/pylint.yml@v4.1.0
 ```
 
 ### .github/workflows/pypi-upload.yml
@@ -178,7 +232,7 @@ Secrets:
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/pypi-upload.yml@v4.0.0
+    uses: coatl-dev/workflows/.github/workflows/pypi-upload.yml@v4.1.0
     with:
       python-version: '3.11'
     secrets:
@@ -206,7 +260,7 @@ requires =
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/tox-docker.yml@v4.0.0
+    uses: coatl-dev/workflows/.github/workflows/tox-docker.yml@v4.1.0
 ```
 
 ### .github/workflows/tox-envs.yml
@@ -238,7 +292,7 @@ requires =
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/tox-envs.yml@v4.0.0
+    uses: coatl-dev/workflows/.github/workflows/tox-envs.yml@v4.1.0
     with:
       python-versions: '["3.7", "3.8", "3.9", "3.10", "3.11", "3.12"]'
 ```
@@ -276,7 +330,7 @@ and on your workflow:
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/tox-gh.yml@v4.0.0
+    uses: coatl-dev/workflows/.github/workflows/tox-gh.yml@v4.1.0
     with:
       python-versions: '["3.7", "3.8", "3.9", "3.10", "3.11", "3.12"]'
 ```
@@ -291,7 +345,7 @@ This workflow will install Python and invoke `tox` to run all envs found in
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/tox.yml@v4.0.0
+    uses: coatl-dev/workflows/.github/workflows/tox.yml@v4.1.0
 ```
 
 [`actions/setup-python`]: https://github.com/actions/setup-python
