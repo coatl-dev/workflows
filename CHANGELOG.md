@@ -1,3 +1,9 @@
+## v4.1.2 (2024-09-10)
+
+### Refactor
+
+- set pr-delete-branch default to 'no' (#45)
+
 ## v4.1.1 (2024-09-09)
 
 ### Refactor

@@ -58,7 +58,7 @@ GitHub action for using a matrix strategy to distribute the build for
 ```yml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/docker-build-push-multi-platform.yml@v4.1.1
+    uses: coatl-dev/workflows/.github/workflows/docker-build-push-multi-platform.yml@v4.1.2
     with:
       registry-image: user/app
       metadata-tags: |
@@ -91,7 +91,7 @@ requirements.
 - `pr-auto-merge` (`string`): Automatically merge only after necessary
   requirements are met. Options: `'yes'`, `'no'`. Defaults to `'yes'`. Optional.
 - `pr-delete-branch` (`string`): Delete the local and remote branch after merge.
-  Options: `'yes'`, `'no'`. Defaults to `'yes'`. Optional.
+  Options: `'yes'`, `'no'`. Defaults to `'no'`. Optional.
 - `sign-commits` (`string`): Whether to sign Git commits. Options: `'yes'`,
   `'no'`. Defaults to `'yes'`. Optional.
 
@@ -116,7 +116,7 @@ on:
 
 jobs:
   pip-compile-upgrade:
-    uses: coatl-dev/workflows/.github/workflows/pip-compile-upgrade.yml@v4.1.1
+    uses: coatl-dev/workflows/.github/workflows/pip-compile-upgrade.yml@v4.1.2
     with:
       path: requirements.txt
     secrets:
@@ -140,7 +140,7 @@ to install Python and invoke [`pre-commit autoupdate`].
 - `pr-auto-merge` (`string`): Automatically merge only after necessary
   requirements are met. Options: `'yes'`, `'no'`. Defaults to `'yes'`. Optional.
 - `pr-delete-branch` (`string`): Delete the local and remote branch after merge.
-  Options: `'yes'`, `'no'`. Defaults to `'yes'`. Optional.
+  Options: `'yes'`, `'no'`. Defaults to `'no'`. Optional.
 - `sign-commits` (`string`): Whether to sign Git commits. Options: `'yes'`,
   `'no'`. Defaults to `'yes'`. Optional.
 - `skip-repos` (`string`): A list of repos to exclude from autoupdate. The repos
@@ -167,7 +167,7 @@ on:
 
 jobs:
   pre-commit-autoupdate:
-    uses: coatl-dev/workflows/.github/workflows/pre-commit-autoupdate.yml@v4.1.1
+    uses: coatl-dev/workflows/.github/workflows/pre-commit-autoupdate.yml@v4.1.2
     with:
       skip-repos: 'flake8'
     secrets:
@@ -192,7 +192,7 @@ to install Python and invoke [`pre-commit`].
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/pre-commit.yml@v4.1.1
+    uses: coatl-dev/workflows/.github/workflows/pre-commit.yml@v4.1.2
     with:
       skip-hooks: 'pylint'
 ```
@@ -206,7 +206,7 @@ This workflow will install Python and invoke `pylint` to analyze your code.
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/pylint.yml@v4.1.1
+    uses: coatl-dev/workflows/.github/workflows/pylint.yml@v4.1.2
 ```
 
 ### .github/workflows/pypi-upload.yml
@@ -236,7 +236,7 @@ Secrets:
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/pypi-upload.yml@v4.1.1
+    uses: coatl-dev/workflows/.github/workflows/pypi-upload.yml@v4.1.2
     with:
       python-version: '3.11'
     secrets:
@@ -264,7 +264,7 @@ requires =
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/tox-docker.yml@v4.1.1
+    uses: coatl-dev/workflows/.github/workflows/tox-docker.yml@v4.1.2
 ```
 
 ### .github/workflows/tox-envs.yml
@@ -296,7 +296,7 @@ requires =
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/tox-envs.yml@v4.1.1
+    uses: coatl-dev/workflows/.github/workflows/tox-envs.yml@v4.1.2
     with:
       python-versions: '["3.7", "3.8", "3.9", "3.10", "3.11", "3.12"]'
 ```
@@ -334,7 +334,7 @@ and on your workflow:
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/tox-gh.yml@v4.1.1
+    uses: coatl-dev/workflows/.github/workflows/tox-gh.yml@v4.1.2
     with:
       python-versions: '["3.7", "3.8", "3.9", "3.10", "3.11", "3.12"]'
 ```
@@ -349,7 +349,7 @@ This workflow will install Python and invoke `tox` to run all envs found in
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/tox.yml@v4.1.1
+    uses: coatl-dev/workflows/.github/workflows/tox.yml@v4.1.2
 ```
 
 [`actions/setup-python`]: https://github.com/actions/setup-python
