@@ -35,7 +35,7 @@ on:
           Delete the local and remote branch after merge.
         required: false
         type: string
-        default: 'yes'
+        default: 'no'
       sign-commits:
         required: false
         type: string
