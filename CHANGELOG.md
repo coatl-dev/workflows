@@ -1,3 +1,9 @@
+## v4.1.1 (2024-09-09)
+
+### Refactor
+
+- add pr-delete-branch input (#44)
+
 ## v4.1.0 (2024-09-01)
 
 ### Feat
