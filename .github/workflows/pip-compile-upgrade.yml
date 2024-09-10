@@ -30,6 +30,12 @@ on:
         required: false
         type: string
         default: 'yes'
+      pr-delete-branch:
+        description: >-
+          Delete the local and remote branch after merge.
+        required: false
+        type: string
+        default: 'yes'
       sign-commits:
         required: false
         type: string
@@ -101,3 +107,4 @@ jobs:
         with:
           gh-token: ${{ secrets.gh-token }}
           auto-merge: ${{ inputs.pr-auto-merge }}
+          delete-branch: ${{ inputs.pr-delete-branch }}
