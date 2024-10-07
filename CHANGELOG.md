@@ -1,3 +1,10 @@
+## v4.1.3 (2024-10-07)
+
+### Refactor
+
+- drop dependency on base.txt (#48)
+- use ubuntu-latest (#47)
+
 ## v4.1.2 (2024-09-10)
 
 ### Refactor
