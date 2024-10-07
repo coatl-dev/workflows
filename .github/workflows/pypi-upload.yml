@@ -31,7 +31,7 @@ on:
 
 jobs:
   upload:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     container:
       image: python:${{ inputs.python-version }}-slim
       env:

@@ -9,7 +9,7 @@ on:
 jobs:
   tox:
     name: tox-${{ matrix.python-version }}
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         python-version: ${{ fromJSON(inputs.python-versions) }}

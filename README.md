@@ -353,7 +353,7 @@ jobs:
 ```
 
 [`actions/setup-python`]: https://github.com/actions/setup-python
-[`coatldev/six:3.12`]: https://hub.docker.com/r/coatldev/six
+[`coatldev/six`]: https://hub.docker.com/r/coatldev/six
 [`env_list`]: https://tox.wiki/en/latest/config.html#env_list
 [`local hooks`]: https://pre-commit.com/#repository-local-hooks
 [`pre-commit`]: https://pre-commit.com/
