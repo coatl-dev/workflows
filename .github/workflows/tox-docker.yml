@@ -3,7 +3,7 @@ on:
 
 jobs:
   tox:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     container: coatldev/six:latest
     steps:
       - name: Checkout repo
