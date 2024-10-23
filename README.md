@@ -83,7 +83,7 @@ requirements.
 
 - `path` (`string`): A file or location of the requirement file(s).
 - `python-version` (`string`): Python version to use for installing `pip-tools`.
-  You may use MAJOR.MINOR or exact version. Defaults to `'3.12'`. Optional.
+  You may use MAJOR.MINOR or exact version. Defaults to `'3.13'`. Optional.
 - `pr-create` (`string`): Whether to create a Pull Request. Options: `'yes'`,
   `'no'`. Defaults to `'yes'`. Optional.
 - `pr-commit-message` (`string`): Use the given message as the commit message.
@@ -214,11 +214,15 @@ jobs:
 This workflow allows you to build and upload your Python distribution packages
 PyPI (or any other repository) using `build` and `twine`.
 
+> [!NOTE]
+> This workflow uses the [`coatldev/python`] Docker image, which has tags for
+> Python 3.13, 3.12 and 2.7.
+
 **Inputs**:
 
 - `python-version` (`string`): The Python version to use for building and
   publishing the package. You may use MAJOR.MINOR or exact version. Defaults to
-  `'3.12'`. Optional
+  `'3.13'`. Optional
 - `check` (`boolean`): Check metadata with twine before uploading. Defaults to
   `true`. Optional.
 - `url` (`string`): The repository (package index) URL to upload the package to.
@@ -238,7 +242,7 @@ jobs:
   main:
     uses: coatl-dev/workflows/.github/workflows/pypi-upload.yml@v4.1.3
     with:
-      python-version: '3.11'
+      python-version: '3.13'
     secrets:
       password: ${{ secrets.PYPI_API_TOKEN }}
 ```
@@ -250,7 +254,7 @@ This workflow will install the latest version of `tox` to run all envs found in
 
 > [!NOTE]
 > This workflow uses the [`coatldev/six`] Docker image, which comes with
-> Python 3.12 and 2.7.18.
+> Python 3.13, 3.12 and 2.7.18.
 
 **Example**:
 
@@ -298,7 +302,7 @@ jobs:
   main:
     uses: coatl-dev/workflows/.github/workflows/tox-envs.yml@v4.1.3
     with:
-      python-versions: '["3.7", "3.8", "3.9", "3.10", "3.11", "3.12"]'
+      python-versions: '["3.9", "3.10", "3.11", "3.12", "3.13"]'
 ```
 
 ### .github/workflows/tox-gh.yml
@@ -321,12 +325,11 @@ tox.ini:
 ```ini
 [gh]
 python =
-    3.7 = py37
-    3.8 = py38
     3.9 = py39
-    3.10 = py310, install, typecheck
+    3.10 = py310
     3.11 = py311
     3.12 = py312
+    3.13 = py313, install, typecheck
 ```
 
 and on your workflow:
@@ -336,7 +339,7 @@ jobs:
   main:
     uses: coatl-dev/workflows/.github/workflows/tox-gh.yml@v4.1.3
     with:
-      python-versions: '["3.7", "3.8", "3.9", "3.10", "3.11", "3.12"]'
+      python-versions: '["3.9", "3.10", "3.11", "3.12", "3.13"]'
 ```
 
 ### .github/workflows/tox.yml
@@ -353,6 +356,7 @@ jobs:
 ```
 
 [`actions/setup-python`]: https://github.com/actions/setup-python
+[`coatldev/python`]: https://hub.docker.com/r/coatldev/python
 [`coatldev/six`]: https://hub.docker.com/r/coatldev/six
 [`env_list`]: https://tox.wiki/en/latest/config.html#env_list
 [`local hooks`]: https://pre-commit.com/#repository-local-hooks
