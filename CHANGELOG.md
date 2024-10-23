@@ -1,3 +1,9 @@
+## v4.1.4 (2024-10-23)
+
+### Refactor
+
+- default to Python 3.13 (#51)
+
 ## v4.1.3 (2024-10-07)
 
 ### Refactor
