@@ -11,7 +11,7 @@ on:
           Python version to use for installing pip-tools.
         required: false
         type: string
-        default: '3.12'
+        default: '3.13'
       pr-create:
         description: >-
           Whether to create a Pull Request.

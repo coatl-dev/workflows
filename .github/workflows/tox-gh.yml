@@ -31,13 +31,6 @@ jobs:
           path: ${{ steps.setup-python.outputs.python-path }}
           key: py-${{ steps.setup-python.outputs.python-version }}-${{ runner.os }}
 
-      - name: Upgrade pre-installed dependencies
-        run: |
-          python -m pip install --upgrade \
-            pip \
-            setuptools \
-            wheel
-
       - name: Install dependencies
         run: |
           python -m pip install --upgrade tox-gh
