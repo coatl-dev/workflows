@@ -29,6 +29,10 @@ GitHub action for using a matrix strategy to distribute the build for
 
 **Inputs**:
 
+- `amd64-runner-image` (`string`): Runner image to use for building AMD64 image.
+  Defaults to `ubuntu-latest`. Optional.
+- `arm64-runner-image` (`string`): Runner image to use for building ARM64 image.
+  Defaults to `ubuntu-latest`. Optional.
 - `registry-image` (`string`): Docker image to use as base name for tags.
 - `metadata-tags` (`string`): List of tags as key-value pair attributes.
   Optional.

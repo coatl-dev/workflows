@@ -1,6 +1,18 @@
 on:
   workflow_call:
     inputs:
+      amd64-runner-image:
+        description: >-
+          Runner image to use for building AMD64 image.
+        required: false
+        type: string
+        default: ubuntu-latest
+      arm64-runner-image:
+        description: >-
+          Runner image to use for building ARM64 image.
+        required: false
+        type: string
+        default: ubuntu-latest
       registry-image:
         description: >-
           Docker image to use as base name for tags.
@@ -63,9 +75,9 @@ jobs:
       fail-fast: false
       matrix:
         builder:
-          - runner-image: ubuntu-latest
+          - runner-image: ${{ inputs.amd64-runner-image }}
             platform: linux/amd64
-          - runner-image: ubuntu-latest
+          - runner-image: ${{ inputs.arm64-runner-image }}
             platform: linux/arm64
     steps:
       - name: Prepare
