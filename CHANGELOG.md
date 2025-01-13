@@ -1,3 +1,9 @@
+## v4.1.5 (2025-01-12)
+
+### Refactor
+
+- **docker-build**: add inputs for selecting runner images (#53)
+
 ## v4.1.4 (2024-10-23)
 
 ### Refactor
