@@ -1,3 +1,9 @@
+## v4.1.5 (2025-01-17)
+
+### Refactor
+
+- **docker-build**: build linux/arm64 on ubuntu-24.04-arm runner (#55)
+
 ## v4.1.4 (2024-10-23)
 
 ### Refactor
