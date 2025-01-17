@@ -27,6 +27,10 @@ GitHub action for using a matrix strategy to distribute the build for
 `linux/amd64` and `linux/arm64`, and publish to a Docker registry of your choice
 (Docker Hub, ghcr.io or quay.io).
 
+> [!NOTE]
+> `linux/amd64` images are built using `ubuntu-24.04` and `linux/arm64` images
+> are built using `ubuntu-24.04-arm`.
+
 **Inputs**:
 
 - `registry-image` (`string`): Docker image to use as base name for tags.
