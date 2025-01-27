@@ -1,3 +1,9 @@
+## v4.1.7 (2025-01-26)
+
+### Fix
+
+- **docker-build**: remove set up qemu action (#56)
+
 ## v4.1.6 (2025-01-17)
 
 ### Refactor
