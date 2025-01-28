@@ -1,25 +1,24 @@
 on:
   workflow_call:
     inputs:
-      registry-image:
+      dockerhub-repo:
         description: >-
-          Docker image to use as base name for tags.
+          Docker Hub repository to push the image to.
         required: true
         type: string
-      metadata-tags:
+      dockerhub-username:
         description: >-
-          List of tags as key-value pair attributes.
-        required: false
+          Username for authenticating to Docker Hub.
+        required: true
         type: string
-      registry-address:
+      quay-repo:
         description: >-
-          Server address of Docker registry. If not set then will default to Docker registry.
-        required: false
+          Quay repository to push the image to.
+        required: true
         type: string
-        default: docker.io
-      registry-username:
+      quay-username:
         description: >-
-          Username for authenticating to the Docker registry.
+          Username for authenticating to Quay.
         required: true
         type: string
       build-context:
@@ -32,12 +31,6 @@ on:
           Path to the Dockerfile.
         type: string
         required: false
-      build-provenance:
-        description: >-
-          Generate provenance attestation for the build.
-        required: false
-        type: boolean
-        default: false
       build-cache-key:
         description: >-
           An explicit key for a cache entry.
@@ -50,10 +43,25 @@ on:
         required: false
         type: string
         default: coatl
-    secrets:
-      registry-password:
+      metadata-tags:
         description: >-
-          Password or personal access token for authenticating the Docker registry.
+          List of tags as key-value pair attributes.
+        required: false
+        type: string
+      latest-tag-flavor:
+        description: >-
+          Set the latest tag flavor.
+        required: false
+        type: string
+        default: auto
+    secrets:
+      dockerhub-password:
+        description: >-
+          Password or personal access token for authenticating against Docker Hub.
+        required: true
+      quay-password:
+        description: >-
+          Password or personal access token for authenticating against Quay.
         required: true
 
 jobs:
@@ -78,17 +86,24 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: |
-            ${{ inputs.registry-image }}
+            ${{ inputs.dockerhub-repo }}
+            ${{ inputs.quay-repo }}
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ inputs.dockerhub-username }}
+          password: ${{ secrets.dockerhub-password }}
+
+      - name: Login to Quay
+        uses: docker/login-action@v3
+        with:
+          registry: quay.io
+          username: ${{ inputs.quay-username }}
+          password: ${{ secrets.quay-password }}
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-
-      - name: Login to Docker registry
-        uses: docker/login-action@v3
-        with:
-          registry: ${{ inputs.registry-address }}
-          username: ${{ inputs.registry-username }}
-          password: ${{ secrets.registry-password }}
 
       - name: Build and push by digest
         id: build
@@ -99,9 +114,9 @@ jobs:
           context: ${{ inputs.build-context }}
           file: ${{ inputs.build-file }}
           labels: ${{ steps.meta.outputs.labels }}
-          outputs: type=image,name=${{ inputs.registry-image }},push-by-digest=true,name-canonical=true,push=true
+          outputs: type=image,"name=${{ inputs.dockerhub-repo }},${{ inputs.quay-repo }}",push-by-digest=true,name-canonical=true,push=true
           platforms: ${{ matrix.builder.platform }}
-          provenance: ${{ inputs.build-provenance }}
+          provenance: false
 
       - name: Export digest
         run: |
@@ -129,6 +144,19 @@ jobs:
           pattern: digests-${{ inputs.build-digest-key }}-*
           merge-multiple: true
 
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ inputs.dockerhub-username }}
+          password: ${{ secrets.dockerhub-password }}
+
+      - name: Login to Quay
+        uses: docker/login-action@v3
+        with:
+            registry: quay.io
+            username: ${{ inputs.quay-username }}
+            password: ${{ secrets.quay-password }}
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
@@ -137,23 +165,22 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: |
-            ${{ inputs.registry-image }}
+            ${{ inputs.dockerhub-repo }}
+            ${{ inputs.quay-repo }}
           tags: |
             ${{ inputs.metadata-tags }}
-
-      - name: Login to Docker registry
-        uses: docker/login-action@v3
-        with:
-          registry: ${{ inputs.registry-address }}
-          username: ${{ inputs.registry-username }}
-          password: ${{ secrets.registry-password }}
+          flavor: |
+            latest=${{ inputs.latest-tag-flavor }}
 
       - name: Create manifest list and push
         working-directory: ${{ runner.temp }}/digests
         run: |
           docker buildx imagetools create $(jq -cr '.tags | map("-t " + .) | join(" ")' <<< "$DOCKER_METADATA_OUTPUT_JSON") \
-            $(printf '${{ inputs.registry-image }}@sha256:%s ' *)
+            $(printf '${{ inputs.dockerhub-repo }}@sha256:%s ' *)
+          docker buildx imagetools create $(jq -cr '.tags | map("-t " + .) | join(" ")' <<< "$DOCKER_METADATA_OUTPUT_JSON") \
+            $(printf '${{ inputs.quay-repo }}@sha256:%s ' *)
 
       - name: Inspect image
         run: |
-          docker buildx imagetools inspect ${{ inputs.registry-image }}:${{ steps.meta.outputs.version }}
+          docker buildx imagetools inspect ${{ inputs.dockerhub-repo }}:${{ steps.meta.outputs.version }}
+          docker buildx imagetools inspect ${{ inputs.quay-repo }}:${{ steps.meta.outputs.version }}
