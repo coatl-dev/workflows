@@ -1,3 +1,9 @@
+## v4.2.0 (2025-01-27)
+
+### Feat
+
+- add docker-build-push-multi-registry (#57)
+
 ## v4.1.7 (2025-01-26)
 
 ### Fix
