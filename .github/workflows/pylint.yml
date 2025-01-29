@@ -1,5 +1,12 @@
 on:
   workflow_call:
+    inputs:
+      path:
+        description: >-
+          This can be a module, package, directory or a file.
+        required: false
+        type: string
+        default: ''
 
 jobs:
   pylint:
@@ -32,4 +39,8 @@ jobs:
 
       - name: Analysing the code with pylint
         run: |
-          pylint $(git ls-files '*.py')
+          if [ -z "${{ inputs.path }}" ]; then
+            pylint $(git ls-files '*.py')
+          else
+            pylint ${{ inputs.path }}
+          fi
