@@ -1,3 +1,9 @@
+## v4.2.1 (2025-01-28)
+
+### Refactor
+
+- **pylint**: add path input (#58)
+
 ## v4.2.0 (2025-01-27)
 
 ### Feat
