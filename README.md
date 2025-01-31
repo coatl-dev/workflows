@@ -40,6 +40,8 @@ GitHub action for using a matrix strategy to distribute the build for
 - `build-context` (`string`): Build's context is the set of files located in the
   specified PATH or URL. Optional.
 - `build-file` (`string`): Path to the Dockerfile. Optional.
+- `build-cache` (`boolean`): Use cache when building the image. Defaults to
+  `true`. Optional.
 - `build-provenance` (`boolean`): Generate provenance attestation for the build.
   Defaults to `false`. Optional.
 - `build-cache-key` (`string`): An explicit key for a cache entry. This will be
@@ -59,7 +61,7 @@ GitHub action for using a matrix strategy to distribute the build for
 ```yml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/docker-build-push-multi-platform.yml@v4.2.1
+    uses: coatl-dev/workflows/.github/workflows/docker-build-push-multi-platform.yml@v4.2.2
     with:
       registry-image: user/app
       metadata-tags: |
@@ -89,6 +91,8 @@ GitHub action for using a matrix strategy to distribute the build for
 - `build-context` (`string`): Build's context is the set of files located in the
   specified PATH or URL. Optional.
 - `build-file` (`string`): Path to the Dockerfile. Optional.
+- `build-cache` (`boolean`): Use cache when building the image. Defaults to
+  `true`. Optional.
 - `build-cache-key` (`string`): An explicit key for a cache entry. This will be
   used in conjunction with the platform set in `build-platforms`, e.g.
   `coatl-linux-amd64`. Defaults to `coatl`. Optional.
@@ -110,7 +114,7 @@ GitHub action for using a matrix strategy to distribute the build for
 ```yml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/docker-build-push-multi-registry.yml@v4.2.1
+    uses: coatl-dev/workflows/.github/workflows/docker-build-push-multi-registry.yml@v4.2.2
     with:
       dockerhub-repo: user/app
       dockerhub-username: ${{ vars.DOCKERHUB_USERNAME }}
@@ -170,7 +174,7 @@ on:
 
 jobs:
   pip-compile-upgrade:
-    uses: coatl-dev/workflows/.github/workflows/pip-compile-upgrade.yml@v4.2.1
+    uses: coatl-dev/workflows/.github/workflows/pip-compile-upgrade.yml@v4.2.2
     with:
       path: requirements.txt
     secrets:
@@ -221,7 +225,7 @@ on:
 
 jobs:
   pre-commit-autoupdate:
-    uses: coatl-dev/workflows/.github/workflows/pre-commit-autoupdate.yml@v4.2.1
+    uses: coatl-dev/workflows/.github/workflows/pre-commit-autoupdate.yml@v4.2.2
     with:
       skip-repos: 'flake8'
     secrets:
@@ -246,7 +250,7 @@ to install Python and invoke [`pre-commit`].
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/pre-commit.yml@v4.2.1
+    uses: coatl-dev/workflows/.github/workflows/pre-commit.yml@v4.2.2
     with:
       skip-hooks: 'pylint'
 ```
@@ -265,7 +269,7 @@ This workflow will install Python and invoke `pylint` to analyze your code.
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/pylint.yml@v4.2.1
+    uses: coatl-dev/workflows/.github/workflows/pylint.yml@v4.2.2
     with:
       path: src
 ```
@@ -301,7 +305,7 @@ Secrets:
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/pypi-upload.yml@v4.2.1
+    uses: coatl-dev/workflows/.github/workflows/pypi-upload.yml@v4.2.2
     with:
       python-version: '3.13'
     secrets:
@@ -329,7 +333,7 @@ requires =
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/tox-docker.yml@v4.2.1
+    uses: coatl-dev/workflows/.github/workflows/tox-docker.yml@v4.2.2
 ```
 
 ### .github/workflows/tox-envs.yml
@@ -361,7 +365,7 @@ requires =
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/tox-envs.yml@v4.2.1
+    uses: coatl-dev/workflows/.github/workflows/tox-envs.yml@v4.2.2
     with:
       python-versions: '["3.9", "3.10", "3.11", "3.12", "3.13"]'
 ```
@@ -398,7 +402,7 @@ and on your workflow:
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/tox-gh.yml@v4.2.1
+    uses: coatl-dev/workflows/.github/workflows/tox-gh.yml@v4.2.2
     with:
       python-versions: '["3.9", "3.10", "3.11", "3.12", "3.13"]'
 ```
@@ -413,7 +417,7 @@ This workflow will install Python and invoke `tox` to run all envs found in
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/tox.yml@v4.2.1
+    uses: coatl-dev/workflows/.github/workflows/tox.yml@v4.2.2
 ```
 
 [`actions/setup-python`]: https://github.com/actions/setup-python

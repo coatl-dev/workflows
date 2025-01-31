@@ -1,3 +1,9 @@
+## v4.2.2 (2025-01-31)
+
+### Refactor
+
+- **docker-build**: add ability to disable cache (#59)
+
 ## v4.2.1 (2025-01-28)
 
 ### Refactor
