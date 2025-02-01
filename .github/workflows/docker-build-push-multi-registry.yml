@@ -111,12 +111,31 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Build and push by digest
-        id: build
+      - name: Build and push by digest (cached)
+        if: ${{ inputs.build-cache }}
+        id: build-cache
         uses: docker/build-push-action@v6
         with:
           cache-from: type=gha,scope=${{ inputs.build-cache-key }}-${{ env.PLATFORM_PAIR }}
-          cache-to: type=gha,scope=${{ inputs.build-cache-key }}-${{ env.PLATFORM_PAIR }},mode=max
+          cache-to: type=gha,scope=${{ inputs.build-cache-key }}-${{ env.PLATFORM_PAIR }},mode=min
+          context: ${{ inputs.build-context }}
+          file: ${{ inputs.build-file }}
+          labels: ${{ steps.meta.outputs.labels }}
+          outputs: type=image,"name=${{ inputs.dockerhub-repo }},${{ inputs.quay-repo }}",push-by-digest=true,name-canonical=true,push=true
+          platforms: ${{ matrix.builder.platform }}
+          provenance: false
+
+      - name: Export digest (cached)
+        run: |
+          mkdir -p ${{ runner.temp }}/digests
+          digest="${{ steps.build-cache.outputs.digest }}"
+          touch "${{ runner.temp }}/digests/${digest#sha256:}"
+
+      - name: Build and push by digest (no cache)
+        if: ${{ inputs.build-cache }}
+        id: build-no-cache
+        uses: docker/build-push-action@v6
+        with:
           context: ${{ inputs.build-context }}
           file: ${{ inputs.build-file }}
           labels: ${{ steps.meta.outputs.labels }}
@@ -125,10 +144,10 @@ jobs:
           platforms: ${{ matrix.builder.platform }}
           provenance: false
 
-      - name: Export digest
+      - name: Export digest (no cache)
         run: |
           mkdir -p ${{ runner.temp }}/digests
-          digest="${{ steps.build.outputs.digest }}"
+          digest="${{ steps.build-no-cache.outputs.digest }}"
           touch "${{ runner.temp }}/digests/${digest#sha256:}"
 
       - name: Upload digest
