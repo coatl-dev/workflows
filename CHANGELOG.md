@@ -1,3 +1,9 @@
+## v4.2.3 (2025-02-01)
+
+### Refactor
+
+- **docker-build**: add steps for cached and non-cached builds (#60)
+
 ## v4.2.2 (2025-01-31)
 
 ### Refactor
