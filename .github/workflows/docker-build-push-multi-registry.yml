@@ -126,13 +126,14 @@ jobs:
           provenance: false
 
       - name: Export digest (cached)
+        if: ${{ inputs.build-cache }}
         run: |
           mkdir -p ${{ runner.temp }}/digests
           digest="${{ steps.build-cache.outputs.digest }}"
           touch "${{ runner.temp }}/digests/${digest#sha256:}"
 
       - name: Build and push by digest (no cache)
-        if: ${{ inputs.build-cache }}
+        if: ${{ ! inputs.build-cache }}
         id: build-no-cache
         uses: docker/build-push-action@v6
         with:
@@ -145,6 +146,7 @@ jobs:
           provenance: false
 
       - name: Export digest (no cache)
+        if: ${{ ! inputs.build-cache }}
         run: |
           mkdir -p ${{ runner.temp }}/digests
           digest="${{ steps.build-no-cache.outputs.digest }}"

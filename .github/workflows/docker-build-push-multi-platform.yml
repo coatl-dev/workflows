@@ -111,7 +111,7 @@ jobs:
           provenance: ${{ inputs.build-provenance }}
 
       - name: Export digest (cached)
-        if: ${{ inputs.build-cache == 'true' }}
+        if: ${{ inputs.build-cache }}
         run: |
           mkdir -p ${{ runner.temp }}/digests
           digest="${{ steps.build-cache.outputs.digest }}"
@@ -131,7 +131,7 @@ jobs:
           provenance: ${{ inputs.build-provenance }}
 
       - name: Export digest (no cache)
-        if: ${{ inputs.build-cache == 'false' }}
+        if: ${{ ! inputs.build-cache }}
         run: |
           mkdir -p ${{ runner.temp }}/digests
           digest="${{ steps.build-no-cache.outputs.digest }}"
