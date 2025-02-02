@@ -1,3 +1,9 @@
+## v4.2.4 (2025-02-01)
+
+### Fix
+
+- **docker-build**: fix build-cache validation (#61)
+
 ## v4.2.3 (2025-02-01)
 
 ### Refactor
