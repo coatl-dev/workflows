@@ -38,12 +38,6 @@ on:
         required: false
         type: boolean
         default: false
-      build-cache:
-        description: >-
-          Use cache when building the image.
-        required: false
-        type: boolean
-        default: true
       build-cache-key:
         description: >-
           An explicit key for a cache entry.
@@ -96,13 +90,12 @@ jobs:
           username: ${{ inputs.registry-username }}
           password: ${{ secrets.registry-password }}
 
-      - name: Build and push by digest (cached)
-        if: ${{ inputs.build-cache }}
-        id: build-cache
+      - name: Build and push by digest
+        id: build
         uses: docker/build-push-action@v6
         with:
           cache-from: type=gha,scope=${{ inputs.build-cache-key }}-${{ env.PLATFORM_PAIR }}
-          cache-to: type=gha,scope=${{ inputs.build-cache-key }}-${{ env.PLATFORM_PAIR }},mode=min
+          cache-to: type=gha,scope=${{ inputs.build-cache-key }}-${{ env.PLATFORM_PAIR }},mode=max
           context: ${{ inputs.build-context }}
           file: ${{ inputs.build-file }}
           labels: ${{ steps.meta.outputs.labels }}
@@ -110,31 +103,10 @@ jobs:
           platforms: ${{ matrix.builder.platform }}
           provenance: ${{ inputs.build-provenance }}
 
-      - name: Export digest (cached)
-        if: ${{ inputs.build-cache }}
+      - name: Export digest
         run: |
           mkdir -p ${{ runner.temp }}/digests
-          digest="${{ steps.build-cache.outputs.digest }}"
-          touch "${{ runner.temp }}/digests/${digest#sha256:}"
-
-      - name: Build and push by digest (no cache)
-        if: ${{ ! inputs.build-cache }}
-        id: build-no-cache
-        uses: docker/build-push-action@v6
-        with:
-          context: ${{ inputs.build-context }}
-          file: ${{ inputs.build-file }}
-          labels: ${{ steps.meta.outputs.labels }}
-          no-cache: ${{ ! inputs.build-cache }}
-          outputs: type=image,name=${{ inputs.registry-image }},push-by-digest=true,name-canonical=true,push=true
-          platforms: ${{ matrix.builder.platform }}
-          provenance: ${{ inputs.build-provenance }}
-
-      - name: Export digest (no cache)
-        if: ${{ ! inputs.build-cache }}
-        run: |
-          mkdir -p ${{ runner.temp }}/digests
-          digest="${{ steps.build-no-cache.outputs.digest }}"
+          digest="${{ steps.build.outputs.digest }}"
           touch "${{ runner.temp }}/digests/${digest#sha256:}"
 
       - name: Upload digest
