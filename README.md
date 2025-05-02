@@ -21,6 +21,7 @@ Workflows:
 - [tox-envs](#githubworkflowstox-envsyml)
 - [tox-gh](#githubworkflowstox-ghyml)
 - [tox](#githubworkflowstoxyml)
+- [uv-pip-compile-upgrade](#githubworkflowsuv-pip-compile-upgrade)
 
 ### .github/workflows/docker-build-push-multi-platform
 
@@ -59,7 +60,7 @@ GitHub action for using a matrix strategy to distribute the build for
 ```yml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/docker-build-push-multi-platform.yml@v4.2.5
+    uses: coatl-dev/workflows/.github/workflows/docker-build-push-multi-platform.yml@v4.3.0
     with:
       registry-image: user/app
       metadata-tags: |
@@ -110,7 +111,7 @@ GitHub action for using a matrix strategy to distribute the build for
 ```yml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/docker-build-push-multi-registry.yml@v4.2.5
+    uses: coatl-dev/workflows/.github/workflows/docker-build-push-multi-registry.yml@v4.3.0
     with:
       dockerhub-repo: user/app
       dockerhub-username: ${{ vars.DOCKERHUB_USERNAME }}
@@ -135,7 +136,7 @@ requirements.
 
 **Inputs**:
 
-- `path` (`string`): A file or location of the requirement file(s).
+- `path` (`string`): The location of the requirement file(s).
 - `python-version` (`string`): Python version to use for installing `pip-tools`.
   You may use MAJOR.MINOR or exact version. Defaults to `'3.13'`. Optional.
 - `pr-create` (`string`): Whether to create a Pull Request. Options: `'yes'`,
@@ -170,7 +171,7 @@ on:
 
 jobs:
   pip-compile-upgrade:
-    uses: coatl-dev/workflows/.github/workflows/pip-compile-upgrade.yml@v4.2.5
+    uses: coatl-dev/workflows/.github/workflows/pip-compile-upgrade.yml@v4.3.0
     with:
       path: requirements.txt
     secrets:
@@ -221,7 +222,7 @@ on:
 
 jobs:
   pre-commit-autoupdate:
-    uses: coatl-dev/workflows/.github/workflows/pre-commit-autoupdate.yml@v4.2.5
+    uses: coatl-dev/workflows/.github/workflows/pre-commit-autoupdate.yml@v4.3.0
     with:
       skip-repos: 'flake8'
     secrets:
@@ -246,7 +247,7 @@ to install Python and invoke [`pre-commit`].
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/pre-commit.yml@v4.2.5
+    uses: coatl-dev/workflows/.github/workflows/pre-commit.yml@v4.3.0
     with:
       skip-hooks: 'pylint'
 ```
@@ -265,7 +266,7 @@ This workflow will install Python and invoke `pylint` to analyze your code.
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/pylint.yml@v4.2.5
+    uses: coatl-dev/workflows/.github/workflows/pylint.yml@v4.3.0
     with:
       path: src
 ```
@@ -301,7 +302,7 @@ Secrets:
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/pypi-upload.yml@v4.2.5
+    uses: coatl-dev/workflows/.github/workflows/pypi-upload.yml@v4.3.0
     with:
       python-version: '2.7'
     secrets:
@@ -329,7 +330,7 @@ requires =
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/tox-docker.yml@v4.2.5
+    uses: coatl-dev/workflows/.github/workflows/tox-docker.yml@v4.3.0
 ```
 
 ### .github/workflows/tox-envs.yml
@@ -361,7 +362,7 @@ requires =
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/tox-envs.yml@v4.2.5
+    uses: coatl-dev/workflows/.github/workflows/tox-envs.yml@v4.3.0
     with:
       python-versions: '["3.9", "3.10", "3.11", "3.12", "3.13"]'
 ```
@@ -398,7 +399,7 @@ and on your workflow:
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/tox-gh.yml@v4.2.5
+    uses: coatl-dev/workflows/.github/workflows/tox-gh.yml@v4.3.0
     with:
       python-versions: '["3.9", "3.10", "3.11", "3.12", "3.13"]'
 ```
@@ -413,7 +414,59 @@ This workflow will install Python and invoke `tox` to run all envs found in
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/tox.yml@v4.2.5
+    uses: coatl-dev/workflows/.github/workflows/tox.yml@v4.3.0
+```
+
+### .github/workflows/uv-pip-compile-upgrade
+
+GitHub action for running [`uv pip compile --upgrade`] on your Python
+requirements.
+
+**Inputs**:
+
+- `path` (`string`): The location of the requirement file(s).
+- `python-version` (`string`): The version of Python to set `UV_PYTHON` to. You
+  may use MAJOR.MINOR or exact version. Options: `'3.8'` to `'3.14'`. Defaults
+  to `'3.13'`. Optional.
+- `pr-create` (`string`): Whether to create a Pull Request. Options: `'yes'`,
+  `'no'`. Defaults to `'yes'`. Optional.
+- `pr-commit-message` (`string`): Use the given message as the commit message.
+  Defaults to `'chore(requirements): pip-compile upgrade'`. Optional.
+- `pr-auto-merge` (`string`): Automatically merge only after necessary
+  requirements are met. Options: `'yes'`, `'no'`. Defaults to `'yes'`. Optional.
+- `pr-delete-branch` (`string`): Delete the local and remote branch after merge.
+  Options: `'yes'`, `'no'`. Defaults to `'no'`. Optional.
+- `sign-commits` (`string`): Whether to sign Git commits. Options: `'yes'`,
+  `'no'`. Defaults to `'yes'`. Optional.
+
+**Secrets**:
+
+- `gh-token` (`secret`): GitHub token. Required when creating PRs, otherwise is
+  optional.
+- `gpg-sign-passphrase` (`secret`): GPG private key passphrase. Required when
+  signing commits, otherwise is optional.
+- `gpg-sign-private-key` (`secret`): GPG private key exported as an ASCII
+  armored version. Required when signing commits, otherwise is optional.
+
+**Example**:
+
+```yml
+name: uv-pip-compile-upgrade
+
+on:
+  schedule:
+    - cron: '0 20  * * 1'
+  workflow_dispatch:
+
+jobs:
+  pip-compile-upgrade:
+    uses: coatl-dev/workflows/.github/workflows/uv-pip-compile-upgrade.yml@v4.3.0
+    with:
+      path: requirements.txt
+    secrets:
+      gh-token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+      gpg-sign-passphrase: ${{ secrets.GPG_PASSPHRASE }}
+      gpg-sign-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
 ```
 
 [`actions/setup-python`]: https://github.com/actions/setup-python
@@ -427,3 +480,4 @@ jobs:
 [Temporarily disabling hooks]: https://pre-commit.com/#temporarily-disabling-hooks
 [`tox-gh`]: https://github.com/tox-dev/tox-gh
 [testing end-of-life]: https://tox.wiki/en/latest/faq.html#testing-end-of-life-python-versions
+[`uv pip compile --upgrade`]: https://docs.astral.sh/uv/reference/cli/#uv-pip-compile--upgrade
