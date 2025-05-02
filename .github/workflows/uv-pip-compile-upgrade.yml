@@ -8,7 +8,7 @@ on:
         type: string
       python-version:
         description: >-
-          Python version to use for installing pip-tools.
+          The version of Python to set UV_PYTHON to.
         required: false
         type: string
         default: '3.13'
@@ -23,7 +23,7 @@ on:
           Use the given <msg> as the commit message.
         required: false
         type: string
-        default: 'chore(requirements): pip-compile upgrade'
+        default: 'chore(requirements): uv pip compile upgrade'
       pr-auto-merge:
         description: >-
           Automatically merge only after necessary requirements are met.
@@ -64,7 +64,7 @@ jobs:
 
       - name: Update requirements
         id: pip-compile
-        uses: coatl-dev/actions/pip-compile@v3
+        uses: coatl-dev/actions/uv-pip-compile@v3
         with:
           path: ${{ inputs.path }}
           python-version: '${{ inputs.python-version }}'
