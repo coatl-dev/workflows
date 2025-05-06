@@ -64,21 +64,21 @@ jobs:
 
       - name: Update requirements
         id: pip-compile
-        uses: coatl-dev/actions/uv-pip-compile@v3
+        uses: coatl-dev/actions/uv-pip-compile-upgrade@v4
         with:
           path: ${{ inputs.path }}
           python-version: '${{ inputs.python-version }}'
 
       - name: Detect changes
         id: git-diff
-        uses: coatl-dev/actions/simple-git-diff@v3
+        uses: coatl-dev/actions/simple-git-diff@v4
         with:
           path: ${{ inputs.path }}
 
       - name: Import GPG key
         if: ${{ steps.git-diff.outputs.diff == 'true' && inputs.pr-create == 'yes' && inputs.sign-commits == 'yes' }}
         id: gpg-import
-        uses: coatl-dev/actions/gpg-import@v3
+        uses: coatl-dev/actions/gpg-import@v4
         with:
           passphrase: ${{ secrets.gpg-sign-passphrase }}
           private-key: ${{ secrets.gpg-sign-private-key }}
@@ -103,7 +103,7 @@ jobs:
 
       - name: Create pull request
         if: ${{ steps.git-diff.outputs.diff == 'true' && inputs.pr-create == 'yes' }}
-        uses: coatl-dev/actions/pr-create@v3
+        uses: coatl-dev/actions/pr-create@v4
         with:
           gh-token: ${{ secrets.gh-token }}
           auto-merge: ${{ inputs.pr-auto-merge }}
