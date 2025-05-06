@@ -60,7 +60,7 @@ GitHub action for using a matrix strategy to distribute the build for
 ```yml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/docker-build-push-multi-platform.yml@v4.3.0
+    uses: coatl-dev/workflows/.github/workflows/docker-build-push-multi-platform.yml@v4.3.1
     with:
       registry-image: user/app
       metadata-tags: |
@@ -111,7 +111,7 @@ GitHub action for using a matrix strategy to distribute the build for
 ```yml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/docker-build-push-multi-registry.yml@v4.3.0
+    uses: coatl-dev/workflows/.github/workflows/docker-build-push-multi-registry.yml@v4.3.1
     with:
       dockerhub-repo: user/app
       dockerhub-username: ${{ vars.DOCKERHUB_USERNAME }}
@@ -139,6 +139,10 @@ requirements.
 - `path` (`string`): The location of the requirement file(s).
 - `python-version` (`string`): Python version to use for installing `pip-tools`.
   You may use MAJOR.MINOR or exact version. Defaults to `'3.13'`. Optional.
+- `use-config` (`string`): Whether to read configuration from TOML file.
+  Options: `'yes'`, `'no'`. Defaults to `'no'`. Optional.
+- `config-file` (`string`): The location of the configuration file. Optional.
+  Defaults to `'.pip-tools.toml`.
 - `pr-create` (`string`): Whether to create a Pull Request. Options: `'yes'`,
   `'no'`. Defaults to `'yes'`. Optional.
 - `pr-commit-message` (`string`): Use the given message as the commit message.
@@ -171,7 +175,7 @@ on:
 
 jobs:
   pip-compile-upgrade:
-    uses: coatl-dev/workflows/.github/workflows/pip-compile-upgrade.yml@v4.3.0
+    uses: coatl-dev/workflows/.github/workflows/pip-compile-upgrade.yml@v4.3.1
     with:
       path: requirements.txt
     secrets:
@@ -222,7 +226,7 @@ on:
 
 jobs:
   pre-commit-autoupdate:
-    uses: coatl-dev/workflows/.github/workflows/pre-commit-autoupdate.yml@v4.3.0
+    uses: coatl-dev/workflows/.github/workflows/pre-commit-autoupdate.yml@v4.3.1
     with:
       skip-repos: 'flake8'
     secrets:
@@ -247,7 +251,7 @@ to install Python and invoke [`pre-commit`].
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/pre-commit.yml@v4.3.0
+    uses: coatl-dev/workflows/.github/workflows/pre-commit.yml@v4.3.1
     with:
       skip-hooks: 'pylint'
 ```
@@ -266,7 +270,7 @@ This workflow will install Python and invoke `pylint` to analyze your code.
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/pylint.yml@v4.3.0
+    uses: coatl-dev/workflows/.github/workflows/pylint.yml@v4.3.1
     with:
       path: src
 ```
@@ -302,7 +306,7 @@ Secrets:
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/pypi-upload.yml@v4.3.0
+    uses: coatl-dev/workflows/.github/workflows/pypi-upload.yml@v4.3.1
     with:
       python-version: '2.7'
     secrets:
@@ -330,7 +334,7 @@ requires =
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/tox-docker.yml@v4.3.0
+    uses: coatl-dev/workflows/.github/workflows/tox-docker.yml@v4.3.1
 ```
 
 ### .github/workflows/tox-envs.yml
@@ -362,7 +366,7 @@ requires =
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/tox-envs.yml@v4.3.0
+    uses: coatl-dev/workflows/.github/workflows/tox-envs.yml@v4.3.1
     with:
       python-versions: '["3.9", "3.10", "3.11", "3.12", "3.13"]'
 ```
@@ -399,7 +403,7 @@ and on your workflow:
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/tox-gh.yml@v4.3.0
+    uses: coatl-dev/workflows/.github/workflows/tox-gh.yml@v4.3.1
     with:
       python-versions: '["3.9", "3.10", "3.11", "3.12", "3.13"]'
 ```
@@ -414,7 +418,7 @@ This workflow will install Python and invoke `tox` to run all envs found in
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/tox.yml@v4.3.0
+    uses: coatl-dev/workflows/.github/workflows/tox.yml@v4.3.1
 ```
 
 ### .github/workflows/uv-pip-compile-upgrade
@@ -460,7 +464,7 @@ on:
 
 jobs:
   pip-compile-upgrade:
-    uses: coatl-dev/workflows/.github/workflows/uv-pip-compile-upgrade.yml@v4.3.0
+    uses: coatl-dev/workflows/.github/workflows/uv-pip-compile-upgrade.yml@v4.3.1
     with:
       path: requirements.txt
     secrets:

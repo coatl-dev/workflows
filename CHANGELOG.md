@@ -1,3 +1,9 @@
+## v4.3.1 (2025-05-05)
+
+### Refactor
+
+- use coatl-dev/actions@v4 (#69)
+
 ## v4.3.0 (2025-05-02)
 
 ### Feat
