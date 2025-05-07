@@ -24,6 +24,12 @@ on:
         required: false
         type: string
         default: '.pip-tools.toml'
+      extra-args:
+        description: >-
+          Extra arguments to pass to pip-compile.
+        required: false
+        type: string
+        default: ''
       pr-create:
         description: >-
           Whether to create a Pull Request.
@@ -82,6 +88,7 @@ jobs:
           python-version: '${{ inputs.python-version }}'
           use-config: ${{ inputs.use-config }}
           config-file: ${{ inputs.config-file }}
+          extra-args: ${{ inputs.extra-args }}
 
       - name: Detect changes
         id: git-diff
