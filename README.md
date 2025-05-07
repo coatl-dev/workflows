@@ -60,7 +60,7 @@ GitHub action for using a matrix strategy to distribute the build for
 ```yml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/docker-build-push-multi-platform.yml@v4.3.1
+    uses: coatl-dev/workflows/.github/workflows/docker-build-push-multi-platform.yml@v4.3.2
     with:
       registry-image: user/app
       metadata-tags: |
@@ -111,7 +111,7 @@ GitHub action for using a matrix strategy to distribute the build for
 ```yml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/docker-build-push-multi-registry.yml@v4.3.1
+    uses: coatl-dev/workflows/.github/workflows/docker-build-push-multi-registry.yml@v4.3.2
     with:
       dockerhub-repo: user/app
       dockerhub-username: ${{ vars.DOCKERHUB_USERNAME }}
@@ -143,6 +143,8 @@ requirements.
   Options: `'yes'`, `'no'`. Defaults to `'no'`. Optional.
 - `config-file` (`string`): The location of the configuration file. Optional.
   Defaults to `'.pip-tools.toml`.
+- `extra-args` (`string`): Extra arguments to pass to `pip-compile`. Optional.
+  Defaults to `''`.
 - `pr-create` (`string`): Whether to create a Pull Request. Options: `'yes'`,
   `'no'`. Defaults to `'yes'`. Optional.
 - `pr-commit-message` (`string`): Use the given message as the commit message.
@@ -153,6 +155,11 @@ requirements.
   Options: `'yes'`, `'no'`. Defaults to `'no'`. Optional.
 - `sign-commits` (`string`): Whether to sign Git commits. Options: `'yes'`,
   `'no'`. Defaults to `'yes'`. Optional.
+
+> [!WARNING]
+> `use-config` and `config-file` should not be used with Python 2, as only
+> recent versions of `pip-tools` support them.
+> Ensure compatibility with your Python version before using these options.
 
 **Secrets**:
 
@@ -175,7 +182,7 @@ on:
 
 jobs:
   pip-compile-upgrade:
-    uses: coatl-dev/workflows/.github/workflows/pip-compile-upgrade.yml@v4.3.1
+    uses: coatl-dev/workflows/.github/workflows/pip-compile-upgrade.yml@v4.3.2
     with:
       path: requirements.txt
     secrets:
@@ -226,7 +233,7 @@ on:
 
 jobs:
   pre-commit-autoupdate:
-    uses: coatl-dev/workflows/.github/workflows/pre-commit-autoupdate.yml@v4.3.1
+    uses: coatl-dev/workflows/.github/workflows/pre-commit-autoupdate.yml@v4.3.2
     with:
       skip-repos: 'flake8'
     secrets:
@@ -251,7 +258,7 @@ to install Python and invoke [`pre-commit`].
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/pre-commit.yml@v4.3.1
+    uses: coatl-dev/workflows/.github/workflows/pre-commit.yml@v4.3.2
     with:
       skip-hooks: 'pylint'
 ```
@@ -270,7 +277,7 @@ This workflow will install Python and invoke `pylint` to analyze your code.
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/pylint.yml@v4.3.1
+    uses: coatl-dev/workflows/.github/workflows/pylint.yml@v4.3.2
     with:
       path: src
 ```
@@ -306,7 +313,7 @@ Secrets:
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/pypi-upload.yml@v4.3.1
+    uses: coatl-dev/workflows/.github/workflows/pypi-upload.yml@v4.3.2
     with:
       python-version: '2.7'
     secrets:
@@ -334,7 +341,7 @@ requires =
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/tox-docker.yml@v4.3.1
+    uses: coatl-dev/workflows/.github/workflows/tox-docker.yml@v4.3.2
 ```
 
 ### .github/workflows/tox-envs.yml
@@ -366,7 +373,7 @@ requires =
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/tox-envs.yml@v4.3.1
+    uses: coatl-dev/workflows/.github/workflows/tox-envs.yml@v4.3.2
     with:
       python-versions: '["3.9", "3.10", "3.11", "3.12", "3.13"]'
 ```
@@ -403,7 +410,7 @@ and on your workflow:
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/tox-gh.yml@v4.3.1
+    uses: coatl-dev/workflows/.github/workflows/tox-gh.yml@v4.3.2
     with:
       python-versions: '["3.9", "3.10", "3.11", "3.12", "3.13"]'
 ```
@@ -418,7 +425,7 @@ This workflow will install Python and invoke `tox` to run all envs found in
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/tox.yml@v4.3.1
+    uses: coatl-dev/workflows/.github/workflows/tox.yml@v4.3.2
 ```
 
 ### .github/workflows/uv-pip-compile-upgrade
@@ -464,7 +471,7 @@ on:
 
 jobs:
   pip-compile-upgrade:
-    uses: coatl-dev/workflows/.github/workflows/uv-pip-compile-upgrade.yml@v4.3.1
+    uses: coatl-dev/workflows/.github/workflows/uv-pip-compile-upgrade.yml@v4.3.2
     with:
       path: requirements.txt
     secrets:

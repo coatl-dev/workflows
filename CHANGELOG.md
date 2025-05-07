@@ -1,3 +1,9 @@
+## v4.3.2 (2025-05-07)
+
+### Refactor
+
+- **pip-compile-upgrade**: add extra-args input (#70)
+
 ## v4.3.1 (2025-05-05)
 
 ### Refactor
