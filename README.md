@@ -391,7 +391,7 @@ This workflow will install Python and invoke `tox` to run all envs found in
   to use, using SemVer's version range syntax. Required.
 
 > [!NOTE]
-> Form more ways to use the `python-versions` input, please refer to
+> For more ways to use the `python-versions` input, please refer to
 > ["Using the `python-version` input"] for [`actions/setup-python`].
 
 **Example**:
