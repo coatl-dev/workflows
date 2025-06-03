@@ -1,3 +1,13 @@
+## v5.0.0 (2025-06-03)
+
+### BREAKING CHANGE
+
+- remove tox-envs in favor of tox
+
+### Refactor
+
+- merge tox-envs into tox (#71)
+
 ## v4.3.2 (2025-05-07)
 
 ### Refactor
