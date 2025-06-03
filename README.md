@@ -18,7 +18,6 @@ Workflows:
 - [pylint](#githubworkflowspylintyml)
 - [pypi-upload](#githubworkflowspypi-uploadyml)
 - [tox-docker](#githubworkflowstox-dockeryml)
-- [tox-envs](#githubworkflowstox-envsyml)
 - [tox-gh](#githubworkflowstox-ghyml)
 - [tox](#githubworkflowstoxyml)
 - [uv-pip-compile-upgrade](#githubworkflowsuv-pip-compile-upgrade)
