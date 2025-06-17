@@ -1,3 +1,9 @@
+## v5.0.4 (2025-06-17)
+
+### Refactor
+
+- add working-directory input to tox-[docker|gh] (#75)
+
 ## v5.0.3 (2025-06-17)
 
 ### Refactor

@@ -59,7 +59,7 @@ GitHub action for using a matrix strategy to distribute the build for
 ```yml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/docker-build-push-multi-platform.yml@v5.0.3
+    uses: coatl-dev/workflows/.github/workflows/docker-build-push-multi-platform.yml@v5.0.4
     with:
       registry-image: user/app
       metadata-tags: |
@@ -110,7 +110,7 @@ GitHub action for using a matrix strategy to distribute the build for
 ```yml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/docker-build-push-multi-registry.yml@v5.0.3
+    uses: coatl-dev/workflows/.github/workflows/docker-build-push-multi-registry.yml@v5.0.4
     with:
       dockerhub-repo: user/app
       dockerhub-username: ${{ vars.DOCKERHUB_USERNAME }}
@@ -183,7 +183,7 @@ on:
 
 jobs:
   pip-compile-upgrade:
-    uses: coatl-dev/workflows/.github/workflows/pip-compile-upgrade.yml@v5.0.3
+    uses: coatl-dev/workflows/.github/workflows/pip-compile-upgrade.yml@v5.0.4
     with:
       path: requirements.txt
     secrets:
@@ -234,7 +234,7 @@ on:
 
 jobs:
   pre-commit-autoupdate:
-    uses: coatl-dev/workflows/.github/workflows/pre-commit-autoupdate.yml@v5.0.3
+    uses: coatl-dev/workflows/.github/workflows/pre-commit-autoupdate.yml@v5.0.4
     with:
       skip-repos: 'flake8'
     secrets:
@@ -259,7 +259,7 @@ to install Python and invoke [`pre-commit`].
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/pre-commit.yml@v5.0.3
+    uses: coatl-dev/workflows/.github/workflows/pre-commit.yml@v5.0.4
     with:
       skip-hooks: 'pylint'
 ```
@@ -282,7 +282,7 @@ This workflow will install Python and invoke `pylint` to analyze your code.
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/pylint.yml@v5.0.3
+    uses: coatl-dev/workflows/.github/workflows/pylint.yml@v5.0.4
     with:
       path: src
 ```
@@ -320,7 +320,7 @@ Secrets:
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/pypi-upload.yml@v5.0.3
+    uses: coatl-dev/workflows/.github/workflows/pypi-upload.yml@v5.0.4
     with:
       python-version: '2.7'
     secrets:
@@ -340,6 +340,8 @@ This workflow will install the latest version of `tox` to run all envs found in
 
 - `extra-args` (`string`): Extra arguments to pass to `tox`. Optional. Defaults
   to `''`.
+- `working-directory` (`string`): The directory to run the workflow in.
+  Optional. Defaults to `github.workspace`.
 
 **Recommendations**:
 
@@ -365,7 +367,7 @@ requires =
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/tox-docker.yml@v5.0.3
+    uses: coatl-dev/workflows/.github/workflows/tox-docker.yml@v5.0.4
 ```
 
 ### .github/workflows/tox-gh.yml
@@ -377,6 +379,8 @@ This workflow will install Python and [`tox-gh`] and it will run the matching
 
 - `python-versions` (list[`string`]): A list of Python versions passed
   through to [`actions/setup-python`]'s `python-version`. Required.
+- `working-directory` (`string`): The directory to run the workflow in.
+  Optional. Defaults to `github.workspace`.
 
 > [!IMPORTANT]
 > The latest `tox-gh` release requires `python>=3.9`.
@@ -400,7 +404,7 @@ and on your workflow:
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/tox-gh.yml@v5.0.3
+    uses: coatl-dev/workflows/.github/workflows/tox-gh.yml@v5.0.4
     with:
       python-versions: '["3.9", "3.10", "3.11", "3.12", "3.13"]'
 ```
@@ -428,7 +432,7 @@ This workflow will install Python and invoke `tox` to run all envs found in
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/tox.yml@v5.0.3
+    uses: coatl-dev/workflows/.github/workflows/tox.yml@v5.0.4
     with:
       python-versions: |
         3.9
@@ -482,7 +486,7 @@ on:
 
 jobs:
   pip-compile-upgrade:
-    uses: coatl-dev/workflows/.github/workflows/uv-pip-compile-upgrade.yml@v5.0.3
+    uses: coatl-dev/workflows/.github/workflows/uv-pip-compile-upgrade.yml@v5.0.4
     with:
       path: requirements.txt
     secrets:
