@@ -6,6 +6,18 @@ on:
           Version range or exact version of Python to use, using SemVer's version range syntax.
         required: true
         type: string
+      extra-args:
+        description: >-
+          Extra arguments to pass to tox.
+        required: false
+        type: string
+        default: ''
+      working-directory:
+        description: >-
+          The working directory to run tox in.
+        required: false
+        type: string
+        default: ${{ github.workspace }}
 
 jobs:
   tox:
@@ -49,5 +61,6 @@ jobs:
           python-version: ${{ inputs.python-versions }}
 
       - name: Run tests
+        working-directory: ${{ inputs.working-directory }}
         run: |
-          tox
+          tox ${{ inputs.extra-args }}
