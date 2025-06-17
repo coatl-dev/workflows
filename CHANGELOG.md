@@ -1,3 +1,9 @@
+## v5.0.5 (2025-06-17)
+
+### Fix
+
+- **pypi-upload**: set working-directory for build step (#76)
+
 ## v5.0.4 (2025-06-17)
 
 ### Refactor
