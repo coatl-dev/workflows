@@ -1,3 +1,9 @@
+## v5.0.3 (2025-06-17)
+
+### Refactor
+
+- **pylint**: add extra-args and working-directory inputs (#74)
+
 ## v5.0.2 (2025-06-17)
 
 ### Refactor

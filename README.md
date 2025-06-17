@@ -59,7 +59,7 @@ GitHub action for using a matrix strategy to distribute the build for
 ```yml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/docker-build-push-multi-platform.yml@v5.0.2
+    uses: coatl-dev/workflows/.github/workflows/docker-build-push-multi-platform.yml@v5.0.3
     with:
       registry-image: user/app
       metadata-tags: |
@@ -110,7 +110,7 @@ GitHub action for using a matrix strategy to distribute the build for
 ```yml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/docker-build-push-multi-registry.yml@v5.0.2
+    uses: coatl-dev/workflows/.github/workflows/docker-build-push-multi-registry.yml@v5.0.3
     with:
       dockerhub-repo: user/app
       dockerhub-username: ${{ vars.DOCKERHUB_USERNAME }}
@@ -183,7 +183,7 @@ on:
 
 jobs:
   pip-compile-upgrade:
-    uses: coatl-dev/workflows/.github/workflows/pip-compile-upgrade.yml@v5.0.2
+    uses: coatl-dev/workflows/.github/workflows/pip-compile-upgrade.yml@v5.0.3
     with:
       path: requirements.txt
     secrets:
@@ -234,7 +234,7 @@ on:
 
 jobs:
   pre-commit-autoupdate:
-    uses: coatl-dev/workflows/.github/workflows/pre-commit-autoupdate.yml@v5.0.2
+    uses: coatl-dev/workflows/.github/workflows/pre-commit-autoupdate.yml@v5.0.3
     with:
       skip-repos: 'flake8'
     secrets:
@@ -259,7 +259,7 @@ to install Python and invoke [`pre-commit`].
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/pre-commit.yml@v5.0.2
+    uses: coatl-dev/workflows/.github/workflows/pre-commit.yml@v5.0.3
     with:
       skip-hooks: 'pylint'
 ```
@@ -272,13 +272,17 @@ This workflow will install Python and invoke `pylint` to analyze your code.
 
 - `path` (`string`): This can be a module, package, directory or a file.
   Optional.
+- `extra-args` (`string`): Extra arguments to pass to `pylint`. Optional.
+  Defaults to `''`.
+- `working-directory` (`string`): The directory to run the workflow in.
+  Optional. Defaults to `github.workspace`.
 
 **Example**:
 
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/pylint.yml@v5.0.2
+    uses: coatl-dev/workflows/.github/workflows/pylint.yml@v5.0.3
     with:
       path: src
 ```
@@ -316,7 +320,7 @@ Secrets:
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/pypi-upload.yml@v5.0.2
+    uses: coatl-dev/workflows/.github/workflows/pypi-upload.yml@v5.0.3
     with:
       python-version: '2.7'
     secrets:
@@ -361,7 +365,7 @@ requires =
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/tox-docker.yml@v5.0.2
+    uses: coatl-dev/workflows/.github/workflows/tox-docker.yml@v5.0.3
 ```
 
 ### .github/workflows/tox-gh.yml
@@ -396,7 +400,7 @@ and on your workflow:
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/tox-gh.yml@v5.0.2
+    uses: coatl-dev/workflows/.github/workflows/tox-gh.yml@v5.0.3
     with:
       python-versions: '["3.9", "3.10", "3.11", "3.12", "3.13"]'
 ```
@@ -424,7 +428,7 @@ This workflow will install Python and invoke `tox` to run all envs found in
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/tox.yml@v5.0.2
+    uses: coatl-dev/workflows/.github/workflows/tox.yml@v5.0.3
     with:
       python-versions: |
         3.9
@@ -478,7 +482,7 @@ on:
 
 jobs:
   pip-compile-upgrade:
-    uses: coatl-dev/workflows/.github/workflows/uv-pip-compile-upgrade.yml@v5.0.2
+    uses: coatl-dev/workflows/.github/workflows/uv-pip-compile-upgrade.yml@v5.0.3
     with:
       path: requirements.txt
     secrets:
