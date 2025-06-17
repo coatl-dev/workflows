@@ -1,3 +1,9 @@
+## v5.0.1 (2025-06-17)
+
+### Refactor
+
+- **tox**: add extra-args input for tox and tox-docker (#72)
+
 ## v5.0.0 (2025-06-03)
 
 ### BREAKING CHANGE
