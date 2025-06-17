@@ -1,3 +1,9 @@
+## v5.0.2 (2025-06-17)
+
+### Refactor
+
+- add working-directory input to… (#73)
+
 ## v5.0.1 (2025-06-17)
 
 ### Refactor
