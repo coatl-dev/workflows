@@ -7,6 +7,18 @@ on:
         required: false
         type: string
         default: ''
+      extra-args:
+        description: >-
+          Extra arguments to pass to pylint.
+        required: false
+        type: string
+        default: ''
+      working-directory:
+        description: >-
+          The directory to run the workflow in.
+        required: false
+        type: string
+        default: ${{ github.workspace }}
 
 jobs:
   pylint:
@@ -38,9 +50,10 @@ jobs:
           python -m pip install --requirement deps/requirements/pylint.txt
 
       - name: Analysing the code with pylint
+        working-directory: ${{ inputs.working-directory }}
         run: |
           if [ -z "${{ inputs.path }}" ]; then
-            pylint $(git ls-files '*.py')
+            pylint ${{ inputs.extra-args }} $(git ls-files '*.py')
           else
-            pylint ${{ inputs.path }}
+            pylint ${{ inputs.extra-args }} ${{ inputs.path }}
           fi
