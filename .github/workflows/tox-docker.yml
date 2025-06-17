@@ -1,5 +1,12 @@
 on:
   workflow_call:
+    inputs:
+      extra-args:
+        description: >-
+          Extra arguments to pass to tox.
+        required: false
+        type: string
+        default: ''
 
 jobs:
   tox:
@@ -20,16 +27,17 @@ jobs:
           python -m pip install --requirement deps/requirements/tox.txt
 
       - name: Set PY
+        id: set-py
         run: |
-          echo "PY=$(python --version | sha256sum | cut -d' ' -f1)" >> $GITHUB_ENV
+          echo "py=$(python --version | sha256sum | cut -d' ' -f1)" >> $GITHUB_OUTPUT
 
       - name: Cache tox
         id: cache-tox
         uses: actions/cache@v4
         with:
           path: .tox
-          key: tox-${{ env.PY }}-${{ runner.os }}-${{ hashFiles('tox.ini') }}
+          key: tox-${{ steps.set-py.outputs.py }}-${{ runner.os }}-${{ hashFiles('tox.ini') }}
 
       - name: Run tests
         run: |
-          tox
+          tox ${{ inputs.extra-args }}
