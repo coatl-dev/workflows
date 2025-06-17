@@ -7,6 +7,12 @@ on:
         required: false
         type: string
         default: ''
+      working-directory:
+        description: >-
+          The working directory to run tox in.
+        required: false
+        type: string
+        default: ${{ github.workspace }}
 
 jobs:
   tox:
@@ -39,5 +45,6 @@ jobs:
           key: tox-${{ steps.set-py.outputs.py }}-${{ runner.os }}-${{ hashFiles('tox.ini') }}
 
       - name: Run tests
+        working-directory: ${{ inputs.working-directory }}
         run: |
           tox ${{ inputs.extra-args }}
