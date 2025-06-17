@@ -30,6 +30,12 @@ on:
         required: false
         type: string
         default: ''
+      working-directory:
+        description: >-
+          The directory to run the workflow in.
+        required: false
+        type: string
+        default: ${{ github.workspace }}
       pr-create:
         description: >-
           Whether to create a Pull Request.
@@ -89,6 +95,7 @@ jobs:
           use-config: ${{ inputs.use-config }}
           config-file: ${{ inputs.config-file }}
           extra-args: ${{ inputs.extra-args }}
+          working-directory: ${{ inputs.working-directory }}
 
       - name: Detect changes
         id: git-diff
