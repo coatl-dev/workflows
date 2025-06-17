@@ -51,6 +51,7 @@ jobs:
             twine
 
       - name: Build package
+        working-directory: ${{ inputs.working-directory }}
         run: |
           python -m build
 
