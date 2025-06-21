@@ -1,3 +1,9 @@
+## v5.0.6 (2025-06-21)
+
+### Fix
+
+- **tox**: fix tox cache and hashFiles paths (#78)
+
 ## v5.0.5 (2025-06-17)
 
 ### Fix
