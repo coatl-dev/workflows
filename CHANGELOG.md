@@ -1,3 +1,9 @@
+## v5.0.7 (2025-06-27)
+
+### Refactor
+
+- **pypi-upload**: run on ghcr.io/coatl-dev/python-tools (#80)
+
 ## v5.0.6 (2025-06-21)
 
 ### Fix
