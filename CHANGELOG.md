@@ -1,3 +1,9 @@
+## v6.0.1 (2025-06-28)
+
+### Refactor
+
+- **pypi-upload**: use Python 2.7 as the default value (#82)
+
 ## v6.0.0 (2025-06-27)
 
 ### BREAKING CHANGE
