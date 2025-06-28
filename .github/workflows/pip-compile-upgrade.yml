@@ -6,24 +6,6 @@ on:
           The location of the requirement file(s).
         required: true
         type: string
-      python-version:
-        description: >-
-          Python version to use for installing pip-tools.
-        required: false
-        type: string
-        default: '3.13'
-      use-config:
-        description: >-
-          Whether to read configuration from TOML file.
-        required: false
-        type: string
-        default: 'no'
-      config-file:
-        description: >-
-          The location of the configuration file.
-        required: false
-        type: string
-        default: '.pip-tools.toml'
       extra-args:
         description: >-
           Extra arguments to pass to pip-compile.
@@ -78,24 +60,47 @@ on:
           GPG private key exported as an ASCII armored version.
         required: false
 
-
 jobs:
   pip-compile-upgrade:
     runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/coatl-dev/python-tools:2.7-pip-tools
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
 
       - name: Upgrade requirements
         id: pip-compile-upgrade
-        uses: coatl-dev/actions/pip-compile-upgrade@v4
-        with:
-          path: ${{ inputs.path }}
-          python-version: '${{ inputs.python-version }}'
-          use-config: ${{ inputs.use-config }}
-          config-file: ${{ inputs.config-file }}
-          extra-args: ${{ inputs.extra-args }}
-          working-directory: ${{ inputs.working-directory }}
+        env:
+          INPUT_PATH: ${{ inputs.path }}
+          INPUT_EXTRA_ARGS: ${{ inputs.extra-args }}
+        working-directory: ${{ inputs.working-directory }}
+        run: |
+          function process_file() {
+            local file="$1"
+            local extra_args="${INPUT_EXTRA_ARGS:-}"
+
+            command=$(grep -m 1 "#    pip-compile" "$file")
+            if [ -n "$command" ]; then
+              upgrade_command=$(grep -m 1 "#    pip-compile" "$file" | sed "s/#    pip-compile/pip-compile --upgrade $extra_args/")
+              eval "$upgrade_command"
+            else
+              exit 1
+            fi
+          }
+
+          if [ -d "${INPUT_PATH}" ]; then
+            cd "${INPUT_PATH}" || exit
+            for file in *.txt; do
+              if [ -f "$file" ]; then
+                process_file "$file"
+              fi
+            done
+          elif [ -f "${INPUT_PATH}" ]; then
+            process_file "${INPUT_PATH}"
+          else
+            exit 1
+          fi
 
       - name: Detect changes
         id: git-diff
