@@ -1,3 +1,13 @@
+## v6.0.0 (2025-06-27)
+
+### BREAKING CHANGE
+
+- pip-copile-upgrade is now meant for Python 2.7 only
+
+### Refactor
+
+- **pip-compile-upgrade**: use ghcr.io/coatl-dev/python-tools (#81)
+
 ## v5.0.7 (2025-06-27)
 
 ### Refactor

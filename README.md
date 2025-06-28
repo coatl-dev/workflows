@@ -59,7 +59,7 @@ GitHub action for using a matrix strategy to distribute the build for
 ```yml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/docker-build-push-multi-platform.yml@v5.0.7
+    uses: coatl-dev/workflows/.github/workflows/docker-build-push-multi-platform.yml@v6.0.0
     with:
       registry-image: user/app
       metadata-tags: |
@@ -110,7 +110,7 @@ GitHub action for using a matrix strategy to distribute the build for
 ```yml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/docker-build-push-multi-registry.yml@v5.0.7
+    uses: coatl-dev/workflows/.github/workflows/docker-build-push-multi-registry.yml@v6.0.0
     with:
       dockerhub-repo: user/app
       dockerhub-username: ${{ vars.DOCKERHUB_USERNAME }}
@@ -130,18 +130,11 @@ jobs:
 
 ### .github/workflows/pip-compile-upgrade
 
-GitHub action for running `pip-compile upgrade` on your Python 2 and 3
-requirements.
+GitHub action for running `pip-compile upgrade` on your Python 2.7 requirements.
 
 **Inputs**:
 
 - `path` (`string`): The location of the requirement file(s).
-- `python-version` (`string`): Python version to use for installing `pip-tools`.
-  You may use MAJOR.MINOR or exact version. Defaults to `'3.13'`. Optional.
-- `use-config` (`string`): Whether to read configuration from TOML file.
-  Options: `'yes'`, `'no'`. Defaults to `'no'`. Optional.
-- `config-file` (`string`): The location of the configuration file. Optional.
-  Defaults to `'.pip-tools.toml`.
 - `extra-args` (`string`): Extra arguments to pass to `pip-compile`. Optional.
   Defaults to `''`.
 - `pr-create` (`string`): Whether to create a Pull Request. Options: `'yes'`,
@@ -156,11 +149,6 @@ requirements.
   `'no'`. Defaults to `'yes'`. Optional.
 - `working-directory` (`string`): The directory to run the workflow in.
   Optional. Defaults to `github.workspace`.
-
-> [!WARNING]
-> `use-config` and `config-file` should not be used with Python 2, as only
-> recent versions of `pip-tools` support them.
-> Ensure compatibility with your Python version before using these options.
 
 **Secrets**:
 
@@ -183,7 +171,7 @@ on:
 
 jobs:
   pip-compile-upgrade:
-    uses: coatl-dev/workflows/.github/workflows/pip-compile-upgrade.yml@v5.0.7
+    uses: coatl-dev/workflows/.github/workflows/pip-compile-upgrade.yml@v6.0.0
     with:
       path: requirements.txt
     secrets:
@@ -234,7 +222,7 @@ on:
 
 jobs:
   pre-commit-autoupdate:
-    uses: coatl-dev/workflows/.github/workflows/pre-commit-autoupdate.yml@v5.0.7
+    uses: coatl-dev/workflows/.github/workflows/pre-commit-autoupdate.yml@v6.0.0
     with:
       skip-repos: 'flake8'
     secrets:
@@ -259,7 +247,7 @@ to install Python and invoke [`pre-commit`].
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/pre-commit.yml@v5.0.7
+    uses: coatl-dev/workflows/.github/workflows/pre-commit.yml@v6.0.0
     with:
       skip-hooks: 'pylint'
 ```
@@ -282,7 +270,7 @@ This workflow will install Python and invoke `pylint` to analyze your code.
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/pylint.yml@v5.0.7
+    uses: coatl-dev/workflows/.github/workflows/pylint.yml@v6.0.0
     with:
       path: src
 ```
@@ -320,7 +308,7 @@ Secrets:
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/pypi-upload.yml@v5.0.7
+    uses: coatl-dev/workflows/.github/workflows/pypi-upload.yml@v6.0.0
     with:
       python-version: '2.7'
     secrets:
@@ -367,7 +355,7 @@ requires =
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/tox-docker.yml@v5.0.7
+    uses: coatl-dev/workflows/.github/workflows/tox-docker.yml@v6.0.0
 ```
 
 ### .github/workflows/tox-gh.yml
@@ -404,7 +392,7 @@ and on your workflow:
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/tox-gh.yml@v5.0.7
+    uses: coatl-dev/workflows/.github/workflows/tox-gh.yml@v6.0.0
     with:
       python-versions: '["3.9", "3.10", "3.11", "3.12", "3.13"]'
 ```
@@ -432,7 +420,7 @@ This workflow will install Python and invoke `tox` to run all envs found in
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/tox.yml@v5.0.7
+    uses: coatl-dev/workflows/.github/workflows/tox.yml@v6.0.0
     with:
       python-versions: |
         3.9
@@ -486,7 +474,7 @@ on:
 
 jobs:
   pip-compile-upgrade:
-    uses: coatl-dev/workflows/.github/workflows/uv-pip-compile-upgrade.yml@v5.0.7
+    uses: coatl-dev/workflows/.github/workflows/uv-pip-compile-upgrade.yml@v6.0.0
     with:
       path: requirements.txt
     secrets:
