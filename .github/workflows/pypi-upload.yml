@@ -5,6 +5,7 @@ on:
         description: Version of Python to use.
         required: false
         type: string
+        default: '2.7'
       check:
         description: Check metadata with twine before uploading.
         required: false
