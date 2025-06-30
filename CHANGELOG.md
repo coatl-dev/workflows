@@ -1,3 +1,9 @@
+## v6.0.2 (2025-06-30)
+
+### Refactor
+
+- **deps**: bump coatl-dev/actions from 4 to 5 (#83)
+
 ## v6.0.1 (2025-06-28)
 
 ### Refactor
