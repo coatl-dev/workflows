@@ -38,28 +38,16 @@ on:
 jobs:
   upload:
     runs-on: ubuntu-latest
-    container:
-      image: ghcr.io/coatl-dev/python-tools:${{ inputs.python-version }}-build
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Build package
-        working-directory: ${{ inputs.working-directory }}
-        run: |
-          python -m build
-
-      - name: Check package with Twine
-        if: ${{ inputs.check }}
-        working-directory: ${{ inputs.working-directory }}
-        run: |
-          python -m twine check dist/*
-
-      - name: Upload to PyPI via Twine
-        env:
-          TWINE_USERNAME: ${{ inputs.username }}
-          TWINE_PASSWORD: ${{ secrets.password }}
-          TWINE_REPOSITORY_URL: ${{ inputs.url }}
-        working-directory: ${{ inputs.working-directory }}
-        run: |
-          python -m twine upload --verbose dist/*
+      - name: Upload Python package to PyPI
+        uses: coatl-dev/actions/pypi-upload@v5
+        with:
+          python-version: ${{ inputs.python-version }}
+          check: ${{ inputs.check }}
+          url: ${{ inputs.url }}
+          username: ${{ inputs.username }}
+          password: ${{ secrets.password }}
+          working-directory: ${{ inputs.working-directory }}
