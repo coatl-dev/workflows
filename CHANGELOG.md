@@ -1,3 +1,9 @@
+## v6.0.3 (2025-07-01)
+
+### Refactor
+
+- **pypi-upload**: use coatl-dev/actions/pypi-upload (#84)
+
 ## v6.0.2 (2025-06-30)
 
 ### Refactor
