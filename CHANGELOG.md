@@ -1,3 +1,10 @@
+## v6.0.4 (2025-08-12)
+
+### Refactor
+
+- **deps**: bump actions/checkout from 4 to 5 (#88)
+- **deps**: bump actions/download-artifact from 4 to 5 (#86)
+
 ## v6.0.3 (2025-07-01)
 
 ### Refactor
