@@ -20,10 +20,10 @@ jobs:
     container: coatldev/six:latest
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Checkout requirements repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           repository: coatl-dev/workflow-requirements
           path: deps
