@@ -1,3 +1,9 @@
+## v6.0.5 (2025-09-08)
+
+### Refactor
+
+- **deps**: bump actions/setup-python from 5 to 6 (#90)
+
 ## v6.0.4 (2025-08-12)
 
 ### Refactor
