@@ -1,3 +1,9 @@
+## v6.1.2 (2025-10-10)
+
+### Refactor
+
+- **tox-docker**: add $HOME/.local/bin to PATH before installing tox (#94)
+
 ## v6.1.1 (2025-10-10)
 
 ### Fix
