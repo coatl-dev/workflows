@@ -30,6 +30,10 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v5
 
+      - name: Add ~/.local/bin to PATH
+        run: |
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
+
       - name: Install tox
         run: |
           uv tool install tox
@@ -51,10 +55,6 @@ jobs:
         with:
           path: ${{ steps.setup-tox.outputs.tox-cache-dir }}
           key: tox-${{ env.UV_PYTHON }}-${{ runner.os }}-${{ hashFiles(steps.setup-tox.outputs.tox-ini) }}
-
-      - name: Add ~/.local/bin to PATH
-        run: |
-          echo "$HOME/.local/bin" >> $GITHUB_PATH
 
       - name: Run tests
         working-directory: ${{ inputs.working-directory }}
