@@ -1,3 +1,9 @@
+## v6.1.0 (2025-10-09)
+
+### Feat
+
+- **tox-docker**: use uv for running tox (#92)
+
 ## v6.0.5 (2025-09-08)
 
 ### Refactor
