@@ -323,7 +323,7 @@ This workflow will install the latest version of `tox` to run all envs found in
 
 > [!NOTE]
 > This workflow uses the [`coatldev/six`] Docker image, which comes with
-> Python 3.13, 3.12 and 2.7.18.
+> Python 3.12, 2.7.18 and `uv`.
 
 **Inputs**:
 
@@ -331,6 +331,8 @@ This workflow will install the latest version of `tox` to run all envs found in
   to `''`.
 - `working-directory` (`string`): The directory to run the workflow in.
   Optional. Defaults to `github.workspace`.
+- `uv-python` (`string`): The Python version to use with `uv`. Optional.
+  Defaults to `'3.14'`.
 
 **Recommendations**:
 
