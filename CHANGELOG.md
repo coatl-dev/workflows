@@ -1,3 +1,9 @@
+## v6.1.1 (2025-10-10)
+
+### Fix
+
+- **tox-docker**: add $HOME/.local/bin to $PATH (#93)
+
 ## v6.1.0 (2025-10-09)
 
 ### Feat
