@@ -23,20 +23,13 @@ on:
 jobs:
   tox:
     runs-on: ubuntu-latest
-    container: coatldev/six:latest
+    container:
+      image: coatldev/six:latest
     env:
       UV_PYTHON: ${{ inputs.uv-python }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@v5
-
-      - name: Add ~/.local/bin to PATH
-        run: |
-          echo "$HOME/.local/bin" >> $GITHUB_PATH
-
-      - name: Install tox
-        run: |
-          uv tool install tox
 
       - name: Set up tox caching
         id: setup-tox
@@ -59,4 +52,4 @@ jobs:
       - name: Run tests
         working-directory: ${{ inputs.working-directory }}
         run: |
-          tox ${{ inputs.extra-args }}
+          uvx tox ${{ inputs.extra-args }}
