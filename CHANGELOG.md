@@ -1,3 +1,9 @@
+## v6.1.3 (2025-10-11)
+
+### Refactor
+
+- **tox-docker**: run tox with uvx (#95)
+
 ## v6.1.2 (2025-10-10)
 
 ### Refactor
