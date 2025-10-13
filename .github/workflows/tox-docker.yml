@@ -25,15 +25,16 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: coatldev/six:latest
-    env:
-      UV_PYTHON: ${{ inputs.uv-python }}
+      env:
+        UV_PYTHON: ${{ inputs.uv-python }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@v5
 
-      - name: Set up tox caching
-        id: setup-tox
+      - name: Set up caching variables
+        id: setup-caching
         run: |
+          echo "uv-python=$(uvx python --version | sha256sum | cut -d' ' -f1)" >> $GITHUB_OUTPUT
           if [[ "${{ inputs.working-directory }}" != "${{ github.workspace }}" ]]; then
             echo "tox-cache-dir=${{ inputs.working-directory }}/.tox" >> $GITHUB_OUTPUT
             echo "tox-ini=${{ inputs.working-directory }}/tox.ini" >> $GITHUB_OUTPUT
@@ -46,8 +47,8 @@ jobs:
         id: cache-tox
         uses: actions/cache@v4
         with:
-          path: ${{ steps.setup-tox.outputs.tox-cache-dir }}
-          key: tox-${{ env.UV_PYTHON }}-${{ runner.os }}-${{ hashFiles(steps.setup-tox.outputs.tox-ini) }}
+          path: ${{ steps.setup-caching.outputs.tox-cache-dir }}
+          key: tox-${{ steps.setup-caching.outputs.uv-python }}-${{ runner.os }}-${{ hashFiles(steps.setup-caching.outputs.tox-ini) }}
 
       - name: Run tests
         working-directory: ${{ inputs.working-directory }}
