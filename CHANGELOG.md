@@ -1,3 +1,9 @@
+## v6.1.4 (2025-10-12)
+
+### Refactor
+
+- **tox-docker**: set all caching variables in one step (#96)
+
 ## v6.1.3 (2025-10-11)
 
 ### Refactor
