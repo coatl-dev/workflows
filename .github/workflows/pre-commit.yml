@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Set up Python
         uses: actions/setup-python@v6
@@ -20,7 +20,7 @@ jobs:
           python-version: '3.13'
 
       - name: Checkout requirements repo
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           repository: coatl-dev/workflow-requirements
           path: deps
