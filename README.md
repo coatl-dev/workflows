@@ -386,8 +386,9 @@ python =
     3.9 = py39
     3.10 = py310
     3.11 = py311
-    3.12 = py312
-    3.13 = py313, install, typecheck
+    3.12 = py312, typecheck
+    3.13 = py313
+    3.14 = py314, install
 ```
 
 and on your workflow:
@@ -397,7 +398,7 @@ jobs:
   main:
     uses: coatl-dev/workflows/.github/workflows/tox-gh.yml@v6.1.4
     with:
-      python-versions: '["3.9", "3.10", "3.11", "3.12", "3.13"]'
+      python-versions: '["3.9", "3.10", "3.11", "3.12", "3.13", "3.14"]'
 ```
 
 ### .github/workflows/tox.yml
@@ -442,7 +443,7 @@ requirements.
 - `path` (`string`): The location of the requirement file(s).
 - `python-version` (`string`): The version of Python to set `UV_PYTHON` to. You
   may use MAJOR.MINOR or exact version. Options: `'3.8'` to `'3.14'`. Defaults
-  to `'3.13'`. Optional.
+  to `'3.14'`. Optional.
 - `pr-create` (`string`): Whether to create a Pull Request. Options: `'yes'`,
   `'no'`. Defaults to `'yes'`. Optional.
 - `pr-commit-message` (`string`): Use the given message as the commit message.
