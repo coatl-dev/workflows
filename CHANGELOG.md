@@ -1,3 +1,15 @@
+## v6.2.0 (2025-11-28)
+
+### Feat
+
+- use Python 3.14 as default (#102)
+
+### Refactor
+
+- **deps**: bump actions/checkout from 5 to 6 (#101)
+- **deps**: bump actions/download-artifact from 5 to 6 (#99)
+- **deps**: bump actions/upload-artifact from 4 to 5 (#98)
+
 ## v6.1.4 (2025-10-12)
 
 ### Refactor
