@@ -11,7 +11,7 @@ on:
           The version of Python to set UV_PYTHON to.
         required: false
         type: string
-        default: '3.13'
+        default: '3.14'
       working-directory:
         description: >-
           The directory to run the workflow in.
