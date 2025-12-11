@@ -1,3 +1,9 @@
+## v6.2.2 (2025-12-11)
+
+### Refactor
+
+- add pr-create-additional-args input (#104)
+
 ## v6.2.1 (2025-12-10)
 
 ### Refactor

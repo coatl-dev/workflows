@@ -59,7 +59,7 @@ GitHub action for using a matrix strategy to distribute the build for
 ```yml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/docker-build-push-multi-platform.yml@v6.2.1
+    uses: coatl-dev/workflows/.github/workflows/docker-build-push-multi-platform.yml@v6.2.2
     with:
       registry-image: user/app
       metadata-tags: |
@@ -110,7 +110,7 @@ GitHub action for using a matrix strategy to distribute the build for
 ```yml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/docker-build-push-multi-registry.yml@v6.2.1
+    uses: coatl-dev/workflows/.github/workflows/docker-build-push-multi-registry.yml@v6.2.2
     with:
       dockerhub-repo: user/app
       dockerhub-username: ${{ vars.DOCKERHUB_USERNAME }}
@@ -146,6 +146,8 @@ GitHub action for running `pip-compile upgrade` on your Python 2.7 requirements.
   requirements are met. Options: `'yes'`, `'no'`. Defaults to `'yes'`. Optional.
 - `pr-delete-branch` (`string`): Delete the local and remote branch after merge.
   Options: `'yes'`, `'no'`. Defaults to `'no'`. Optional.
+- `pr-create-additional-args` (`string`): Additional arguments to pass to the
+  `gh pr create` command. Defaults to `''`. Optional.
 - `sign-commits` (`string`): Whether to sign Git commits. Options: `'yes'`,
   `'no'`. Defaults to `'yes'`. Optional.
 - `working-directory` (`string`): The directory to run the workflow in.
@@ -172,9 +174,10 @@ on:
 
 jobs:
   pip-compile-upgrade:
-    uses: coatl-dev/workflows/.github/workflows/pip-compile-upgrade.yml@v6.2.1
+    uses: coatl-dev/workflows/.github/workflows/pip-compile-upgrade.yml@v6.2.2
     with:
       path: requirements.txt
+      pr-create-additional-args: develop
     secrets:
       gh-token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
       gpg-sign-passphrase: ${{ secrets.GPG_PASSPHRASE }}
@@ -198,6 +201,8 @@ to install Python and invoke [`pre-commit autoupdate`].
   requirements are met. Options: `'yes'`, `'no'`. Defaults to `'yes'`. Optional.
 - `pr-delete-branch` (`string`): Delete the local and remote branch after merge.
   Options: `'yes'`, `'no'`. Defaults to `'no'`. Optional.
+- `pr-create-additional-args` (`string`): Additional arguments to pass to the
+  `gh pr create` command. Defaults to `''`. Optional.
 - `sign-commits` (`string`): Whether to sign Git commits. Options: `'yes'`,
   `'no'`. Defaults to `'yes'`. Optional.
 - `skip-repos` (`string`): A list of repos to exclude from autoupdate. The repos
@@ -224,9 +229,10 @@ on:
 
 jobs:
   pre-commit-autoupdate:
-    uses: coatl-dev/workflows/.github/workflows/pre-commit-autoupdate.yml@v6.2.1
+    uses: coatl-dev/workflows/.github/workflows/pre-commit-autoupdate.yml@v6.2.2
     with:
       skip-repos: 'flake8'
+      pr-create-additional-args: other
     secrets:
       gh-token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
       gpg-sign-passphrase: ${{ secrets.GPG_PASSPHRASE }}
@@ -250,7 +256,7 @@ to install Python and invoke [`pre-commit`].
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/pre-commit.yml@v6.2.1
+    uses: coatl-dev/workflows/.github/workflows/pre-commit.yml@v6.2.2
     with:
       skip-hooks: 'pylint'
 ```
@@ -274,7 +280,7 @@ This workflow will install Python and invoke `pylint` to analyze your code.
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/pylint.yml@v6.2.1
+    uses: coatl-dev/workflows/.github/workflows/pylint.yml@v6.2.2
     with:
       path: src
 ```
@@ -314,7 +320,7 @@ Secrets:
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/pypi-upload.yml@v6.2.1
+    uses: coatl-dev/workflows/.github/workflows/pypi-upload.yml@v6.2.2
     with:
       python-version: '3.12'
     secrets:
@@ -364,7 +370,7 @@ requires =
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/tox-docker.yml@v6.2.1
+    uses: coatl-dev/workflows/.github/workflows/tox-docker.yml@v6.2.2
 ```
 
 ### .github/workflows/tox-gh.yml
@@ -403,7 +409,7 @@ and on your workflow:
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/tox-gh.yml@v6.2.1
+    uses: coatl-dev/workflows/.github/workflows/tox-gh.yml@v6.2.2
     with:
       python-versions: '["3.9", "3.10", "3.11", "3.12", "3.13", "3.14"]'
 ```
@@ -432,7 +438,7 @@ This workflow will install Python and invoke `tox` to run all envs found in
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/tox.yml@v6.2.1
+    uses: coatl-dev/workflows/.github/workflows/tox.yml@v6.2.2
     with:
       python-versions: |
         3.9
@@ -461,6 +467,8 @@ requirements.
   requirements are met. Options: `'yes'`, `'no'`. Defaults to `'yes'`. Optional.
 - `pr-delete-branch` (`string`): Delete the local and remote branch after merge.
   Options: `'yes'`, `'no'`. Defaults to `'no'`. Optional.
+- `pr-create-additional-args` (`string`): Additional arguments to pass to the
+  `gh pr create` command. Defaults to `''`. Optional.
 - `sign-commits` (`string`): Whether to sign Git commits. Options: `'yes'`,
   `'no'`. Defaults to `'yes'`. Optional.
 - `working-directory` (`string`): The directory to run the workflow in.
@@ -487,7 +495,7 @@ on:
 
 jobs:
   pip-compile-upgrade:
-    uses: coatl-dev/workflows/.github/workflows/uv-pip-compile-upgrade.yml@v6.2.1
+    uses: coatl-dev/workflows/.github/workflows/uv-pip-compile-upgrade.yml@v6.2.2
     with:
       path: requirements.txt
     secrets:
