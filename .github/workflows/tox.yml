@@ -1,6 +1,11 @@
 on:
   workflow_call:
     inputs:
+      checkout-ref:
+        description: >-
+          The branch, tag or SHA to checkout.
+        required: false
+        type: string
       python-versions:
         description: >-
           Version range or exact version of Python to use, using SemVer's version range syntax.
@@ -25,6 +30,8 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v6
+        with:
+          ref: ${{ inputs.checkout-ref }}
 
       - name: Set up Python
         uses: actions/setup-python@v6

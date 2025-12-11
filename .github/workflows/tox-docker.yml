@@ -1,6 +1,11 @@
 on:
   workflow_call:
     inputs:
+      checkout-ref:
+        description: >-
+          The branch, tag or SHA to checkout.
+        required: false
+        type: string
       extra-args:
         description: >-
           Extra arguments to pass to tox.
@@ -30,6 +35,8 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v6
+        with:
+          ref: ${{ inputs.checkout-ref }}
 
       - name: Set up caching variables
         id: setup-caching

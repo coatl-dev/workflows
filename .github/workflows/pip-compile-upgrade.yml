@@ -1,6 +1,11 @@
 on:
   workflow_call:
     inputs:
+      checkout-ref:
+        description: >-
+          The branch, tag or SHA to checkout.
+        required: false
+        type: string
       path:
         description: >-
           The location of the requirement file(s).
@@ -68,6 +73,8 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v6
+        with:
+          ref: ${{ inputs.checkout-ref }}
 
       - name: Upgrade requirements
         id: pip-compile-upgrade

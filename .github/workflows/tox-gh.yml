@@ -1,6 +1,11 @@
 on:
   workflow_call:
     inputs:
+      checkout-ref:
+        description: >-
+          The branch, tag or SHA to checkout.
+        required: false
+        type: string
       python-versions:
         description: A list of Python versions.
         required: true
@@ -23,6 +28,8 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v6
+        with:
+          ref: ${{ inputs.checkout-ref }}
 
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v6
