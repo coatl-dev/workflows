@@ -59,7 +59,7 @@ GitHub action for using a matrix strategy to distribute the build for
 ```yml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/docker-build-push-multi-platform.yml@v6.2.0
+    uses: coatl-dev/workflows/.github/workflows/docker-build-push-multi-platform.yml@v6.2.1
     with:
       registry-image: user/app
       metadata-tags: |
@@ -110,7 +110,7 @@ GitHub action for using a matrix strategy to distribute the build for
 ```yml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/docker-build-push-multi-registry.yml@v6.2.0
+    uses: coatl-dev/workflows/.github/workflows/docker-build-push-multi-registry.yml@v6.2.1
     with:
       dockerhub-repo: user/app
       dockerhub-username: ${{ vars.DOCKERHUB_USERNAME }}
@@ -134,6 +134,7 @@ GitHub action for running `pip-compile upgrade` on your Python 2.7 requirements.
 
 **Inputs**:
 
+- `checkout-ref` (`string`): The branch, tag or SHA to checkout. Optional.
 - `path` (`string`): The location of the requirement file(s).
 - `extra-args` (`string`): Extra arguments to pass to `pip-compile`. Optional.
   Defaults to `''`.
@@ -171,7 +172,7 @@ on:
 
 jobs:
   pip-compile-upgrade:
-    uses: coatl-dev/workflows/.github/workflows/pip-compile-upgrade.yml@v6.2.0
+    uses: coatl-dev/workflows/.github/workflows/pip-compile-upgrade.yml@v6.2.1
     with:
       path: requirements.txt
     secrets:
@@ -187,6 +188,7 @@ to install Python and invoke [`pre-commit autoupdate`].
 
 **Inputs**:
 
+- `checkout-ref` (`string`): The branch, tag or SHA to checkout. Optional.
 - `pr-base-branch` (`string`): The branch into which you want your code merged.
   Defaults to `'main'`. Required when `pr-create` is set to `'yes'`, otherwise
   is optional.
@@ -222,7 +224,7 @@ on:
 
 jobs:
   pre-commit-autoupdate:
-    uses: coatl-dev/workflows/.github/workflows/pre-commit-autoupdate.yml@v6.2.0
+    uses: coatl-dev/workflows/.github/workflows/pre-commit-autoupdate.yml@v6.2.1
     with:
       skip-repos: 'flake8'
     secrets:
@@ -238,6 +240,7 @@ to install Python and invoke [`pre-commit`].
 
 **Inputs**:
 
+- `checkout-ref` (`string`): The branch, tag or SHA to checkout. Optional.
 - `skip-hooks` (list[`string`]): A comma separated list of hook ids which will
   be disabled. Useful when your `pre-commit-config.yaml` file contains
   [`local hooks`]. Optional. See: [Temporarily disabling hooks].
@@ -247,7 +250,7 @@ to install Python and invoke [`pre-commit`].
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/pre-commit.yml@v6.2.0
+    uses: coatl-dev/workflows/.github/workflows/pre-commit.yml@v6.2.1
     with:
       skip-hooks: 'pylint'
 ```
@@ -258,6 +261,7 @@ This workflow will install Python and invoke `pylint` to analyze your code.
 
 **Inputs**:
 
+- `checkout-ref` (`string`): The branch, tag or SHA to checkout. Optional.
 - `path` (`string`): This can be a module, package, directory or a file.
   Optional.
 - `extra-args` (`string`): Extra arguments to pass to `pylint`. Optional.
@@ -270,7 +274,7 @@ This workflow will install Python and invoke `pylint` to analyze your code.
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/pylint.yml@v6.2.0
+    uses: coatl-dev/workflows/.github/workflows/pylint.yml@v6.2.1
     with:
       path: src
 ```
@@ -287,6 +291,7 @@ PyPI (or any other repository) using `build` and `twine`.
 
 **Inputs**:
 
+- `checkout-ref` (`string`): The branch, tag or SHA to checkout. Optional.
 - `python-version` (`string`): The Python version to use for building and
   publishing the package. Options: `'2.7'` or `'3.12'`. Defaults to `'2.7'`.
   Optional.
@@ -309,7 +314,7 @@ Secrets:
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/pypi-upload.yml@v6.2.0
+    uses: coatl-dev/workflows/.github/workflows/pypi-upload.yml@v6.2.1
     with:
       python-version: '3.12'
     secrets:
@@ -327,6 +332,7 @@ This workflow will install the latest version of `tox` to run all envs found in
 
 **Inputs**:
 
+- `checkout-ref` (`string`): The branch, tag or SHA to checkout. Optional.
 - `extra-args` (`string`): Extra arguments to pass to `tox`. Optional. Defaults
   to `''`.
 - `working-directory` (`string`): The directory to run the workflow in.
@@ -358,7 +364,7 @@ requires =
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/tox-docker.yml@v6.2.0
+    uses: coatl-dev/workflows/.github/workflows/tox-docker.yml@v6.2.1
 ```
 
 ### .github/workflows/tox-gh.yml
@@ -368,6 +374,7 @@ This workflow will install Python and [`tox-gh`] and it will run the matching
 
 **Inputs**:
 
+- `checkout-ref` (`string`): The branch, tag or SHA to checkout. Optional.
 - `python-versions` (list[`string`]): A list of Python versions passed
   through to [`actions/setup-python`]'s `python-version`. Required.
 - `working-directory` (`string`): The directory to run the workflow in.
@@ -396,7 +403,7 @@ and on your workflow:
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/tox-gh.yml@v6.2.0
+    uses: coatl-dev/workflows/.github/workflows/tox-gh.yml@v6.2.1
     with:
       python-versions: '["3.9", "3.10", "3.11", "3.12", "3.13", "3.14"]'
 ```
@@ -408,6 +415,7 @@ This workflow will install Python and invoke `tox` to run all envs found in
 
 **Inputs**:
 
+- `checkout-ref` (`string`): The branch, tag or SHA to checkout. Optional.
 - `python-versions` (list[`string`]): Version range or exact version of Python
   to use, using SemVer's version range syntax. Required.
 - `extra-args` (`string`): Extra arguments to pass to `tox`. Optional. Defaults
@@ -424,7 +432,7 @@ This workflow will install Python and invoke `tox` to run all envs found in
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/tox.yml@v6.2.0
+    uses: coatl-dev/workflows/.github/workflows/tox.yml@v6.2.1
     with:
       python-versions: |
         3.9
@@ -440,6 +448,7 @@ requirements.
 
 **Inputs**:
 
+- `checkout-ref` (`string`): The branch, tag or SHA to checkout. Optional.
 - `path` (`string`): The location of the requirement file(s).
 - `python-version` (`string`): The version of Python to set `UV_PYTHON` to. You
   may use MAJOR.MINOR or exact version. Options: `'3.8'` to `'3.14'`. Defaults
@@ -478,7 +487,7 @@ on:
 
 jobs:
   pip-compile-upgrade:
-    uses: coatl-dev/workflows/.github/workflows/uv-pip-compile-upgrade.yml@v6.2.0
+    uses: coatl-dev/workflows/.github/workflows/uv-pip-compile-upgrade.yml@v6.2.1
     with:
       path: requirements.txt
     secrets:

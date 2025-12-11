@@ -1,3 +1,9 @@
+## v6.2.1 (2025-12-10)
+
+### Refactor
+
+- add checkout-ref input (#103)
+
 ## v6.2.0 (2025-11-28)
 
 ### Feat
