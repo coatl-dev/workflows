@@ -1,6 +1,11 @@
 on:
   workflow_call:
     inputs:
+      checkout-ref:
+        description: >-
+          The branch, tag or SHA to checkout.
+        required: false
+        type: string
       python-version:
         description: Version of Python to use.
         required: false
@@ -41,6 +46,8 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v6
+        with:
+          ref: ${{ inputs.checkout-ref }}
 
       - name: Upload Python package to PyPI
         uses: coatl-dev/actions/pypi-upload@v5
