@@ -47,6 +47,12 @@ on:
         required: false
         type: string
         default: 'no'
+      pr-create-additional-args:
+        description: >-
+          Additional arguments to pass to the gh pr create command.
+        required: false
+        type: string
+        default: ''
       sign-commits:
         required: false
         type: string
@@ -122,3 +128,4 @@ jobs:
           gh-token: ${{ secrets.gh-token }}
           auto-merge: ${{ inputs.pr-auto-merge }}
           delete-branch: ${{ inputs.pr-delete-branch }}
+          additional-args: ${{ inputs.pr-create-additional-args }}
