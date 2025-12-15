@@ -46,7 +46,7 @@ jobs:
           path: deps
 
       - name: Cache pip
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ~/.cache/pip
           key: pip-${{ steps.setup-python.outputs.python-version }}-${{ runner.os }}-${{ hashFiles('deps/requirements/tox.txt') }}
@@ -68,7 +68,7 @@ jobs:
 
       - name: Cache tox
         id: cache-tox
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ${{ steps.setup-tox.outputs.tox-cache-dir }}
           key: tox-${{ steps.setup-python.outputs.python-version }}-${{ runner.os }}-${{ hashFiles(steps.setup-tox.outputs.tox-ini) }}
