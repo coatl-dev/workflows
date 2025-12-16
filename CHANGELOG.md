@@ -1,3 +1,11 @@
+## v6.2.3 (2025-12-15)
+
+### Refactor
+
+- **deps**: bump actions/upload-artifact from 5 to 6 (#107)
+- **deps**: bump actions/download-artifact from 6 to 7 (#106)
+- **deps**: bump actions/cache from 4 to 5 (#105)
+
 ## v6.2.2 (2025-12-11)
 
 ### Refactor
