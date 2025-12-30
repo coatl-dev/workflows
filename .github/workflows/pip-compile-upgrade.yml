@@ -53,6 +53,12 @@ on:
         required: false
         type: string
         default: ''
+      pr-branch:
+        description: >-
+          The branch to use for the submitting the PR.
+        type: string
+        required: false
+        default: 'coatl-dev-pip-compile-upgrade'
       sign-commits:
         required: false
         type: string
@@ -142,10 +148,10 @@ jobs:
       - name: Commit and push changes
         if: ${{ steps.git-diff.outputs.diff == 'true' && inputs.pr-create == 'yes' }}
         run: |
-          git checkout -B coatl-dev-pip-compile-upgrade
+          git checkout -B ${{ inputs.pr-branch }}
           git add ${{ inputs.path }}
           git commit --file="${RUNNER_TEMP}/commit.txt"
-          git push --force --set-upstream origin coatl-dev-pip-compile-upgrade
+          git push --force --set-upstream origin ${{ inputs.pr-branch }}
 
       - name: Create pull request
         if: ${{ steps.git-diff.outputs.diff == 'true' && inputs.pr-create == 'yes' }}

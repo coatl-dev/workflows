@@ -39,6 +39,12 @@ on:
           A list of repos to exclude from autoupdate.
         type: string
         required: false
+      pr-branch:
+        description: >-
+          The branch to use for autoupdate.
+        type: string
+        required: false
+        default: 'coatl-dev-pre-commit-autoupdate'
     secrets:
       gh-token:
         description: >-
@@ -132,10 +138,10 @@ jobs:
       - name: Commit and push changes
         if: ${{ steps.git-diff.outputs.diff == 'true' && inputs.pr-create == 'yes' }}
         run: |
-          git checkout -B 'coatl-dev-pre-commit-autoupdate'
+          git checkout -B ${{ inputs.pr-branch }}
           git add .pre-commit-config.yaml
           git commit --file="${RUNNER_TEMP}/commit.txt"
-          git push --force --set-upstream origin coatl-dev-pre-commit-autoupdate
+          git push --force --set-upstream origin ${{ inputs.pr-branch }}
 
       - name: Create Pull Request
         if: ${{ steps.git-diff.outputs.diff == 'true' && inputs.pr-create == 'yes' }}
