@@ -1,3 +1,9 @@
+## v6.2.4 (2025-12-30)
+
+### Refactor
+
+- add pr-branch input (#109)
+
 ## v6.2.3 (2025-12-15)
 
 ### Refactor
