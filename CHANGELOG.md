@@ -1,3 +1,14 @@
+## v6.2.5 (2026-03-09)
+
+### Refactor
+
+- **deps**: bump docker/build-push-action from 6 to 7 (#118)
+- **deps**: bump docker/login-action from 3 to 4 (#117)
+- **deps**: bump docker/setup-buildx-action from 3 to 4 (#116)
+- **deps**: bump docker/metadata-action from 5 to 6 (#115)
+- **deps**: bump actions/upload-artifact from 6 to 7 (#113)
+- **deps**: bump actions/download-artifact from 7 to 8 (#112)
+
 ## v6.2.4 (2025-12-30)
 
 ### Refactor
