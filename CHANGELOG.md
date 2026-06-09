@@ -1,3 +1,18 @@
+## v7.0.0 (2026-06-09)
+
+### BREAKING CHANGE
+
+- drop pr-create input; a PR will always be created
+
+### Feat
+
+- add prek and prek-autoupdate workflows (#123)
+
+### Refactor
+
+- use coatl-dev/actions@v7.0.0 (#122)
+- switch to hash-pinned actions (#121)
+
 ## v6.2.5 (2026-03-09)
 
 ### Refactor
