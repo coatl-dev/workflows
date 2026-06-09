@@ -1,35 +1,35 @@
 on:
   workflow_call:
     inputs:
+      autoupdate-branch:
+        description: >-
+          The branch to use for autoupdate.
+        type: string
+        required: false
+        default: ''
       checkout-ref:
         description: >-
           The branch, tag or SHA to checkout.
         required: false
         type: string
-      pr-create:
-        description: >-
-          Whether to create a Pull Request.
-        required: false
-        type: string
-        default: 'yes'
       pr-auto-merge:
         description: >-
           Automatically merge only after necessary requirements are met.
         required: false
         type: string
         default: 'yes'
+      pr-branch:
+        description: >-
+          The branch to use for autoupdate.
+        type: string
+        required: false
+        default: 'coatl-dev-pre-commit-autoupdate'
       pr-delete-branch:
         description: >-
           Delete the local and remote branch after merge.
         required: false
         type: string
         default: 'no'
-      pr-create-additional-args:
-        description: >-
-          Additional arguments to pass to the gh pr create command.
-        required: false
-        type: string
-        default: ''
       sign-commits:
         required: false
         type: string
@@ -39,12 +39,6 @@ on:
           A list of repos to exclude from autoupdate.
         type: string
         required: false
-      pr-branch:
-        description: >-
-          The branch to use for autoupdate.
-        type: string
-        required: false
-        default: 'coatl-dev-pre-commit-autoupdate'
     secrets:
       gh-token:
         description: >-
@@ -117,7 +111,7 @@ jobs:
           path: .pre-commit-config.yaml
 
       - name: Import GPG key
-        if: ${{ steps.git-diff.outputs.diff == 'true' && inputs.pr-create == 'yes' && inputs.sign-commits == 'yes' }}
+        if: ${{ steps.git-diff.outputs.diff == 'true' && inputs.sign-commits == 'yes' }}
         id: gpg-import
         uses: coatl-dev/actions/gpg-import@ed363d0af5aeaadc047db4bdebbdd81d916c2e7d # v6.0.0
         with:
@@ -136,7 +130,7 @@ jobs:
           } >> "$RUNNER_TEMP/commit.txt"
 
       - name: Commit and push changes
-        if: ${{ steps.git-diff.outputs.diff == 'true' && inputs.pr-create == 'yes' }}
+        if: ${{ steps.git-diff.outputs.diff == 'true' }}
         run: |
           git checkout -B ${{ inputs.pr-branch }}
           git add .pre-commit-config.yaml
@@ -144,10 +138,10 @@ jobs:
           git push --force --set-upstream origin ${{ inputs.pr-branch }}
 
       - name: Create Pull Request
-        if: ${{ steps.git-diff.outputs.diff == 'true' && inputs.pr-create == 'yes' }}
-        uses: coatl-dev/actions/pr-create@ed363d0af5aeaadc047db4bdebbdd81d916c2e7d # v6.0.0
+        if: ${{ steps.git-diff.outputs.diff == 'true' }}
+        uses: coatl-dev/actions/pr-create@208567f6e604baf94c6e867ec7f345ec9ad36eb4 # v7.0.0
         with:
           gh-token: ${{ secrets.gh-token }}
           auto-merge: ${{ inputs.pr-auto-merge }}
+          base-branch: ${{ inputs.autoupdate-branch }}
           delete-branch: ${{ inputs.pr-delete-branch }}
-          additional-args: ${{ inputs.pr-create-additional-args }}
