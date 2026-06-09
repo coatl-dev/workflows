@@ -134,22 +134,19 @@ GitHub action for running `pip-compile upgrade` on your Python 2.7 requirements.
 
 **Inputs**:
 
+- `base-branch` (`string`): The branch to use as the base for the PR.
 - `checkout-ref` (`string`): The branch, tag or SHA to checkout. Optional.
-- `path` (`string`): The location of the requirement file(s).
 - `extra-args` (`string`): Extra arguments to pass to `pip-compile`. Optional.
   Defaults to `''`.
-- `pr-create` (`string`): Whether to create a Pull Request. Options: `'yes'`,
-  `'no'`. Defaults to `'yes'`. Optional.
-- `pr-commit-message` (`string`): Use the given message as the commit message.
-  Defaults to `'chore(requirements): pip-compile upgrade'`. Optional.
+- `path` (`string`): The location of the requirement file(s).
 - `pr-auto-merge` (`string`): Automatically merge only after necessary
   requirements are met. Options: `'yes'`, `'no'`. Defaults to `'yes'`. Optional.
-- `pr-delete-branch` (`string`): Delete the local and remote branch after merge.
-  Options: `'yes'`, `'no'`. Defaults to `'no'`. Optional.
-- `pr-create-additional-args` (`string`): Additional arguments to pass to the
-  `gh pr create` command. Defaults to `''`. Optional.
 - `pr-branch` (`string`): The branch to use for the submitting the PR. Defaults
   to `'coatl-dev-pip-compile-upgrade'`. Optional.
+- `pr-commit-message` (`string`): Use the given message as the commit message.
+  Defaults to `'chore(requirements): pip-compile upgrade'`. Optional.
+- `pr-delete-branch` (`string`): Delete the local and remote branch after merge.
+  Options: `'yes'`, `'no'`. Defaults to `'no'`. Optional.
 - `sign-commits` (`string`): Whether to sign Git commits. Options: `'yes'`,
   `'no'`. Defaults to `'yes'`. Optional.
 - `working-directory` (`string`): The directory to run the workflow in.
@@ -193,20 +190,15 @@ to install Python and invoke [`pre-commit autoupdate`].
 
 **Inputs**:
 
+- `autoupdate-branch` (`string`): branch to send autoupdate PRs to. By default,
+  this will update the default branch of the repository.
 - `checkout-ref` (`string`): The branch, tag or SHA to checkout. Optional.
-- `pr-base-branch` (`string`): The branch into which you want your code merged.
-  Defaults to `'main'`. Required when `pr-create` is set to `'yes'`, otherwise
-  is optional.
-- `pr-create` (`string`): Whether to create a Pull Request. Options: `'yes'`,
-  `'no'`. Defaults to `'yes'`. Optional.
 - `pr-auto-merge` (`string`): Automatically merge only after necessary
   requirements are met. Options: `'yes'`, `'no'`. Defaults to `'yes'`. Optional.
-- `pr-delete-branch` (`string`): Delete the local and remote branch after merge.
-  Options: `'yes'`, `'no'`. Defaults to `'no'`. Optional.
-- `pr-create-additional-args` (`string`): Additional arguments to pass to the
-  `gh pr create` command. Defaults to `''`. Optional.
 - `pr-branch` (`string`): The branch to use for autoupdate. Defaults to
   `'coatl-dev-pre-commit-autoupdate'`. Optional.
+- `pr-delete-branch` (`string`): Delete the local and remote branch after merge.
+  Options: `'yes'`, `'no'`. Defaults to `'no'`. Optional.
 - `sign-commits` (`string`): Whether to sign Git commits. Options: `'yes'`,
   `'no'`. Defaults to `'yes'`. Optional.
 - `skip-repos` (`string`): A list of repos to exclude from autoupdate. The repos
@@ -236,7 +228,7 @@ jobs:
     uses: coatl-dev/workflows/.github/workflows/pre-commit-autoupdate.yml@v6.2.5
     with:
       skip-repos: 'flake8'
-      pr-create-additional-args: other
+      autoupdate-branch: 'develop'
     secrets:
       gh-token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
       gpg-sign-passphrase: ${{ secrets.GPG_PASSPHRASE }}
@@ -245,8 +237,8 @@ jobs:
 
 ### .github/workflows/pre-commit.yml
 
-If you [cannot/do not want to] benefit from [`pre-commit.ci`], use this workflow
-to install Python and invoke [`pre-commit`].
+This workflow will install Python and invoke `pre-commit` to run hooks on all
+the files in the repo.
 
 **Inputs**:
 
@@ -458,23 +450,20 @@ requirements.
 
 **Inputs**:
 
+- `base-branch` (`string`): The branch to use as the base for the PR.
 - `checkout-ref` (`string`): The branch, tag or SHA to checkout. Optional.
 - `path` (`string`): The location of the requirement file(s).
+- `pr-auto-merge` (`string`): Automatically merge only after necessary
+  requirements are met. Options: `'yes'`, `'no'`. Defaults to `'yes'`. Optional.
+- `pr-branch` (`string`): The branch to use for the submitting the PR. Defaults
+  to `'coatl-dev-pip-compile-upgrade'`. Optional.
+- `pr-commit-message` (`string`): Use the given message as the commit message.
+  Defaults to `'chore(requirements): pip-compile upgrade'`. Optional.
+- `pr-delete-branch` (`string`): Delete the local and remote branch after merge.
+  Options: `'yes'`, `'no'`. Defaults to `'no'`. Optional.
 - `python-version` (`string`): The version of Python to set `UV_PYTHON` to. You
   may use MAJOR.MINOR or exact version. Options: `'3.8'` to `'3.14'`. Defaults
   to `'3.14'`. Optional.
-- `pr-create` (`string`): Whether to create a Pull Request. Options: `'yes'`,
-  `'no'`. Defaults to `'yes'`. Optional.
-- `pr-commit-message` (`string`): Use the given message as the commit message.
-  Defaults to `'chore(requirements): pip-compile upgrade'`. Optional.
-- `pr-auto-merge` (`string`): Automatically merge only after necessary
-  requirements are met. Options: `'yes'`, `'no'`. Defaults to `'yes'`. Optional.
-- `pr-delete-branch` (`string`): Delete the local and remote branch after merge.
-  Options: `'yes'`, `'no'`. Defaults to `'no'`. Optional.
-- `pr-create-additional-args` (`string`): Additional arguments to pass to the
-  `gh pr create` command. Defaults to `''`. Optional.
-- `pr-branch` (`string`): The branch to use for the submitting the PR. Defaults
-  to `'coatl-dev-pip-compile-upgrade'`. Optional.
 - `sign-commits` (`string`): Whether to sign Git commits. Options: `'yes'`,
   `'no'`. Defaults to `'yes'`. Optional.
 - `working-directory` (`string`): The directory to run the workflow in.

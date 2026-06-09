@@ -1,15 +1,16 @@
 on:
   workflow_call:
     inputs:
+      base-branch:
+        description: >-
+          The branch to use as the base for the PR.
+        required: false
+        type: string
+        default: ''
       checkout-ref:
         description: >-
           The branch, tag or SHA to checkout.
         required: false
-        type: string
-      path:
-        description: >-
-          The location of the requirement file(s).
-        required: true
         type: string
       extra-args:
         description: >-
@@ -17,52 +18,45 @@ on:
         required: false
         type: string
         default: ''
-      working-directory:
+      path:
         description: >-
-          The directory to run the workflow in.
-        required: false
+          The location of the requirement file(s).
+        required: true
         type: string
-        default: ${{ github.workspace }}
-      pr-create:
-        description: >-
-          Whether to create a Pull Request.
-        required: false
-        type: string
-        default: 'yes'
-      pr-commit-message:
-        description: >-
-          Use the given <msg> as the commit message.
-        required: false
-        type: string
-        default: 'chore(requirements): pip-compile upgrade'
       pr-auto-merge:
         description: >-
           Automatically merge only after necessary requirements are met.
         required: false
         type: string
         default: 'yes'
-      pr-delete-branch:
-        description: >-
-          Delete the local and remote branch after merge.
-        required: false
-        type: string
-        default: 'no'
-      pr-create-additional-args:
-        description: >-
-          Additional arguments to pass to the gh pr create command.
-        required: false
-        type: string
-        default: ''
       pr-branch:
         description: >-
           The branch to use for the submitting the PR.
         type: string
         required: false
         default: 'coatl-dev-pip-compile-upgrade'
+      pr-commit-message:
+        description: >-
+          Use the given <msg> as the commit message.
+        required: false
+        type: string
+        default: 'chore(requirements): pip-compile upgrade'
+      pr-delete-branch:
+        description: >-
+          Delete the local and remote branch after merge.
+        required: false
+        type: string
+        default: 'no'
       sign-commits:
         required: false
         type: string
         default: 'yes'
+      working-directory:
+        description: >-
+          The directory to run the workflow in.
+        required: false
+        type: string
+        default: ${{ github.workspace }}
     secrets:
       gh-token:
         description: >-
@@ -128,7 +122,7 @@ jobs:
           path: ${{ inputs.path }}
 
       - name: Import GPG key
-        if: ${{ steps.git-diff.outputs.diff == 'true' && inputs.pr-create == 'yes' && inputs.sign-commits == 'yes' }}
+        if: ${{ steps.git-diff.outputs.diff == 'true' && inputs.sign-commits == 'yes' }}
         id: gpg-import
         uses: coatl-dev/actions/gpg-import@ed363d0af5aeaadc047db4bdebbdd81d916c2e7d # v6.0.0
         with:
@@ -146,18 +140,18 @@ jobs:
           } >> "$RUNNER_TEMP/commit.txt"
 
       - name: Commit and push changes
-        if: ${{ steps.git-diff.outputs.diff == 'true' && inputs.pr-create == 'yes' }}
+        if: ${{ steps.git-diff.outputs.diff == 'true' }}
         run: |
           git checkout -B ${{ inputs.pr-branch }}
           git add ${{ inputs.path }}
           git commit --file="${RUNNER_TEMP}/commit.txt"
           git push --force --set-upstream origin ${{ inputs.pr-branch }}
 
-      - name: Create pull request
-        if: ${{ steps.git-diff.outputs.diff == 'true' && inputs.pr-create == 'yes' }}
-        uses: coatl-dev/actions/pr-create@ed363d0af5aeaadc047db4bdebbdd81d916c2e7d # v6.0.0
+      - name: Create Pull Request
+        if: ${{ steps.git-diff.outputs.diff == 'true' }}
+        uses: coatl-dev/actions/pr-create@208567f6e604baf94c6e867ec7f345ec9ad36eb4 # v7.0.0
         with:
           gh-token: ${{ secrets.gh-token }}
           auto-merge: ${{ inputs.pr-auto-merge }}
+          base-branch: ${{ inputs.base-branch }}
           delete-branch: ${{ inputs.pr-delete-branch }}
-          additional-args: ${{ inputs.pr-create-additional-args }}
