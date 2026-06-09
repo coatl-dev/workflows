@@ -83,7 +83,7 @@ jobs:
 
       - name: Update requirements
         id: pip-compile
-        uses: coatl-dev/actions/uv-pip-compile-upgrade@ed363d0af5aeaadc047db4bdebbdd81d916c2e7d # v6.0.0
+        uses: coatl-dev/actions/uv-pip-compile-upgrade@208567f6e604baf94c6e867ec7f345ec9ad36eb4 # v7.0.0
         with:
           path: ${{ inputs.path }}
           python-version: '${{ inputs.python-version }}'
@@ -91,14 +91,14 @@ jobs:
 
       - name: Detect changes
         id: git-diff
-        uses: coatl-dev/actions/simple-git-diff@ed363d0af5aeaadc047db4bdebbdd81d916c2e7d # v6.0.0
+        uses: coatl-dev/actions/simple-git-diff@208567f6e604baf94c6e867ec7f345ec9ad36eb4 # v7.0.0
         with:
           path: ${{ inputs.path }}
 
       - name: Import GPG key
         if: ${{ steps.git-diff.outputs.diff == 'true' && inputs.sign-commits == 'yes' }}
         id: gpg-import
-        uses: coatl-dev/actions/gpg-import@ed363d0af5aeaadc047db4bdebbdd81d916c2e7d # v6.0.0
+        uses: coatl-dev/actions/gpg-import@208567f6e604baf94c6e867ec7f345ec9ad36eb4 # v7.0.0
         with:
           passphrase: ${{ secrets.gpg-sign-passphrase }}
           private-key: ${{ secrets.gpg-sign-private-key }}

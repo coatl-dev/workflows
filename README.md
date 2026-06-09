@@ -15,6 +15,8 @@ Workflows:
 - [pip-compile-upgrade](#githubworkflowspip-compile-upgrade)
 - [pre-commit-autoupdate](#githubworkflowspre-commit-autoupdate)
 - [pre-commit](#githubworkflowspre-commityml)
+- [prek-autoupdate](#githubworkflowsprek-autoupdate)
+- [prek](#githubworkflowsprekyml)
 - [pylint](#githubworkflowspylintyml)
 - [pypi-upload](#githubworkflowspypi-uploadyml)
 - [tox-docker](#githubworkflowstox-dockeryml)
@@ -255,6 +257,75 @@ jobs:
     uses: coatl-dev/workflows/.github/workflows/pre-commit.yml@v6.2.5
     with:
       skip-hooks: 'pylint'
+```
+
+### .github/workflows/prek-autoupdate
+
+This workflow will install Python and invoke `prek` to auto-update the `rev`
+field of repositories in the config file to the latest.
+
+**Inputs**:
+
+- `autoupdate-branch` (`string`): branch to send autoupdate PRs to. By default,
+  this will update the default branch of the repository.
+- `checkout-ref` (`string`): The branch, tag or SHA to checkout. Optional.
+- `pr-auto-merge` (`string`): Automatically merge only after necessary
+  requirements are met. Options: `'yes'`, `'no'`. Defaults to `'yes'`. Optional.
+- `pr-delete-branch` (`string`): Delete the local and remote branch after merge.
+  Options: `'yes'`, `'no'`. Defaults to `'no'`. Optional.
+- `pr-branch` (`string`): The branch to use for autoupdate. Defaults to
+  `'coatl-dev-prek-autoupdate'`. Optional.
+- `sign-commits` (`string`): Whether to sign Git commits. Options: `'yes'`,
+  `'no'`. Defaults to `'yes'`. Optional.
+
+**Secrets**:
+
+- `gh-token` (`secret`): GitHub token. Required when creating PRs, otherwise is
+  optional.
+- `gpg-sign-passphrase` (`secret`): GPG private key passphrase. Required when
+  signing commits, otherwise is optional.
+- `gpg-sign-private-key` (`secret`): GPG private key exported as an ASCII
+  armored version. Required when signing commits, otherwise is optional.
+
+**Example**:
+
+```yml
+name: prek-autoupdate
+
+on:
+  schedule:
+    - cron: '0 20 * * 1'
+  workflow_dispatch:
+
+jobs:
+  prek-autoupdate:
+    uses: coatl-dev/workflows/.github/workflows/prek-autoupdate.yml@v6.2.5
+    with:
+      autoupdate-branch: 'develop'
+    secrets:
+      gh-token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+      gpg-sign-passphrase: ${{ secrets.GPG_PASSPHRASE }}
+      gpg-sign-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
+```
+
+### .github/workflows/prek.yml
+
+This workflow will install Python and invoke `prek` to run hooks on all the
+files in the repo.
+
+**Inputs**:
+
+- `checkout-ref` (`string`): The branch, tag or SHA to checkout. Optional.
+- `skip-hooks` (list[`string`]): A comma separated list of hook ids which will
+  be disabled. Useful when your `pre-commit-config.yaml` file contains
+  [`local hooks`]. Optional. See: [Temporarily disabling hooks].
+
+**Example**:
+
+```yaml
+jobs:
+  main:
+    uses: coatl-dev/workflows/.github/workflows/prek.yml@v6.2.5
 ```
 
 ### .github/workflows/pylint.yml

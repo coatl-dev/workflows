@@ -1,27 +1,16 @@
 on:
   workflow_call:
     inputs:
-      base-branch:
+      autoupdate-branch:
         description: >-
-          The branch to use as the base for the PR.
-        required: false
+          The branch to use for autoupdate.
         type: string
+        required: false
         default: ''
       checkout-ref:
         description: >-
           The branch, tag or SHA to checkout.
         required: false
-        type: string
-      extra-args:
-        description: >-
-          Extra arguments to pass to pip-compile.
-        required: false
-        type: string
-        default: ''
-      path:
-        description: >-
-          The location of the requirement file(s).
-        required: true
         type: string
       pr-auto-merge:
         description: >-
@@ -31,16 +20,10 @@ on:
         default: 'yes'
       pr-branch:
         description: >-
-          The branch to use for the submitting the PR.
+          The branch to use for autoupdate.
         type: string
         required: false
-        default: 'coatl-dev-pip-compile-upgrade'
-      pr-commit-message:
-        description: >-
-          Use the given <msg> as the commit message.
-        required: false
-        type: string
-        default: 'chore(requirements): pip-compile upgrade'
+        default: 'coatl-dev-prek-autoupdate'
       pr-delete-branch:
         description: >-
           Delete the local and remote branch after merge.
@@ -51,12 +34,6 @@ on:
         required: false
         type: string
         default: 'yes'
-      working-directory:
-        description: >-
-          The directory to run the workflow in.
-        required: false
-        type: string
-        default: ${{ github.workspace }}
     secrets:
       gh-token:
         description: >-
@@ -71,55 +48,45 @@ on:
           GPG private key exported as an ASCII armored version.
         required: false
 
+
 jobs:
-  pip-compile-upgrade:
+  prek-autoupdate:
     runs-on: ubuntu-latest
-    container:
-      image: ghcr.io/coatl-dev/python-tools:2.7-pip-tools
     steps:
       - name: Checkout repo
         uses: actions/checkout@9f698171ed81b15d1823a05fc7211befd50c8ae0 # v6.0.3
         with:
           ref: ${{ inputs.checkout-ref }}
 
-      - name: Upgrade requirements
-        id: pip-compile-upgrade
-        env:
-          INPUT_PATH: ${{ inputs.path }}
-          INPUT_EXTRA_ARGS: ${{ inputs.extra-args }}
-        working-directory: ${{ inputs.working-directory }}
+      - name: Set up Python
+        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
+        id: setup-python
+        with:
+          python-version: '3.14'
+
+      - name: Checkout requirements repo
+        uses: actions/checkout@9f698171ed81b15d1823a05fc7211befd50c8ae0 # v6.0.3
+        with:
+          repository: coatl-dev/workflow-requirements
+          path: deps
+
+      - name: Cache pip
+        uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
+        with:
+          path: ~/.cache/pip
+          key: pip-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('deps/requirements/prek.txt') }}
+
+      - name: Install prek
         run: |
-          function process_file() {
-            local file="$1"
-            local extra_args="${INPUT_EXTRA_ARGS:-}"
+          python -m pip install --requirement deps/requirements/prek.txt
 
-            command=$(grep -m 1 "#    pip-compile" "$file")
-            if [ -n "$command" ]; then
-              upgrade_command=$(grep -m 1 "#    pip-compile" "$file" | sed "s/#    pip-compile/pip-compile --upgrade $extra_args/")
-              eval "$upgrade_command"
-            else
-              exit 1
-            fi
-          }
-
-          if [ -d "${INPUT_PATH}" ]; then
-            cd "${INPUT_PATH}" || exit
-            for file in *.txt; do
-              if [ -f "$file" ]; then
-                process_file "$file"
-              fi
-            done
-          elif [ -f "${INPUT_PATH}" ]; then
-            process_file "${INPUT_PATH}"
-          else
-            exit 1
-          fi
+      - name: Update repos
+        run: |
+          prek autoupdate
 
       - name: Detect changes
         id: git-diff
         uses: coatl-dev/actions/simple-git-diff@208567f6e604baf94c6e867ec7f345ec9ad36eb4 # v7.0.0
-        with:
-          path: ${{ inputs.path }}
 
       - name: Import GPG key
         if: ${{ steps.git-diff.outputs.diff == 'true' && inputs.sign-commits == 'yes' }}
@@ -132,18 +99,26 @@ jobs:
       - name: Build commit message
         if: ${{ steps.git-diff.outputs.diff == 'true' }}
         run: |
-          echo "${{ inputs.pr-commit-message }}" > "$RUNNER_TEMP/commit.txt"
+          echo "build(deps): coatl-dev prek autoupdate" > "$RUNNER_TEMP/commit.txt"
           {
               echo ""
               echo "updates:"
-              git status --porcelain | awk 'match($1, "M") {print "  - " $2}'
+              for file in $(git diff --name-only -- '*.pre-commit-config.yaml'); do
+                  echo ""
+                  echo "- path: $file"
+                  git diff --unified=1 -- "$file" |
+                  grep 'https://[a-zA-Z0-9./?=_%:-]*' | sed -e 's/ \{2,\}//g' |
+                  while IFS= read -r url; do
+                      echo "  - $url"
+                  done
+              done
           } >> "$RUNNER_TEMP/commit.txt"
 
       - name: Commit and push changes
         if: ${{ steps.git-diff.outputs.diff == 'true' }}
         run: |
           git checkout -B ${{ inputs.pr-branch }}
-          git add ${{ inputs.path }}
+          git add -u
           git commit --file="${RUNNER_TEMP}/commit.txt"
           git push --force --set-upstream origin ${{ inputs.pr-branch }}
 
@@ -153,5 +128,5 @@ jobs:
         with:
           gh-token: ${{ secrets.gh-token }}
           auto-merge: ${{ inputs.pr-auto-merge }}
-          base-branch: ${{ inputs.base-branch }}
+          base-branch: ${{ inputs.autoupdate-branch }}
           delete-branch: ${{ inputs.pr-delete-branch }}
