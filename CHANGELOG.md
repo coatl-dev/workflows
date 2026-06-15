@@ -1,3 +1,9 @@
+## v7.0.1 (2026-06-15)
+
+### Refactor
+
+- **deps**: bump actions/checkout (#124)
+
 ## v7.0.0 (2026-06-09)
 
 ### BREAKING CHANGE
