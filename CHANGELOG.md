@@ -1,3 +1,9 @@
+## v7.0.2 (2026-06-22)
+
+### Refactor
+
+- **deps**: bump actions/checkout from 6.0.3 to 7.0.0 (#126)
+
 ## v7.0.1 (2026-06-15)
 
 ### Refactor
