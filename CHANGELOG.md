@@ -1,3 +1,9 @@
+## v7.0.3 (2026-06-22)
+
+### Refactor
+
+- **deps**: bump coatl-dev/actions from 7.0.0 to 7.0.1 (#127)
+
 ## v7.0.2 (2026-06-22)
 
 ### Refactor
