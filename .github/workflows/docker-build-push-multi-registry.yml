@@ -176,14 +176,11 @@ jobs:
 
       - name: Create manifest list and push
         working-directory: ${{ runner.temp }}/digests
-        run: |
+        run: | # zizmor: ignore[template-injection]
           docker buildx imagetools create $(jq -cr '.tags | map("-t " + .) | join(" ")' <<< "$DOCKER_METADATA_OUTPUT_JSON") \
-            $(printf '%s@sha256:%s ' "$INPUTS_DOCKERHUB_REPO" *)
+            $(printf '${{ inputs.dockerhub-repo }}@sha256:%s ' *)
           docker buildx imagetools create $(jq -cr '.tags | map("-t " + .) | join(" ")' <<< "$DOCKER_METADATA_OUTPUT_JSON") \
-            $(printf '%s@sha256:%s ' "$INPUTS_QUAY_REPO" *)
-        env:
-          INPUTS_DOCKERHUB_REPO: ${{ inputs.dockerhub-repo }}
-          INPUTS_QUAY_REPO: ${{ inputs.quay-repo }}
+            $(printf '${{ inputs.quay-repo }}@sha256:%s ' *)
 
       - name: Inspect image
         run: |
