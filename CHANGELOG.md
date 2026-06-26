@@ -1,3 +1,9 @@
+## v7.0.6 (2026-06-26)
+
+### Fix
+
+- **docker-build**: fix parsing error (#131)
+
 ## v7.0.5 (2026-06-26)
 
 ### Fix
