@@ -1,3 +1,9 @@
+## v7.0.5 (2026-06-26)
+
+### Fix
+
+- **docker-build**: resolve shell expansion issue (#130)
+
 ## v7.0.4 (2026-06-26)
 
 ### Refactor
