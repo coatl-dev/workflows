@@ -9,6 +9,9 @@ on:
       - '!.github/workflows/bump.yml'
       - '!.github/workflows/release.yml'
 
+permissions:
+  contents: write
+
 jobs:
   bump:
     if: ${{ ! startsWith(github.event.head_commit.message, 'bump:') }}
@@ -18,6 +21,7 @@ jobs:
         with:
           fetch-depth: 0
           token: ${{ secrets.COATL_BOT_GH_TOKEN }}
+          persist-credentials: true
 
       - uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
         id: setup-python
@@ -29,6 +33,7 @@ jobs:
         with:
           repository: coatl-dev/workflow-requirements
           path: deps
+          persist-credentials: true
 
       - name: Cache pip
         uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
@@ -40,7 +45,7 @@ jobs:
         run: |
           python -m pip install --requirement deps/requirements/commitizen.txt
 
-      - uses: coatl-dev/actions/gpg-import@826b5cb5dce2da7cffd0f9cf9b64ba0bd3a616d6 # v7.0.1
+      - uses: coatl-dev/actions/gpg-import@25b15c8e562e6c9e509bd29ea0b0da5ec6b26a1f # v7.0.4
         id: gpg-import
         with:
           passphrase: ${{ secrets.COATL_BOT_GPG_PASSPHRASE }}

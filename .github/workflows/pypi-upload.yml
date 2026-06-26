@@ -48,9 +48,10 @@ jobs:
         uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
         with:
           ref: ${{ inputs.checkout-ref }}
+          persist-credentials: false
 
       - name: Upload Python package to PyPI
-        uses: coatl-dev/actions/pypi-upload@826b5cb5dce2da7cffd0f9cf9b64ba0bd3a616d6 # v7.0.1
+        uses: coatl-dev/actions/pypi-upload@25b15c8e562e6c9e509bd29ea0b0da5ec6b26a1f # v7.0.4
         with:
           python-version: ${{ inputs.python-version }}
           check: ${{ inputs.check }}
