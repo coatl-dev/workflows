@@ -178,9 +178,9 @@ jobs:
         working-directory: ${{ runner.temp }}/digests
         run: |
           docker buildx imagetools create $(jq -cr '.tags | map("-t " + .) | join(" ")' <<< "$DOCKER_METADATA_OUTPUT_JSON") \
-            $(printf '${INPUTS_DOCKERHUB_REPO}@sha256:%s ' *)
+            $(printf '%s@sha256:%s ' "$INPUTS_DOCKERHUB_REPO" *)
           docker buildx imagetools create $(jq -cr '.tags | map("-t " + .) | join(" ")' <<< "$DOCKER_METADATA_OUTPUT_JSON") \
-            $(printf '${INPUTS_QUAY_REPO}@sha256:%s ' *)
+            $(printf '%s@sha256:%s ' "$INPUTS_QUAY_REPO" *)
         env:
           INPUTS_DOCKERHUB_REPO: ${{ inputs.dockerhub-repo }}
           INPUTS_QUAY_REPO: ${{ inputs.quay-repo }}
