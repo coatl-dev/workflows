@@ -62,6 +62,7 @@ jobs:
         uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
         with:
           ref: ${{ inputs.checkout-ref }}
+          persist-credentials: true
 
       - name: Set up Python
         uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
@@ -74,6 +75,7 @@ jobs:
         with:
           repository: coatl-dev/workflow-requirements
           path: deps
+          persist-credentials: true
 
       - name: Cache pip
         uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
@@ -106,14 +108,14 @@ jobs:
 
       - name: Detect changes
         id: git-diff
-        uses: coatl-dev/actions/simple-git-diff@826b5cb5dce2da7cffd0f9cf9b64ba0bd3a616d6 # v7.0.1
+        uses: coatl-dev/actions/simple-git-diff@25b15c8e562e6c9e509bd29ea0b0da5ec6b26a1f # v7.0.4
         with:
           path: .pre-commit-config.yaml
 
       - name: Import GPG key
         if: ${{ steps.git-diff.outputs.diff == 'true' && inputs.sign-commits == 'yes' }}
         id: gpg-import
-        uses: coatl-dev/actions/gpg-import@826b5cb5dce2da7cffd0f9cf9b64ba0bd3a616d6 # v7.0.1
+        uses: coatl-dev/actions/gpg-import@25b15c8e562e6c9e509bd29ea0b0da5ec6b26a1f # v7.0.4
         with:
           passphrase: ${{ secrets.gpg-sign-passphrase }}
           private-key: ${{ secrets.gpg-sign-private-key }}
@@ -132,14 +134,16 @@ jobs:
       - name: Commit and push changes
         if: ${{ steps.git-diff.outputs.diff == 'true' }}
         run: |
-          git checkout -B ${{ inputs.pr-branch }}
+          git checkout -B ${INPUTS_PR_BRANCH}
           git add .pre-commit-config.yaml
           git commit --file="${RUNNER_TEMP}/commit.txt"
-          git push --force --set-upstream origin ${{ inputs.pr-branch }}
+          git push --force --set-upstream origin ${INPUTS_PR_BRANCH}
+        env:
+          INPUTS_PR_BRANCH: ${{ inputs.pr-branch }}
 
       - name: Create Pull Request
         if: ${{ steps.git-diff.outputs.diff == 'true' }}
-        uses: coatl-dev/actions/pr-create@826b5cb5dce2da7cffd0f9cf9b64ba0bd3a616d6 # v7.0.1
+        uses: coatl-dev/actions/pr-create@25b15c8e562e6c9e509bd29ea0b0da5ec6b26a1f # v7.0.4
         with:
           gh-token: ${{ secrets.gh-token }}
           auto-merge: ${{ inputs.pr-auto-merge }}

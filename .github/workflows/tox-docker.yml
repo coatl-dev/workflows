@@ -29,7 +29,7 @@ jobs:
   tox:
     runs-on: ubuntu-latest
     container:
-      image: coatldev/six:latest
+      image: coatldev/six:latest # zizmor: ignore[unpinned-images]
       env:
         UV_PYTHON: ${{ inputs.uv-python }}
     steps:
@@ -37,18 +37,21 @@ jobs:
         uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
         with:
           ref: ${{ inputs.checkout-ref }}
+          persist-credentials: false
 
       - name: Set up caching variables
         id: setup-caching
         run: |
           echo "uv-python=$(uvx python --version | sha256sum | cut -d' ' -f1)" >> $GITHUB_OUTPUT
-          if [[ "${{ inputs.working-directory }}" != "${{ github.workspace }}" ]]; then
-            echo "tox-cache-dir=${{ inputs.working-directory }}/.tox" >> $GITHUB_OUTPUT
-            echo "tox-ini=${{ inputs.working-directory }}/tox.ini" >> $GITHUB_OUTPUT
+          if [[ "${INPUTS_WORKING_DIRECTORY}" != "${{ github.workspace }}" ]]; then
+            echo "tox-cache-dir=${INPUTS_WORKING_DIRECTORY}/.tox" >> $GITHUB_OUTPUT
+            echo "tox-ini=${INPUTS_WORKING_DIRECTORY}/tox.ini" >> $GITHUB_OUTPUT
           else
             echo "tox-cache-dir=.tox" >> $GITHUB_OUTPUT
             echo "tox-ini=tox.ini" >> $GITHUB_OUTPUT
           fi
+        env:
+          INPUTS_WORKING_DIRECTORY: ${{ inputs.working-directory }}
 
       - name: Cache tox
         id: cache-tox
@@ -60,4 +63,6 @@ jobs:
       - name: Run tests
         working-directory: ${{ inputs.working-directory }}
         run: |
-          uvx tox ${{ inputs.extra-args }}
+          uvx tox ${INPUTS_EXTRA_ARGS}
+        env:
+          INPUTS_EXTRA_ARGS: ${{ inputs.extra-args }}
