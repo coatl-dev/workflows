@@ -1,3 +1,9 @@
+## v7.0.9 (2026-07-06)
+
+### Refactor
+
+- **deps**: bump coatl-dev/actions/pypi-upload from 7.0.4 to 7.0.5 (#136)
+
 ## v7.0.8 (2026-07-06)
 
 ### Refactor
