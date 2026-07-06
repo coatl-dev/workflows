@@ -1,3 +1,9 @@
+## v7.0.7 (2026-07-06)
+
+### Refactor
+
+- **deps**: bump coatl-dev/actions/simple-git-diff (#132)
+
 ## v7.0.6 (2026-06-26)
 
 ### Fix
