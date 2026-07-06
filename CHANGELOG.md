@@ -1,3 +1,9 @@
+## v7.0.11 (2026-07-06)
+
+### Refactor
+
+- **deps**: bump coatl-dev/actions/pr-create from 7.0.4 to 7.0.5 (#135)
+
 ## v7.0.10 (2026-07-06)
 
 ### Refactor
