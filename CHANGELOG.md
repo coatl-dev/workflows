@@ -1,3 +1,9 @@
+## v7.0.8 (2026-07-06)
+
+### Refactor
+
+- **deps**: bump actions/cache from 5.0.5 to 6.1.0 (#133)
+
 ## v7.0.7 (2026-07-06)
 
 ### Refactor
