@@ -45,7 +45,7 @@ jobs:
         run: |
           python -m pip install --requirement deps/requirements/commitizen.txt
 
-      - uses: coatl-dev/actions/gpg-import@25b15c8e562e6c9e509bd29ea0b0da5ec6b26a1f # v7.0.4
+      - uses: coatl-dev/actions/gpg-import@a81a1c9a37205e630d28c561dfc3b605b6e031dd # v7.0.5
         id: gpg-import
         with:
           passphrase: ${{ secrets.COATL_BOT_GPG_PASSPHRASE }}
