@@ -1,3 +1,9 @@
+## v7.0.15 (2026-07-10)
+
+### Refactor
+
+- **deps**: update docker/metadata-action action to v6.2.0 (#147)
+
 ## v7.0.14 (2026-07-10)
 
 ### Refactor
