@@ -2,14 +2,17 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "config:recommended",
-    ":disableDependencyDashboard",
-    ":semanticCommitTypeAll(refactor)"
+    ":disableDependencyDashboard"
   ],
-  "enabledManagers": [
-    "github-actions"
-  ],
-  "ignorePaths": [
-    ".github/workflows/bump.yml",
-    ".github/workflows/release.yml"
+  "enabledManagers": ["github-actions"],
+  "semanticCommitType": "refactor",
+  "packageRules": [
+    {
+      "matchFileNames": [
+        ".github/workflows/bump.yml",
+        ".github/workflows/release.yml"
+      ],
+      "semanticCommitType": "ci"
+    }
   ]
 }
