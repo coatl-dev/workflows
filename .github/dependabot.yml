@@ -7,7 +7,7 @@ updates:
       interval: "weekly"
     labels: ["dependencies"]
     commit-message:
-      prefix: "refactor"
+      prefix: "ci"
       include: "scope"
     cooldown:
       default-days: 7

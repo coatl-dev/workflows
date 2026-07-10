@@ -12,6 +12,7 @@ repos:
     rev: 0.37.4
     hooks:
     - id: check-github-workflows
+    - id: check-renovate
   - repo: https://github.com/zizmorcore/zizmor-pre-commit
     rev: v1.26.1
     hooks:
