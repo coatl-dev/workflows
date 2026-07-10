@@ -1,3 +1,9 @@
+## v7.0.16 (2026-07-10)
+
+### Refactor
+
+- **deps**: update docker/setup-buildx-action action to v4.2.0 (#151)
+
 ## v7.0.15 (2026-07-10)
 
 ### Refactor
