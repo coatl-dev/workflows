@@ -12,7 +12,8 @@
         ".github/workflows/bump.yml",
         ".github/workflows/release.yml"
       ],
-      "semanticCommitType": "ci"
+      "semanticCommitType": "ci",
+      "groupName": "bump and release workflow actions"
     }
   ]
 }
