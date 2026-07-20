@@ -2,10 +2,10 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "config:recommended",
-    ":disableDependencyDashboard"
+    ":disableDependencyDashboard",
+    ":semanticCommitTypeAll(refactor)"
   ],
   "enabledManagers": ["github-actions"],
-  "semanticCommitType": "refactor",
   "packageRules": [
     {
       "matchFileNames": [
