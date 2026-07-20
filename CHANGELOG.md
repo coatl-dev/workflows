@@ -1,3 +1,9 @@
+## v7.0.19 (2026-07-20)
+
+### Refactor
+
+- **deps**: update actions/checkout action to v7.0.1 (#158)
+
 ## v7.0.18 (2026-07-20)
 
 ### Refactor
