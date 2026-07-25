@@ -1,3 +1,9 @@
+## v7.0.22 (2026-07-25)
+
+### Refactor
+
+- **deps**: update docker/login-action action to v4.5.1 (#162)
+
 ## v7.0.21 (2026-07-23)
 
 ### Refactor
