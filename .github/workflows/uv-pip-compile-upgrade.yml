@@ -84,7 +84,7 @@ jobs:
 
       - name: Update requirements
         id: pip-compile
-        uses: coatl-dev/actions/uv-pip-compile-upgrade@7b8006abfcde455c055c165c6195dc0921c65f29 # v7.0.13
+        uses: coatl-dev/actions/uv-pip-compile-upgrade@45ee24a8c8397a346538acefea6221e30076fa66 # v7.0.14
         with:
           path: ${{ inputs.path }}
           python-version: '${{ inputs.python-version }}'
@@ -92,14 +92,14 @@ jobs:
 
       - name: Detect changes
         id: git-diff
-        uses: coatl-dev/actions/simple-git-diff@7b8006abfcde455c055c165c6195dc0921c65f29 # v7.0.13
+        uses: coatl-dev/actions/simple-git-diff@45ee24a8c8397a346538acefea6221e30076fa66 # v7.0.14
         with:
           path: ${{ inputs.path }}
 
       - name: Import GPG key
         if: ${{ steps.git-diff.outputs.diff == 'true' && inputs.sign-commits == 'yes' }}
         id: gpg-import
-        uses: coatl-dev/actions/gpg-import@7b8006abfcde455c055c165c6195dc0921c65f29 # v7.0.13
+        uses: coatl-dev/actions/gpg-import@45ee24a8c8397a346538acefea6221e30076fa66 # v7.0.14
         with:
           passphrase: ${{ secrets.gpg-sign-passphrase }}
           private-key: ${{ secrets.gpg-sign-private-key }}
@@ -129,7 +129,7 @@ jobs:
 
       - name: Create Pull Request
         if: ${{ steps.git-diff.outputs.diff == 'true' }}
-        uses: coatl-dev/actions/pr-create@7b8006abfcde455c055c165c6195dc0921c65f29 # v7.0.13
+        uses: coatl-dev/actions/pr-create@45ee24a8c8397a346538acefea6221e30076fa66 # v7.0.14
         with:
           gh-token: ${{ secrets.gh-token }}
           auto-merge: ${{ inputs.pr-auto-merge }}
