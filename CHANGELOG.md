@@ -1,3 +1,9 @@
+## v7.0.30 (2026-09-21)
+
+### Refactor
+
+- **deps**: update docker/build-push-action action to v7.4.0 (#182)
+
 ## v7.0.29 (2026-09-07)
 
 ### Refactor
