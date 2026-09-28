@@ -51,7 +51,7 @@ jobs:
           persist-credentials: false
 
       - name: Upload Python package to PyPI
-        uses: coatl-dev/actions/pypi-upload@964d16d81f03cdd4e1ff713d142d48d074f7e1ac # v7.0.15
+        uses: coatl-dev/actions/pypi-upload@283f0790110a211f3255faeda31417d81823fd02 # v7.1.1
         with:
           python-version: ${{ inputs.python-version }}
           check: ${{ inputs.check }}
