@@ -1,3 +1,9 @@
+## v7.0.35 (2026-10-12)
+
+### Refactor
+
+- **deps**: update actions/upload-artifact action to v7.0.2 (#191)
+
 ## v7.0.34 (2026-10-12)
 
 ### Refactor
