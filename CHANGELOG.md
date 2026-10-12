@@ -1,3 +1,9 @@
+## v7.0.34 (2026-10-12)
+
+### Refactor
+
+- **deps**: update actions/download-artifact action to v8.0.2 (#190)
+
 ## v7.0.33 (2026-10-05)
 
 ### Refactor
