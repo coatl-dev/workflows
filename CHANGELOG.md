@@ -1,3 +1,9 @@
+## v7.0.36 (2026-10-26)
+
+### Refactor
+
+- **deps**: update actions/setup-python action to v7.1.0 (#197)
+
 ## v7.0.35 (2026-10-12)
 
 ### Refactor
