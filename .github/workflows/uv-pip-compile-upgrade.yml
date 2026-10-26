@@ -46,7 +46,7 @@ on:
           The version of Python to set UV_PYTHON to.
         required: false
         type: string
-        default: '3.14'
+        default: '3.15'
       sign-commits:
         required: false
         type: string
