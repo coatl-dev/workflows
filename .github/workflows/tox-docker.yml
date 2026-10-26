@@ -23,7 +23,7 @@ on:
           The Python version to use with uv.
         required: false
         type: string
-        default: '3.14'
+        default: '3.15'
 
 jobs:
   tox:

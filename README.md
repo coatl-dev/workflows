@@ -411,7 +411,7 @@ This workflow will install the latest version of `tox` to run all envs found in
 - `working-directory` (`string`): The directory to run the workflow in.
   Optional. Defaults to `github.workspace`.
 - `uv-python` (`string`): The Python version to use with `uv`. Optional.
-  Defaults to `'3.14'`.
+  Defaults to `'3.15'`.
 
 **Recommendations**:
 
@@ -533,8 +533,8 @@ requirements.
 - `pr-delete-branch` (`string`): Delete the local and remote branch after merge.
   Options: `'yes'`, `'no'`. Defaults to `'no'`. Optional.
 - `python-version` (`string`): The version of Python to set `UV_PYTHON` to. You
-  may use MAJOR.MINOR or exact version. Options: `'3.8'` to `'3.14'`. Defaults
-  to `'3.14'`. Optional.
+  may use MAJOR.MINOR or exact version. Options: `'3.8'` to `'3.15'`. Defaults
+  to `'3.15'`. Optional.
 - `sign-commits` (`string`): Whether to sign Git commits. Options: `'yes'`,
   `'no'`. Defaults to `'yes'`. Optional.
 - `working-directory` (`string`): The directory to run the workflow in.
@@ -575,7 +575,6 @@ jobs:
 [`env_list`]: https://tox.wiki/en/latest/config.html#env_list
 [`ghcr.io/coatl-dev/python-tools`]: https://github.com/coatl-dev/docker-python-tools/pkgs/container/python-tools
 [`local hooks`]: https://pre-commit.com/#repository-local-hooks
-[`pre-commit`]: https://pre-commit.com/
 [`pre-commit autoupdate`]: https://pre-commit.com/#pre-commit-autoupdate
 [`pre-commit.ci`]: https://pre-commit.ci/
 [Temporarily disabling hooks]: https://pre-commit.com/#temporarily-disabling-hooks
