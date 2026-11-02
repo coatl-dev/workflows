@@ -248,6 +248,9 @@ the files in the repo.
 - `skip-hooks` (list[`string`]): A comma separated list of hook ids which will
   be disabled. Useful when your `pre-commit-config.yaml` file contains
   [`local hooks`]. Optional. See: [Temporarily disabling hooks].
+- 'python-version' (`string`): The Python versions to use for the pre-commit
+  hooks. If not specified, the default version will be used. Optional. Defaults
+  to `'3.15'`.
 
 **Example**:
 
@@ -257,6 +260,9 @@ jobs:
     uses: coatl-dev/workflows/.github/workflows/pre-commit.yml@v7.1.0
     with:
       skip-hooks: 'pylint'
+      python-version: |
+        3.12
+        3.15
 ```
 
 ### .github/workflows/prek-autoupdate
@@ -319,6 +325,9 @@ files in the repo.
 - `skip-hooks` (list[`string`]): A comma separated list of hook ids which will
   be disabled. Useful when your `pre-commit-config.yaml` file contains
   [`local hooks`]. Optional. See: [Temporarily disabling hooks].
+- `python-version` (`string`): The Python versions to use for the pre-commit
+  hooks. If not specified, the default version will be used. Optional. Defaults
+  to `'3.15'`.
 
 **Example**:
 
@@ -326,6 +335,10 @@ files in the repo.
 jobs:
   main:
     uses: coatl-dev/workflows/.github/workflows/prek.yml@v7.1.0
+    with:
+      python-version: |
+        3.12
+        3.15
 ```
 
 ### .github/workflows/pylint.yml
