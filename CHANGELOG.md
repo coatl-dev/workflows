@@ -1,3 +1,9 @@
+## v7.1.1 (2026-11-02)
+
+### Refactor
+
+- add python-version input for pre-commit and prek (#200)
+
 ## v7.1.0 (2026-10-26)
 
 ### Feat
