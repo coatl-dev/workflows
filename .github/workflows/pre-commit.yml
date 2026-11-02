@@ -10,6 +10,13 @@ on:
         required: false
         type: string
         default: ''
+      python-version:
+        description: >-
+          The Python versions to use for the pre-commit hooks. If not specified,
+          the default version will be used.
+        required: false
+        type: string
+        default: '3.15'
 
 jobs:
   pre-commit:
@@ -25,7 +32,7 @@ jobs:
         uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
         id: setup-python
         with:
-          python-version: '3.15'
+          python-version: ${{ inputs.python-version }}
 
       - name: Checkout requirements repo
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
