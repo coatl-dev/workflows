@@ -1,3 +1,9 @@
+## v7.1.5 (2026-11-13)
+
+### Refactor
+
+- **prek**: use uv instead of setup-python and pip (#207)
+
 ## v7.1.4 (2026-11-09)
 
 ### Refactor

@@ -61,7 +61,7 @@ GitHub action for using a matrix strategy to distribute the build for
 ```yml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/docker-build-push-multi-platform.yml@v7.1.4
+    uses: coatl-dev/workflows/.github/workflows/docker-build-push-multi-platform.yml@v7.1.5
     with:
       registry-image: user/app
       metadata-tags: |
@@ -112,7 +112,7 @@ GitHub action for using a matrix strategy to distribute the build for
 ```yml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/docker-build-push-multi-registry.yml@v7.1.4
+    uses: coatl-dev/workflows/.github/workflows/docker-build-push-multi-registry.yml@v7.1.5
     with:
       dockerhub-repo: user/app
       dockerhub-username: ${{ vars.DOCKERHUB_USERNAME }}
@@ -175,7 +175,7 @@ on:
 
 jobs:
   pip-compile-upgrade:
-    uses: coatl-dev/workflows/.github/workflows/pip-compile-upgrade.yml@v7.1.4
+    uses: coatl-dev/workflows/.github/workflows/pip-compile-upgrade.yml@v7.1.5
     with:
       path: requirements.txt
       pr-create-additional-args: develop
@@ -227,7 +227,7 @@ on:
 
 jobs:
   pre-commit-autoupdate:
-    uses: coatl-dev/workflows/.github/workflows/pre-commit-autoupdate.yml@v7.1.4
+    uses: coatl-dev/workflows/.github/workflows/pre-commit-autoupdate.yml@v7.1.5
     with:
       skip-repos: 'flake8'
       autoupdate-branch: 'develop'
@@ -257,7 +257,7 @@ the files in the repo.
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/pre-commit.yml@v7.1.4
+    uses: coatl-dev/workflows/.github/workflows/pre-commit.yml@v7.1.5
     with:
       skip-hooks: 'pylint'
       python-version: |
@@ -305,7 +305,7 @@ on:
 
 jobs:
   prek-autoupdate:
-    uses: coatl-dev/workflows/.github/workflows/prek-autoupdate.yml@v7.1.4
+    uses: coatl-dev/workflows/.github/workflows/prek-autoupdate.yml@v7.1.5
     with:
       autoupdate-branch: 'develop'
     secrets:
@@ -334,7 +334,7 @@ and invoke `prek` to run hooks on all the files in the repo.
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/prek.yml@v7.1.4
+    uses: coatl-dev/workflows/.github/workflows/prek.yml@v7.1.5
     with:
       python-version: |
         3.12
@@ -360,7 +360,7 @@ This workflow will install Python and invoke `pylint` to analyze your code.
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/pylint.yml@v7.1.4
+    uses: coatl-dev/workflows/.github/workflows/pylint.yml@v7.1.5
     with:
       path: src
 ```
@@ -400,7 +400,7 @@ Secrets:
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/pypi-upload.yml@v7.1.4
+    uses: coatl-dev/workflows/.github/workflows/pypi-upload.yml@v7.1.5
     with:
       python-version: '3.12'
     secrets:
@@ -450,7 +450,7 @@ requires =
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/tox-docker.yml@v7.1.4
+    uses: coatl-dev/workflows/.github/workflows/tox-docker.yml@v7.1.5
 ```
 
 ### .github/workflows/tox-gh.yml
@@ -489,7 +489,7 @@ and on your workflow:
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/tox-gh.yml@v7.1.4
+    uses: coatl-dev/workflows/.github/workflows/tox-gh.yml@v7.1.5
     with:
       python-versions: '["3.9", "3.10", "3.11", "3.12", "3.13", "3.14"]'
 ```
@@ -518,7 +518,7 @@ This workflow will install Python and invoke `tox` to run all envs found in
 ```yaml
 jobs:
   main:
-    uses: coatl-dev/workflows/.github/workflows/tox.yml@v7.1.4
+    uses: coatl-dev/workflows/.github/workflows/tox.yml@v7.1.5
     with:
       python-versions: |
         3.9
@@ -574,7 +574,7 @@ on:
 
 jobs:
   pip-compile-upgrade:
-    uses: coatl-dev/workflows/.github/workflows/uv-pip-compile-upgrade.yml@v7.1.4
+    uses: coatl-dev/workflows/.github/workflows/uv-pip-compile-upgrade.yml@v7.1.5
     with:
       path: requirements.txt
     secrets:
