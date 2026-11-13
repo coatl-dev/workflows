@@ -316,8 +316,8 @@ jobs:
 
 ### .github/workflows/prek.yml
 
-This workflow will install Python and invoke `prek` to run hooks on all the
-files in the repo.
+This workflow will set up [uv], install the requested Python versions with it,
+and invoke `prek` to run hooks on all the files in the repo.
 
 **Inputs**:
 
@@ -591,6 +591,7 @@ jobs:
 [`pre-commit autoupdate`]: https://pre-commit.com/#pre-commit-autoupdate
 [`pre-commit.ci`]: https://pre-commit.ci/
 [Temporarily disabling hooks]: https://pre-commit.com/#temporarily-disabling-hooks
+[uv]: https://docs.astral.sh/uv/
 [`tox-gh`]: https://github.com/tox-dev/tox-gh
 [testing end-of-life]: https://tox.wiki/en/latest/faq.html#testing-end-of-life-python-versions
 ["Using the `python-version` input"]: https://github.com/actions/setup-python/blob/main/docs/advanced-usage.md#using-the-python-version-input

@@ -28,12 +28,6 @@ jobs:
           ref: ${{ inputs.checkout-ref }}
           persist-credentials: false
 
-      - name: Set up Python
-        uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
-        id: setup-python
-        with:
-          python-version: ${{ inputs.python-version }}
-
       - name: Checkout requirements repo
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -41,21 +35,33 @@ jobs:
           path: deps
           persist-credentials: false
 
-      - name: Cache pip
-        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+      - name: Set up uv
+        uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
         with:
-          path: ~/.cache/pip
-          key: pip-${{ steps.setup-python.outputs.python-version }}-${{ runner.os }}-${{ hashFiles('deps/requirements/prek.txt') }}
+          enable-cache: true
+          cache-dependency-glob: deps/requirements/prek.txt
+          cache-python: true
+
+      - name: Install Python
+        id: install-python
+        env:
+          INPUTS_PYTHON_VERSION: ${{ inputs.python-version }}
+        run: |
+          read -r -d '' -a versions <<< "${INPUTS_PYTHON_VERSION}" || true
+          uv python install "${versions[@]}"
+          echo "cache-key=$(IFS=-; echo "${versions[*]}")" >> "$GITHUB_OUTPUT"
 
       - name: Install requirements
         run: |
-          python -m pip install --requirement deps/requirements/prek.txt
+          uv venv "${RUNNER_TEMP}/prek-venv"
+          uv pip install --python "${RUNNER_TEMP}/prek-venv" --requirement deps/requirements/prek.txt
+          echo "${RUNNER_TEMP}/prek-venv/bin" >> "$GITHUB_PATH"
 
       - name: Cache prek
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: ~/.cache/prek
-          key: prek-${{ steps.setup-python.outputs.python-version }}-${{ runner.os }}-${{ hashFiles('.pre-commit-config.yaml') }}
+          key: prek-${{ steps.install-python.outputs.cache-key }}-${{ runner.os }}-${{ hashFiles('.pre-commit-config.yaml') }}
 
       - name: Run prek
         env:
