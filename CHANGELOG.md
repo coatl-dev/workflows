@@ -1,3 +1,9 @@
+## v7.1.6 (2026-11-16)
+
+### Fix
+
+- use relative working-directory defaults (#208)
+
 ## v7.1.5 (2026-11-13)
 
 ### Refactor
