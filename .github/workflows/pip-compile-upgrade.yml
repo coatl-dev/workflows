@@ -56,7 +56,7 @@ on:
           The directory to run the workflow in.
         required: false
         type: string
-        default: ${{ github.workspace }}
+        default: '.'
     secrets:
       gh-token:
         description: >-

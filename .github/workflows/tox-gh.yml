@@ -15,7 +15,7 @@ on:
           The working directory to run tox in.
         required: false
         type: string
-        default: ${{ github.workspace }}
+        default: '.'
 
 jobs:
   tox:
