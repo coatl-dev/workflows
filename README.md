@@ -152,7 +152,7 @@ GitHub action for running `pip-compile upgrade` on your Python 2.7 requirements.
 - `sign-commits` (`string`): Whether to sign Git commits. Options: `'yes'`,
   `'no'`. Defaults to `'yes'`. Optional.
 - `working-directory` (`string`): The directory to run the workflow in.
-  Optional. Defaults to `github.workspace`.
+  Optional. Defaults to `'.'`.
 
 **Secrets**:
 
@@ -248,7 +248,7 @@ the files in the repo.
 - `skip-hooks` (list[`string`]): A comma separated list of hook ids which will
   be disabled. Useful when your `pre-commit-config.yaml` file contains
   [`local hooks`]. Optional. See: [Temporarily disabling hooks].
-- 'python-version' (`string`): The Python versions to use for the pre-commit
+- `python-version` (`string`): The Python versions to use for the pre-commit
   hooks. If not specified, the default version will be used. Optional. Defaults
   to `'3.15'`.
 
@@ -353,7 +353,7 @@ This workflow will install Python and invoke `pylint` to analyze your code.
 - `extra-args` (`string`): Extra arguments to pass to `pylint`. Optional.
   Defaults to `''`.
 - `working-directory` (`string`): The directory to run the workflow in.
-  Optional. Defaults to `github.workspace`.
+  Optional. Defaults to `'.'`.
 
 **Example**:
 
@@ -388,7 +388,7 @@ PyPI (or any other repository) using `build` and `twine`.
 - `username` (`string`): The username to authenticate to the repository (package
   index) as. Defaults to `'__token__'`. Optional.
 - `working-directory` (`string`): The directory to run the workflow in.
-  Optional. Defaults to `github.workspace`.
+  Optional. Defaults to `'.'`.
 
 Secrets:
 
@@ -422,7 +422,7 @@ This workflow will install the latest version of `tox` to run all envs found in
 - `extra-args` (`string`): Extra arguments to pass to `tox`. Optional. Defaults
   to `''`.
 - `working-directory` (`string`): The directory to run the workflow in.
-  Optional. Defaults to `github.workspace`.
+  Optional. Defaults to `'.'`.
 - `uv-python` (`string`): The Python version to use with `uv`. Optional.
   Defaults to `'3.15'`.
 
@@ -464,7 +464,7 @@ This workflow will install Python and [`tox-gh`] and it will run the matching
 - `python-versions` (list[`string`]): A list of Python versions passed
   through to [`actions/setup-python`]'s `python-version`. Required.
 - `working-directory` (`string`): The directory to run the workflow in.
-  Optional. Defaults to `github.workspace`.
+  Optional. Defaults to `'.'`.
 
 > [!IMPORTANT]
 > The latest `tox-gh` release requires `python>=3.9`.
@@ -507,7 +507,7 @@ This workflow will install Python and invoke `tox` to run all envs found in
 - `extra-args` (`string`): Extra arguments to pass to `tox`. Optional. Defaults
   to `''`.
 - `working-directory` (`string`): The directory to run the workflow in.
-  Optional. Defaults to `github.workspace`.
+  Optional. Defaults to `'.'`.
 
 > [!NOTE]
 > For more ways to use the `python-versions` input, please refer to
@@ -551,7 +551,7 @@ requirements.
 - `sign-commits` (`string`): Whether to sign Git commits. Options: `'yes'`,
   `'no'`. Defaults to `'yes'`. Optional.
 - `working-directory` (`string`): The directory to run the workflow in.
-  Optional. Defaults to `github.workspace`.
+  Optional. Defaults to `'.'`.
 
 **Secrets**:
 
